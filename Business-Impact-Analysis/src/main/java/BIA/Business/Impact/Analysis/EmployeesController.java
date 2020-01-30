@@ -1,49 +1,58 @@
 package BIA.Business.Impact.Analysis;
 
 import java.util.List;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
-
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.stereotype.Controller;
 
-@RestController
+import org.springframework.ui.Model;
+
+@Controller
 public class EmployeesController {
-	
+
 	@Autowired
-	private EmployeesRepository repository;
+	private EmployeesService service;
 
-	@PostMapping("/AddEmployeeDetails")
-	public String saveEmployees(@RequestBody Employees Employees) {
-		repository.save(Employees);
-		return "Employee Details added : " + Employees.getId();
-	}
-	
-	@GetMapping("/findEmployeesDetails")
-	public List<Employees> getEmployeess() {
-		return repository.findAll();
-	}
-	
-	@GetMapping("/findEmployees/{id}")
-	public Optional<Employees> getEmployees(@PathVariable int id) {
-		return repository.findById(id);
+	@RequestMapping("/")
+	public String viewHomePage(Model model) {
+		List<Employees> Employeeslist = service.listAll();
+		model.addAttribute("Employeeslist", Employeeslist);
+		return "index";
+
 	}
 
-	@DeleteMapping("/delete/{id}")
-	public String deleteEmployees(@PathVariable int id) {
-		repository.deleteById(id);
-		return "Employees with id : " + id;
+	@RequestMapping("/new")
+	public String showNewEmployeesPage(Model model) {
+		Employees Employees = new Employees();
+		model.addAttribute("Employees", Employees);
+
+		return "Add_NewEmployee";
 	}
+
+	@RequestMapping(value = "/save", method = RequestMethod.POST)
+	public String saveEmployee(@ModelAttribute("Employees") Employees Employees) {
+		service.save(Employees);
+
+		return "redirect:/";
+	}
+
 	
-	
-	
+	  @RequestMapping("/edit/{id}") public ModelAndView
+	  showEditEmployeePage(@PathVariable(name = "id") int id) { ModelAndView mav =
+	  new ModelAndView("Edit_Employees"); Employees Employees = service.get(id);
+	  mav.addObject("Employees", Employees);
+	  
+	 return mav; }
+	 
+	  @RequestMapping("/delete/{id}")
+	  public String deleteEmployees(@PathVariable(name = "id") int id) {
+	      service.delete(id);
+	      return "redirect:/";       
+	  }
 
 }
