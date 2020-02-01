@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Products Manager</title>
+</head>
+<body>
+<div align="center">
+    <h1>Production Step</h1>
+    <a href="/newProductionStep">Add New Production Step</a>
+    <br/><br/>
+    <table border="1" cellpadding="10">
+        <thead>
+            <tr>
+                <th>Production Step ID</th>
+                <th>Function Name</th>
+                <th>Key Personals</th>
+                <th>Criticality</th>
+		<th>Actions</th>
+            </tr>
+        </thead>
+        
+        <tbody>
+           <tr th:each="ProductionSteps : ${ProductionStepslist}">
+                <td th:text="${ProductionSteps.id}">Production Step ID</td>
+                <td th:text="${ProductionSteps.Funct_Name}">Function Name</td>
+                <td th:text="${ProductionSteps.Key_Personals}">Key Personals</td>
+                <td th:text="${ProductionSteps.Criticality}">Criticality</td>
+             <td>
+                    <a th:href="@{'/editProductionStep/' + ${ProductionSteps.id}}">Edit</a>
+                    &nbsp;&nbsp;&nbsp;
+                    <a th:href="@{'/deleteProductionStep/' + ${ProductionSteps.id}}">Delete</a>
+                  
+                </td>
+              
+            </tr>
+        </tbody> 
+        </table>
+        </div>
+
+</body>
+</html>
