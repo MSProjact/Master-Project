@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 
 @Document (collection = "Employees")
-public class Employees {
+public class EmployeeModel {
 	@Id 
 	      private int id;
 	    private String First_name;
