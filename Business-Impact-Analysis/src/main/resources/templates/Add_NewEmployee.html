@@ -34,7 +34,31 @@
                 <tr>
                     <td>Responsibility:</td>
                     <td><input type="text" th:field="*{Responsibility}" /></td>
-                </tr>                            
+                </tr>             
+                
+                  <tr>
+                    <td>ReportToid:</td>
+                    <td><input type="text" th:field="*{ReportToid}" /></td>
+                </tr>
+                <tr>
+                    <td>ReportToDesignation:</td>
+                    <td><input type="text" th:field="*{ReportToDesignation}" /></td>
+                </tr>   
+           
+                   <tr>
+                <td>Employee List:</td>
+                <td>
+                    <select th:field="*{Id}">
+                         <option value=""> -- </option>
+                         <option th:each="Employees : ${Employeeslist}"
+                            th:value="${Employees.Id}"
+                           />
+                  </select>
+ 
+                </td>
+            </tr>
+                
+                              
                 <tr>
                     <td colspan="2"><button type="submit">Submit</button> </td>
                 </tr>

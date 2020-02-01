@@ -30,9 +30,14 @@ public class EmployeesController {
 	public String showNewEmployeesPage(Model model) {
 		Employees Employees = new Employees();
 		model.addAttribute("Employees", Employees);
+	
 
 		return "Add_NewEmployee";
 	}
+	
+	
+	 
+	
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	public String saveEmployee(@ModelAttribute("Employees") Employees Employees) {

@@ -18,6 +18,8 @@
                 <th>Last Name</th>
                 <th>Designation</th>
                 <th>Responsibility</th>
+                <th>ReportToID</th>
+                <th>ReportToDesignation</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -29,6 +31,8 @@
                 <td th:text="${Employees.Last_name}">Last Name</td>
                 <td th:text="${Employees.Designation}">Designation</td>
                 <td th:text="${Employees.Responsibility}">Responsibility</td>
+                 <td th:text="${Employees.ReportToid}">Designation</td>
+                <td th:text="${Employees.ReportToDesignation}">Responsibility</td>
              <td>
                     <a th:href="@{'/edit/' + ${Employees.id}}">Edit</a>
                     &nbsp;&nbsp;&nbsp;
