@@ -45,20 +45,17 @@
                     <td><input type="text" th:field="*{ReportToDesignation}" /></td>
                 </tr>   
            
-                   <tr>
-                <td>Employee List:</td>
-                <td>
-                    <select th:field="*{Id}">
-                         <option value=""> -- </option>
-                         <option th:each="Employees : ${Employeeslist}"
-                            th:value="${Employees.Id}"
-                           />
-                  </select>
+                <tr>
+               	 <td>Employee List:</td>
+                	<td>
+                    	<select th:field="*{id}">
+                   	 		<option th:each="Employees : ${Employeeslist}"
+                            th:value="${Employees.id}" th:text="${Employees.First_name}"></option>
+                    	</select>
  
-                </td>
-            </tr>
+               	 </td>
+                </tr>
                 
-                              
                 <tr>
                     <td colspan="2"><button type="submit">Submit</button> </td>
                 </tr>

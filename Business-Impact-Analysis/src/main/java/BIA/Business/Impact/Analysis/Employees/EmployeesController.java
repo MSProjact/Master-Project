@@ -30,7 +30,8 @@ public class EmployeesController {
 	public String showNewEmployeesPage(Model model) {
 		Employees Employees = new Employees();
 		model.addAttribute("Employees", Employees);
-
+		List<Employees> Employeeslist = service.listAll();
+		model.addAttribute("Employeeslist", Employeeslist);
 		return "Add_NewEmployee";
 	}
 
