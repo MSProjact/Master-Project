@@ -1,23 +1,18 @@
 package BIA.Business.Impact.Analysis.Employees;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+
 
 
 @Document (collection = "Employees")
 public class Employees {
-	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-	    private int id;
+	@Id 
+	      private int id;
 	    private String First_name;
 	    private String Last_name;
 	    private String Designation;
 	    private String Responsibility;
-	    private String ReportToDesignation;
-	    private String ReportToid;
+	    private String Resources;
 	    
 		public int getId() {
 			return id;
@@ -49,17 +44,11 @@ public class Employees {
 		public void setResponsibility(String responsibility) {
 			Responsibility = responsibility;
 		}
-		public String getReportToDesignation() {
-			return ReportToDesignation;
+		public String getResources() {
+			return Resources;
 		}
-		public void setReportToDesignation(String reportToDesignation) {
-			ReportToDesignation = reportToDesignation;
-		}
-		public String getReportToid() {
-			return ReportToid;
-		}
-		public void setReportToid(String reportToid) {
-			ReportToid = reportToid;
+		public void setResources(String resources) {
+			Resources = resources;
 		}
 	    
 	  
