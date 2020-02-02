@@ -1,4 +1,4 @@
-package BIA.Business.Impact.Analysis;
+package BIA.Business.Impact.Analysis.Employees;
 
 import java.util.Optional;
 

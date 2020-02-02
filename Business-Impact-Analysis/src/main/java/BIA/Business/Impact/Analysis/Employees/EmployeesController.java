@@ -1,4 +1,4 @@
-package BIA.Business.Impact.Analysis;
+package BIA.Business.Impact.Analysis.Employees;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Controller;
 
 import org.springframework.ui.Model;
 
-@Controller
+@Controller("/")
 public class EmployeesController {
 
 	@Autowired
@@ -30,14 +30,9 @@ public class EmployeesController {
 	public String showNewEmployeesPage(Model model) {
 		Employees Employees = new Employees();
 		model.addAttribute("Employees", Employees);
-	
 
 		return "Add_NewEmployee";
 	}
-	
-	
-	 
-	
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	public String saveEmployee(@ModelAttribute("Employees") Employees Employees) {

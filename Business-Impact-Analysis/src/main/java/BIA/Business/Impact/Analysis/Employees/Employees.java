@@ -1,13 +1,11 @@
-package BIA.Business.Impact.Analysis;
-import java.util.List;
-
+package BIA.Business.Impact.Analysis.Employees;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 
 
 @Document (collection = "Employees")
-public class EmployeeModel {
+public class Employees {
 	@Id 
 	      private int id;
 	    private String First_name;
@@ -15,24 +13,9 @@ public class EmployeeModel {
 	    private String Designation;
 	    private String Responsibility;
 	    private String Resources;
-	    private int ReportToid;
-	    private String ReportToDesignation;
-	    
 	    
 		public int getId() {
 			return id;
-		}
-		public int getReportToid() {
-			return ReportToid;
-		}
-		public void setReportToid(int reportToid) {
-			ReportToid = reportToid;
-		}
-		public String getReportToDesignation() {
-			return ReportToDesignation;
-		}
-		public void setReportToDesignation(String reportToDesignation) {
-			ReportToDesignation = reportToDesignation;
 		}
 		public void setId(int id) {
 			this.id = id;
@@ -67,7 +50,6 @@ public class EmployeeModel {
 		public void setResources(String resources) {
 			Resources = resources;
 		}
-	
 	    
 	  
 }
