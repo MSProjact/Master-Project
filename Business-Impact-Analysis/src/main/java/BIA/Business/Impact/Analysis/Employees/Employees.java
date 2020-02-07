@@ -7,13 +7,14 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document (collection = "Employees")
 public class Employees {
 	@Id 
-	      private int id;
+	    private int id;
 	    private String First_name;
 	    private String Last_name;
 	    private String Designation;
 	    private String Responsibility;
-	    private String Resources;
-	    
+	    private String ReportToid;
+	    private String ReportToDesignation;
+	    	    
 		public int getId() {
 			return id;
 		}
@@ -44,12 +45,20 @@ public class Employees {
 		public void setResponsibility(String responsibility) {
 			Responsibility = responsibility;
 		}
-		public String getResources() {
-			return Resources;
-		}
-		public void setResources(String resources) {
-			Resources = resources;
-		}
-	    
 	  
+		public String getReportToid() {
+			return ReportToid;
+		}
+		
+		public void setReportToid(String reportToid) {
+			ReportToid = reportToid;
+		}
+		
+		public String getReportToDesignation() {
+			return ReportToDesignation;
+		}
+		
+		public void setReportToDesignation(String reportToDesignation) {
+			ReportToDesignation = reportToDesignation;
+		}
 }
