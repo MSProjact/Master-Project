@@ -2,37 +2,43 @@ package BIA.Business.Impact.Analysis;
 
 import java.util.List;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Map;
 
+import javax.annotation.Resource;
+
+import org.apache.tomcat.util.http.fileupload.FileUtils;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.HashMap;
 import java.util.ArrayList;
 
-@Controller("/ReportToHierarchy")
+@Controller()
 public class ReportToHierarchy {
 	static Map<Integer, EmployeeNode> employees;
 	static EmployeeNode root;
 	    
-	 public static void main(String[] args) throws IOException {
-		    employees = new HashMap<Integer, EmployeeNode>();
-	        readDataAndCreateMap();
-	        buildHierarchyTree(root);
-	        printHierarchyTree(root, 0);
-	 }
-	 
-	private static void readDataAndCreateMap() throws IOException {
-		final String dir = System.getProperty("user.dir");
-        String path = dir.replace("/", "\\\\") + "\\data\\";
-        
+	
+	@RequestMapping("/ReportToHierarchy/init")
+	public String initTree(Model model) {
+			
+		employees = new HashMap<Integer, EmployeeNode>();
+		
 		try {
-	        FileReader fin = new FileReader(path + "input-employee.txt");
-			BufferedReader br = new BufferedReader(fin);
-		        
+			
+			File file = new File(
+					getClass().getClassLoader().getResource("data/input-employee.txt").getFile()
+				);
+			FileReader reader = new FileReader(file);
+            BufferedReader br = new BufferedReader(reader);
+			
 			String strLine;
 			EmployeeNode employee = null;
 
@@ -50,13 +56,18 @@ public class ReportToHierarchy {
 	                 root = employee;
 				 }
 	        }
-			fin.close();
 	        br.close();
 		} catch (FileNotFoundException e) {
 			 System.err.println("FileNotFoundException: " + e);
 		} catch (IOException e) {
 			 System.err.println("IOException: " + e);
 		}
+
+        buildHierarchyTree(root);
+        printHierarchyTree(root, 0);
+		return "index.html";
+        
+		
 	 }
 	
 	 //scan whole employee hashMap to form a list of subordinates for the given id
