@@ -15,6 +15,7 @@ import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.HashMap;
@@ -98,7 +99,7 @@ public class ReportToHierarchy {
 @RequestMapping("/EmployeeHierarchy")
 
 	 //print tree recursively
-	 private static void printHierarchyTree(EmployeeNode localRoot, int level) {
+	 private static String printHierarchyTree(EmployeeNode localRoot, int level) {
 		 for (int i = 0; i < level; i++) {
 			 System.out.print("\t");
 		 }		 
@@ -109,6 +110,6 @@ public class ReportToHierarchy {
 		 for (EmployeeNode e : subordinates) {
 			 printHierarchyTree(e, level + 1);
 		 }
-		 
+		 return "Hierarchy.html";
 	 }
 }
