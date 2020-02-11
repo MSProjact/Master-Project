@@ -18,16 +18,18 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import BIA.Business.Impact.Analysis.Products.Products;
+
 import java.util.HashMap;
 import java.util.ArrayList;
 
 @Controller()
 public class ReportToHierarchy {
 	static Map<Integer, EmployeeNode> employees;
-	static EmployeeNode root;
-	    
-	
+	static EmployeeNode root;	    
+
 	@RequestMapping("/ReportToHierarchy/init")
+	
 	public String initTree(Model model) {
 			
 		employees = new HashMap<Integer, EmployeeNode>();
@@ -65,8 +67,13 @@ public class ReportToHierarchy {
 		}
 
         buildHierarchyTree(root);
-        printHierarchyTree(root, 0);
-		return "index.html";
+        ///////////////////
+		List<EmployeeNode> EmpHierarchy = root.getSubordinates();
+		model.addAttribute("Employeelist", EmpHierarchy);
+        
+        
+//        printHierarchyTree(root, 0);
+		return "Hierarchy.html";
         
 		
 	 }
@@ -95,21 +102,21 @@ public class ReportToHierarchy {
         	buildHierarchyTree(e);
         }
 	 }
-	 
-@RequestMapping("/EmployeeHierarchy")
-
-	 //print tree recursively
-	 private static String printHierarchyTree(EmployeeNode localRoot, int level) {
-		 for (int i = 0; i < level; i++) {
-			 System.out.print("\t");
-		 }		 
-		 System.out.println(localRoot.getName());
-		 
-		 List<EmployeeNode> subordinates = localRoot.getSubordinates();
-		 System.out.print(" ");
-		 for (EmployeeNode e : subordinates) {
-			 printHierarchyTree(e, level + 1);
-		 }
-		 return "Hierarchy.html";
-	 }
+//	 
+//@RequestMapping("/EmployeeHierarchy")
+//
+//	 //print tree recursively
+//	 private static String printHierarchyTree(EmployeeNode localRoot, int level) {
+//		 for (int i = 0; i < level; i++) {
+//			 System.out.print("\t");
+//		 }		 
+//		 System.out.println(localRoot.getName());
+//		 
+//		 List<EmployeeNode> subordinates = localRoot.getSubordinates();
+//		 System.out.print(" ");
+//		 for (EmployeeNode e : subordinates) {
+//			 printHierarchyTree(e, level + 1);
+//		 }
+//		 return "Hierarchy.html";
+//	 }
 }
