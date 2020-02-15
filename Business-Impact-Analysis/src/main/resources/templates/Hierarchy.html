@@ -12,11 +12,29 @@
 
    <table border="1" cellpadding="10">
           
-        <tbody>
-           <tr th:each="EmployeeNode : ${Employeelist}">  
+<!--        <tbody>
+            <tr th:each="EmployeeNode : ${Employeelist}">  
            <td th:text="${EmployeeNode.empId}">Product ID</td>  
-            <td th:text="${EmployeeNode.name}">Product ID</td>         
-           <td th:text="${EmployeeNode.subordinates}">Product ID</td>
+            <td th:text="${EmployeeNode.name}">Product ID</td>
+            <tr th:each="Subordinates : ${EmployeeNode.subordinates}">  
+                     
+           <td th:text="${Subordinates.name}">Product ID</td> -->
+           
+           <table border="1" cellpadding="10">
+          
+        <tbody>
+           <th:block th:each="EmployeeNode : ${Employeelist}">
+			<tr><td th:text="${EmployeeNode.name}"></td>
+			    <th:block th:each="sub :*{EmployeeNode.subordinates}">
+			        <td th:if="${sub!=null}" th:text="${sub.name}"></td>
+			    </th:block>
+			</tr>    
+		
+        </tbody> 
+        </table>
+           
+           
+           
 <!--                       <td th:text="${EmployeeNode.subordinates}">Product ID</td>       
       -->             
             </tr>
