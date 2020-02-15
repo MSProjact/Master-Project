@@ -8,7 +8,6 @@ import javax.persistence.GenerationType;
 
 @Document (collection = "Employees")
 public class Employees {
-
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -17,9 +16,9 @@ public class Employees {
 	    private String Last_name;
 	    private String Designation;
 	    private String Responsibility;
-	    private String ReportToDesignation;
 	    private String ReportToid;
-	    
+	    private String ReportToDesignation;
+	 
 		public int getId() {
 			return id;
 		}
@@ -50,18 +49,20 @@ public class Employees {
 		public void setResponsibility(String responsibility) {
 			Responsibility = responsibility;
 		}
-		public String getReportToDesignation() {
-			return ReportToDesignation;
-		}
-		public void setReportToDesignation(String reportToDesignation) {
-			ReportToDesignation = reportToDesignation;
-		}
+	  
 		public String getReportToid() {
 			return ReportToid;
 		}
+		
 		public void setReportToid(String reportToid) {
 			ReportToid = reportToid;
 		}
-	    
-	  
+		
+		public String getReportToDesignation() {
+			return ReportToDesignation;
+		}
+		
+		public void setReportToDesignation(String reportToDesignation) {
+			ReportToDesignation = reportToDesignation;
+		}
 }

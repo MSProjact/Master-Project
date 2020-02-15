@@ -48,9 +48,9 @@
                 <tr>
                 	<td>Employee List:</td>
                 		<td>
-                    		<select th:field="*{id}">
+                    		<select th:field="*{ReportToDesignation}">
                          		<option th:each="Employees : ${Employeeslist}"
-                            th:value="${Employees.id}" th:text="${Employees.First_name}"></option>
+                            th:value="${Employees.First_name}" th:text="${Employees.First_name}"></option>
                            
                   			</select>
  	               </td>
