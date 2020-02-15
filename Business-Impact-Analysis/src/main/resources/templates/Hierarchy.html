@@ -9,24 +9,19 @@
     <h1>Employees Hierarchy</h1>
     <a href="/ReportToHierarchy/init">Employees Hierarchy</a>
     <br/><br/>
-<!--
 
-<ul>
-          <li value="empId"></li>
-          <li value="name"></li>  
-          </ul>
-          -->
-    <table border="1" cellpadding="10">
+   <table border="1" cellpadding="10">
           
         <tbody>
            <tr th:each="EmployeeNode : ${Employeelist}">  
-<!--           <td th:text="${EmployeeNode.id}">Product ID</td>    -->
+           <td th:text="${EmployeeNode.empId}">Product ID</td>  
             <td th:text="${EmployeeNode.name}">Product ID</td>         
-<!--           <td th:text="${EmployeeNode.reportToId}">Product ID</td>       -->
-
+           <td th:text="${EmployeeNode.subordinates}">Product ID</td>
+<!--                       <td th:text="${EmployeeNode.subordinates}">Product ID</td>       
+      -->             
             </tr>
         </tbody> 
-        </table>          
+        </table>      
                 </div>
           
 </body>

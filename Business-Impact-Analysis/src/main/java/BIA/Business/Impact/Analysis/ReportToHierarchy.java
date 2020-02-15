@@ -26,7 +26,8 @@ import java.util.ArrayList;
 @Controller()
 public class ReportToHierarchy {
 	static Map<Integer, EmployeeNode> employees;
-	static EmployeeNode root;	    
+	static EmployeeNode root;
+	public int level;
 
 	@RequestMapping("/ReportToHierarchy/init")
 	
@@ -68,9 +69,26 @@ public class ReportToHierarchy {
 
         buildHierarchyTree(root);
         ///////////////////
-		List<EmployeeNode> EmpHierarchy = root.getSubordinates();
+//		 System.out.println(root.getName());
+
+        List<EmployeeNode> EmpHierarchy = root.getSubordinates();
 		model.addAttribute("Employeelist", EmpHierarchy);
-        
+		
+        //////////////////////
+		
+//		 for (int i = 0; i < level; i++) {
+//			 System.out.print("\t");
+//		 }		 
+//		 System.out.println(root.getName());
+//		 
+//		 List<EmployeeNode> subordinates = root.getSubordinates();
+//		 System.out.print(" ");
+//		 for (EmployeeNode e : subordinates) {
+//			 printHierarchyTree(e, level + 1);
+//		 }
+//			model.addAttribute("Employeelist", subordinates);
+//
+//		/////////////////////
         
 //        printHierarchyTree(root, 0);
 		return "Hierarchy.html";
@@ -106,17 +124,18 @@ public class ReportToHierarchy {
 //@RequestMapping("/EmployeeHierarchy")
 //
 //	 //print tree recursively
-//	 private static String printHierarchyTree(EmployeeNode localRoot, int level) {
+//	 private static String printHierarchyTree(EmployeeNode root, int level) {
 //		 for (int i = 0; i < level; i++) {
 //			 System.out.print("\t");
 //		 }		 
-//		 System.out.println(localRoot.getName());
+//		 System.out.println(root.getName());
 //		 
-//		 List<EmployeeNode> subordinates = localRoot.getSubordinates();
+//		 List<EmployeeNode> subordinates = root.getSubordinates();
 //		 System.out.print(" ");
 //		 for (EmployeeNode e : subordinates) {
 //			 printHierarchyTree(e, level + 1);
 //		 }
-//		 return "Hierarchy.html";
+//	 return "Hierarchy.html";
+//		 return null;
 //	 }
 }

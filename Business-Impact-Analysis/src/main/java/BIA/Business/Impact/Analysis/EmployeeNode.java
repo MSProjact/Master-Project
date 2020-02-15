@@ -2,11 +2,11 @@ package BIA.Business.Impact.Analysis;
 
 import java.util.List;
 
-class EmployeeNode {
-	int empId;
-    String name;
-    int reportToId;
-    List<EmployeeNode> subordinates;
+public class EmployeeNode {
+	public int empId;
+    public String name;
+    public int reportToId;
+    public List<EmployeeNode> subordinates;
     
     public EmployeeNode(String id,  String empName, String rid) {    
     	try {
@@ -45,4 +45,18 @@ class EmployeeNode {
     int getReportToId() {
         return reportToId;
     }
+
+	public int getEmpId() {
+		return empId;
+	}
+
+	public void setEmpId(int empId) {
+		this.empId = empId;
+	}
+
+	public void setReportToId(int reportToId) {
+		this.reportToId = reportToId;
+	}
+    
+    
 }
