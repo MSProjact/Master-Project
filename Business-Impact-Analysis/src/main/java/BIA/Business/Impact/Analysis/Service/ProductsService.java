@@ -1,4 +1,4 @@
-package BIA.Business.Impact.Analysis.Resources;
+package BIA.Business.Impact.Analysis.Service;
 import java.util.List;
 import java.util.Optional;
 
@@ -7,22 +7,24 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import BIA.Business.Impact.Analysis.Model.Products;
+import BIA.Business.Impact.Analysis.Repository.ProductsRepository;
 @Service
 @Transactional
-public class ResourcesService {
+public class ProductsService {
 	
 	 @Autowired
-	    private ResourcesRepository repo;
+	    private ProductsRepository repo;
 	     
-	    public List<Resources> listAll() {
+	    public List<Products> listAll() {
 	        return repo.findAll();
 	    }
 	     
-	    public void save(Resources Resources) {
-	        repo.save(Resources);
+	    public void save(Products products) {
+	        repo.save(products);
 	    }
 	     
-	    public Resources get(int id) {
+	    public Products get(int id) {
 	        return repo.findById(id).get();
 	    }
 	     

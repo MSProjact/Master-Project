@@ -1,4 +1,4 @@
-package BIA.Business.Impact.Analysis.Products;
+package BIA.Business.Impact.Analysis.Model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
