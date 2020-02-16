@@ -1,4 +1,4 @@
-package BIA.Business.Impact.Analysis.ProductionSteps;
+package BIA.Business.Impact.Analysis.Controller;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import BIA.Business.Impact.Analysis.ProductionSteps.ProductionSteps;
-import BIA.Business.Impact.Analysis.ProductionSteps.ProductionStepsService;
+import BIA.Business.Impact.Analysis.Model.ProductionSteps;
+import BIA.Business.Impact.Analysis.Service.ProductionStepsService;
 
 import org.springframework.stereotype.Controller;
 

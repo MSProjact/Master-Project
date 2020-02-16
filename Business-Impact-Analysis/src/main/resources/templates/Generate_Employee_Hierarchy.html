@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Add New Employee in Hierarchy</title>
+</head>
+<body>
+
+<div align="center">
+        <h1>Add Employee in Hierarchy </h1>
+        <br />
+        <form action="#" th:action="@{/saveGenerateHierarchy}" th:object="${GenerateHierarchy}"
+            method="post">
+ 
+            <table border="0" cellpadding="10">
+            
+             <tr>
+                    <td>Employee ID:</td>
+                    <td><input type="text" th:field="*{id}" /></td>
+                </tr>
+                <tr>
+                    <td>First Name:</td>
+                    <td><input type="text" th:field="*{name}" /></td>
+                    
+                     <tr>
+                    <td>ReportTo id:</td>
+                    <td><input type="text" th:field="*{reportToId}" /></td>
+                </tr>
+           
+            <!--     <tr>
+                	<td>ReportTo:</td>
+                		<td>
+                    		<select th:field="*{ReportToDesignation}">
+                         		<option th:each="GenerateHierarchy : ${GenerateHierarchylist}"
+                            th:value="${GenerateHierarchy.name}" th:text="${GenerateHierarchy.name}"></option>
+                           
+                  			</select>
+ 	               </td>
+    	        </tr> -->
+                              
+                <tr>
+                    <td colspan="2"><button type="submit">Submit</button> </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+
+</body>
+</html>
