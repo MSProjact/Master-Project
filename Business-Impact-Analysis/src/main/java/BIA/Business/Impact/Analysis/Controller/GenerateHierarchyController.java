@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import BIA.Business.Impact.Analysis.GenerateHierarchy;
 import BIA.Business.Impact.Analysis.Model.Employees;
+import BIA.Business.Impact.Analysis.Model.GenerateHierarchy;
 import BIA.Business.Impact.Analysis.Service.GenerateHierarchyService;
 
 import org.springframework.stereotype.Controller;
@@ -28,7 +28,7 @@ public class GenerateHierarchyController {
 	static GenerateHierarchy root;
 	public int level;
 
-	@RequestMapping("/ReportToHierarchy/init")
+	@RequestMapping("/Display")
 	
 	public String initTree(Model model) {
 			
@@ -37,7 +37,7 @@ public class GenerateHierarchyController {
 	    List<GenerateHierarchy> EmpHierarchy = service.listAll();
 			model.addAttribute("Employeelist", EmpHierarchy);
 			
-			return "Hierarchy.html";
+			return "indexGenerateHierarchy.html";
 	        
 			
 	 }
@@ -67,26 +67,17 @@ public class GenerateHierarchyController {
         	buildHierarchyTree(e);
         }
 	 }
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 
 	
-	  @RequestMapping("/Display") public String viewHomePage(Model model) {
-	  List<GenerateHierarchy> GenerateHierarchylist = service.listAll();
-	  model.addAttribute("GenerateHierarchylist", GenerateHierarchylist); return
-	  "indexGenerateHierarchy";
-	  
-	  }
+	/*
+	 * @RequestMapping("/Display") public String viewHomePage(Model model) {
+	 * List<GenerateHierarchy> GenerateHierarchylist = service.listAll();
+	 * model.addAttribute("GenerateHierarchylist", GenerateHierarchylist); return
+	 * "indexGenerateHierarchy";
+	 * 
+	 * }
+	 */
 	  
 	  @RequestMapping("/GenerateHierarchy") public String
 	  showNewGenerateHierarchyPage(Model model) { GenerateHierarchy
@@ -104,7 +95,7 @@ public class GenerateHierarchyController {
 		public String saveEmployee(@ModelAttribute("GenerateHierarchy") GenerateHierarchy GenerateHierarchy) {
 			service.save(GenerateHierarchy);
 
-			return "redirect:/";
+			return "redirect:/Display";
 		}
 
 
