@@ -1,41 +1,20 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
-<head>
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:with="http://www.thymeleaf.org/extras/with"
+      >
+      
 <meta charset="ISO-8859-1">
 <title>Employees Hierarchy</title>
 </head>
-<body>
-<div align="center">
+<body>  
+     <div>
     <h1>Employees Hierarchy</h1>
     <a href="/GenerateHierarchy">Generate Employee Hierarchy</a>
     <br/><br/>
-    <table border="1" cellpadding="10">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th> Report To ID</th>
-                <th>Employee ID</th>
-              
-            </tr>
-        </thead>
-        
-        <tbody>
-         
-            
-              <tbody>
-           <th:block th:each="GenerateHierarchy : ${Employeelist}">
-			<tr><td th:text="${GenerateHierarchy.name}"></td>
-			 <td th:text="${GenerateHierarchy.reportToId}"></td>
-			  <td th:text="${GenerateHierarchy.Id}"></td>
-			    <th:block th:each="sub :*{GenerateHierarchy.subordinates}">
-			        <td th:if="${sub!=null}" th:text="${sub.name}"></td>
-			    </th:block>
-			</tr>    
-		
-        </tbody> 
-        </tbody> 
-        </table>
+       <section th:include="@{fragment} :: category" th:with="Employeelist=${Employeelist}"></section>
+    
         </div>
 
 </body>
