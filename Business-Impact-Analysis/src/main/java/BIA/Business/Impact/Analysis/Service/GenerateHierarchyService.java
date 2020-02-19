@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import BIA.Business.Impact.Analysis.GenerateHierarchy;
 import BIA.Business.Impact.Analysis.Model.Employees;
+import BIA.Business.Impact.Analysis.Model.GenerateHierarchy;
 import BIA.Business.Impact.Analysis.Repository.EmployeesRepository;
 import BIA.Business.Impact.Analysis.Repository.GenerateHierarchyRepository;
 @Service

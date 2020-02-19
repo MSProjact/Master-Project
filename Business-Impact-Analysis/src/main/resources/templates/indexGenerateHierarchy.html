@@ -1,49 +1,20 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
-<head>
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:with="http://www.thymeleaf.org/extras/with"
+      >
+      
 <meta charset="ISO-8859-1">
 <title>Employees Hierarchy</title>
 </head>
-<body>
-<div align="center">
+<body>  
+     <div>
     <h1>Employees Hierarchy</h1>
     <a href="/GenerateHierarchy">Generate Employee Hierarchy</a>
     <br/><br/>
-    <table border="1" cellpadding="10">
-        <thead>
-            <tr>
-                <th>Employee ID</th>
-                <th> Name</th>
-               <!--  <th>Last Name</th>
-                <th>Designation</th>
-                <th>Responsibility</th>
-                <th>ReportToid</th> -->
-                <th>ReportToDesignation</th>
-               <!--  <th>Actions</th> -->
-            </tr>
-        </thead>
-        
-        <tbody>
-           <tr th:each="GenerateHierarchy : ${GenerateHierarchylist}">
-                <td th:text="${GenerateHierarchy.id}">Employee ID</td>
-                <td th:text="${GenerateHierarchy.name}">Name</td>
-              <!--   <td th:text="${Employees.Last_name}">Last Name</td>
-                <td th:text="${Employees.Designation}">Designation</td>
-                <td th:text="${Employees.Responsibility}">Responsibility</td> -->
-
-             <!--    <td th:text="${Employees.ReportToid}">ReportToid</td> -->
-                <td th:text="${GenerateHierarchy.ReportToDesignation}">ReportToDesignation</td>
-            <!--  <td>
-                    <a th:href="@{'/edit/' + ${Employees.id}}">Edit</a>
-                    &nbsp;&nbsp;&nbsp;
-                    <a th:href="@{'/delete/' + ${Employees.id}}">Delete</a>
-                  
-                </td>
-               -->
-            </tr>
-        </tbody> 
-        </table>
+       <section th:include="@{fragment} :: category" th:with="Employeelist=${Employeelist}"></section>
+    
         </div>
 
 </body>
