@@ -12,7 +12,7 @@
   <section th:fragment="category">
     <ul>
         <li th:each="GenerateHierarchy : ${Employeelist}">
-            <span th:text="${GenerateHierarchy.First_name}">Main Cat</span>
+            <span th:text="${GenerateHierarchy.designation}">Main Cat</span>
             <section th:include="@{fragment} :: category" th:with="Employeelist=${GenerateHierarchy.subordinates}"></section>
         </li>
     </ul>

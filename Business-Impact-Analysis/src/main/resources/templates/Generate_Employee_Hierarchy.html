@@ -22,22 +22,22 @@
                 
                 <tr>
                     <td>First Name:</td>
-                    <td><input type="text" th:field="*{First_name}" /></td>
+                    <td><input type="text" th:field="*{first_name}" /></td>
                 </tr>
                 
                 <tr>
                     <td>Last Name:</td>
-                    <td><input type="text" th:field="*{Last_name}" /></td>
+                    <td><input type="text" th:field="*{last_name}" /></td>
                 </tr>
                 
                 <tr>
                     <td>Designation:</td>
-                    <td><input type="text" th:field="*{Designation}" /></td>
+                    <td><input type="text" th:field="*{designation}" /></td>
                 </tr>
                 
                 <tr>
                     <td>Responsibility:</td>
-                    <td><input type="text" th:field="*{Responsibility}" /></td>
+                    <td><input type="text" th:field="*{responsibility}" /></td>
                 </tr> 
                 
                 <tr>
@@ -50,16 +50,16 @@
                     <td><input type="text" th:field="*{isRoot}" /></td>
                 </tr>
                 
-<!--                   <tr>
+                  <tr>
                 	<td>Employee List:</td>
                 		<td>
-                    		<select th:field="*{reportToid}">
+                    		<select th:field="*{ReportTo}">
                          		<option th:each="GenerateHierarchy : ${GenerateHierarchylist}"
                             th:value="${GenerateHierarchy.First_name}" th:text="${GenerateHierarchy.First_name}"></option>
                            
                   			</select>
  	               </td>
-    	        </tr> -->
+    	        </tr>
                 
                 
                           

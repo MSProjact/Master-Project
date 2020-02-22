@@ -9,7 +9,7 @@
     <div align="center">
         <h1>Edit Product</h1>
         <br />
-        <form action="#" th:action="@{/save}" th:object="${Employees}"
+        <form action="#" th:action="@{/saveGenerateHierarchy}" th:object="${GenerateHierarchy}"
             method="post">
  
             <table border="0" cellpadding="10">
@@ -22,29 +22,32 @@
                 <tr>             
                     <td>First Name:</td>
                     <td>
-                        <input type="text" th:field="*{First_name}" />
+                        <input type="text" th:field="*{first_name}" />
                     </td>
                 </tr>
                 <tr>
                     <td>Last Name:</td>
-                    <td><input type="text" th:field="*{Last_name}" /></td>
+                    <td><input type="text" th:field="*{last_name}" /></td>
                 </tr>
                 <tr>
                     <td>Designation:</td>
-                    <td><input type="text" th:field="*{Designation}" /></td>
+                    <td><input type="text" th:field="*{designation}" /></td>
                 </tr>
                 <tr>
                     <td>Responsibility:</td>
-                    <td><input type="text" th:field="*{Responsibility}" /></td>
+                    <td><input type="text" th:field="*{responsibility}" /></td>
                 </tr>       
                 
                   <tr>
                     <td>ReportToid:</td>
                     <td><input type="text" th:field="*{reportToid}" /></td>
                 </tr>
-              
                 
-         
+                         
+                <tr>
+                    <td>Root Value:</td>
+                    <td><input type="text" th:field="*{isRoot}" /></td>
+                </tr>
    
                                       
                 <tr>

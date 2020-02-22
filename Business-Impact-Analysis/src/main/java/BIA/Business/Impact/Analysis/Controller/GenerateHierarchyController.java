@@ -7,8 +7,10 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import BIA.Business.Impact.Analysis.Model.GenerateHierarchy;
 import BIA.Business.Impact.Analysis.Service.GenerateHierarchyService;
@@ -17,6 +19,7 @@ import org.springframework.stereotype.Controller;
 
 import org.springframework.ui.Model;
 
+
 @Controller("/GenerateHierarchyController")
 public class GenerateHierarchyController {
 
@@ -24,7 +27,7 @@ public class GenerateHierarchyController {
 	private GenerateHierarchyService service;
 	
 	static GenerateHierarchy root;
-	static String root_user = "faisal";
+	static String root_user = "CEO";
 	public int level;
 
 	@RequestMapping("/Display")
@@ -41,7 +44,7 @@ public class GenerateHierarchyController {
 			
 	 }
 	
-
+	
 	
 	 private static List<GenerateHierarchy> getSubordinatesById(int empId,Map<Integer, GenerateHierarchy> employees) {
 		 List<GenerateHierarchy> subordinates = new ArrayList<GenerateHierarchy>();
@@ -76,7 +79,7 @@ public class GenerateHierarchyController {
 	  
 	  @RequestMapping("/GenerateHierarchy") public String
 	  showNewGenerateHierarchyPage(Model model) { 
-	  GenerateHierarchy GenerateHierarchy  = new GenerateHierarchy(0, "", null, null, null, 0, null,0);
+	  GenerateHierarchy GenerateHierarchy  = new GenerateHierarchy(0, "", null, null, null, 0, null,0, null);
 	  model.addAttribute("GenerateHierarchy", GenerateHierarchy);
 	  List<GenerateHierarchy> GenerateHierarchylist = service.listAll();
 	  model.addAttribute("GenerateHierarchylist", GenerateHierarchylist);
@@ -89,11 +92,11 @@ public class GenerateHierarchyController {
 		@RequestMapping(value = "/saveGenerateHierarchy", method = RequestMethod.POST)
 		public String saveEmployee(@ModelAttribute("GenerateHierarchy") GenerateHierarchy values) {
 			
-		GenerateHierarchy employee = new GenerateHierarchy(values.getId(),values.getFirst_name(),values.getLast_name(), values.getDesignation(), values.getResponsibility(), values.getreportToId(),values.getSubordinates(),values.getisRoot()) ;
+		GenerateHierarchy employee = new GenerateHierarchy(values.getId(),values.getFirst_name(),values.getLast_name(), values.getDesignation(), values.getResponsibility(), values.getreportToId(),values.getSubordinates(),values.getisRoot(), values.getReportTo()) ;
 		
 		Map<Integer, GenerateHierarchy> employees =  new HashMap<Integer, GenerateHierarchy>();
 			
-			if(employee.getFirst_name().contentEquals("faisal")) 
+			if(employee.getDesignation().contentEquals("CEO")) 
 			{
 				root = employee;
 				employees.put(employee.getId(), employee);
@@ -116,7 +119,33 @@ public class GenerateHierarchyController {
 			}
 			return "redirect:/Display";
 		}
+		
+		
+		@RequestMapping("/") public String viewHomePage(Model model) {
+			  List<GenerateHierarchy> GenerateHierarchylist = service.listAll();
+			  model.addAttribute("GenerateHierarchylist", GenerateHierarchylist); 
+			  return "index";
+			  
+			  }
+		
+		  @RequestMapping(value = "/save", method = RequestMethod.POST) public String
+		  saveEmp(@ModelAttribute("GenerateHierarchy") GenerateHierarchy GenerateHierarchy) {
+		  service.save(GenerateHierarchy);
+		  
+		  return "redirect:/"; }
 
+		  @RequestMapping("/edit/{id}") public ModelAndView
+		  showEditEmployeePage(@PathVariable(name = "id") int id) { ModelAndView mav =
+		  new ModelAndView("Edit_Employees"); GenerateHierarchy Employees = service.get(id);
+		  mav.addObject("GenerateHierarchy", Employees);
+		  
+		 return mav; }
+		  
+		  
+		  @RequestMapping("/delete/{subordinates}") public String
+		  deleteEmployees(@PathVariable(name = "subordinates") int id) { service.delete(id);
+		  return "redirect:/"; }
+		
 
 
 }

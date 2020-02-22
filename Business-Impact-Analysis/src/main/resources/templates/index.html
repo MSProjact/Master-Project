@@ -8,7 +8,7 @@
 <body>
 <div align="center">
     <h1>Employees List</h1>
-    <a href="/new">Add New Employee</a>
+   <!--  <a href="/new">Add New Employee</a> -->
     <br/><br/>
     <table border="1" cellpadding="10">
         <thead>
@@ -18,26 +18,25 @@
                 <th>Last Name</th>
                 <th>Designation</th>
                 <th>Responsibility</th>
-                <th>ReportToid</th>
-
+                 <th>ReportTo</th>
                 <th>Actions</th>
             </tr>
         </thead>
         
         <tbody>
-           <tr th:each="Employees : ${Employeeslist}">
-                <td th:text="${Employees.id}">Employee ID</td>
-                <td th:text="${Employees.First_name}">First Name</td>
-                <td th:text="${Employees.Last_name}">Last Name</td>
-                <td th:text="${Employees.Designation}">Designation</td>
-                <td th:text="${Employees.Responsibility}">Responsibility</td>
+           <tr th:each="GenerateHierarchy : ${GenerateHierarchylist}">
+                <td th:text="${GenerateHierarchy.id}">Employee ID</td>
+                <td th:text="${GenerateHierarchy.first_name}">First Name</td>
+                <td th:text="${GenerateHierarchy.last_name}">Last Name</td>
+              <td th:text="${GenerateHierarchy.designation}">Designation</td>                
+				<td th:text="${GenerateHierarchy.responsibility}">Responsibility</td>
+				<td th:text="${GenerateHierarchy.ReportTo}">ReportTo</td>
 
-                <td th:text="${Employees.reportToid}">ReportToid</td>
-               
-             <td>
-                    <a th:href="@{'/edit/' + ${Employees.id}}">Edit</a>
+
+             <td> 
+                    <a th:href="@{'/edit/' + ${GenerateHierarchy.id}}">Edit</a>
                     &nbsp;&nbsp;&nbsp;
-                    <a th:href="@{'/delete/' + ${Employees.id}}">Delete</a>
+                    <a th:href="@{'/delete/' + ${GenerateHierarchy.id}}">Delete</a>
                   
                 </td>
               

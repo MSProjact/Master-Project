@@ -23,11 +23,12 @@ public class GenerateHierarchy {
 	private int reportToId;
 	private List<GenerateHierarchy> subordinates;
 	private int isRoot;
+	private String ReportTo;
 	    
 
 	
 		public GenerateHierarchy(int id, String first_name, String last_name, String designation, String responsibility,
-			int reportToId, List<GenerateHierarchy> subordinates, int isRoot) {
+			int reportToId, List<GenerateHierarchy> subordinates, int isRoot, String ReportTo) {
 		super();
 		this.id = id;
 		this.first_name = first_name;
@@ -37,6 +38,7 @@ public class GenerateHierarchy {
 		this.reportToId = reportToId;
 		this.subordinates = subordinates;
 		this.isRoot = isRoot;
+		this.ReportTo=ReportTo;
 	}
 		public List<GenerateHierarchy> getSubordinates() {
 			return subordinates;
@@ -58,6 +60,24 @@ public class GenerateHierarchy {
 			this.isRoot = isRoot;
 		}
 	
+		public int getReportToId() {
+			return reportToId;
+		}
+		public void setReportToId(int reportToId) {
+			this.reportToId = reportToId;
+		}
+		public int getIsRoot() {
+			return isRoot;
+		}
+		public void setIsRoot(int isRoot) {
+			this.isRoot = isRoot;
+		}
+		public String getReportTo() {
+			return ReportTo;
+		}
+		public void setReportTo(String reportTo) {
+			ReportTo = reportTo;
+		}
 		public int getreportToId() {
 			return reportToId;
 		}
