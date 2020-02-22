@@ -19,30 +19,50 @@
                     <td>Employee ID:</td>
                     <td><input type="text" th:field="*{id}" /></td>
                 </tr>
+                
                 <tr>
                     <td>First Name:</td>
-                    <td><input type="text" th:field="*{name}" /></td>
-                    
-                     <tr>
+                    <td><input type="text" th:field="*{First_name}" /></td>
+                </tr>
+                
+                <tr>
+                    <td>Last Name:</td>
+                    <td><input type="text" th:field="*{Last_name}" /></td>
+                </tr>
+                
+                <tr>
+                    <td>Designation:</td>
+                    <td><input type="text" th:field="*{Designation}" /></td>
+                </tr>
+                
+                <tr>
+                    <td>Responsibility:</td>
+                    <td><input type="text" th:field="*{Responsibility}" /></td>
+                </tr> 
+                
+                <tr>
                     <td>ReportTo id:</td>
                     <td><input type="text" th:field="*{reportToId}" /></td>
                 </tr>
+                
                 <tr>
                     <td>Root Value:</td>
                     <td><input type="text" th:field="*{isRoot}" /></td>
                 </tr>
-           
-            <!--     <tr>
-                	<td>ReportTo:</td>
+                
+<!--                   <tr>
+                	<td>Employee List:</td>
                 		<td>
-                    		<select th:field="*{ReportToDesignation}">
+                    		<select th:field="*{reportToid}">
                          		<option th:each="GenerateHierarchy : ${GenerateHierarchylist}"
-                            th:value="${GenerateHierarchy.name}" th:text="${GenerateHierarchy.name}"></option>
+                            th:value="${GenerateHierarchy.First_name}" th:text="${GenerateHierarchy.First_name}"></option>
                            
                   			</select>
  	               </td>
     	        </tr> -->
-                              
+                
+                
+                          
                 <tr>
                     <td colspan="2"><button type="submit">Submit</button> </td>
                 </tr>

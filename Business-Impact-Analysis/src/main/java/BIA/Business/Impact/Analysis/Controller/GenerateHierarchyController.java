@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import BIA.Business.Impact.Analysis.Model.Employees;
 import BIA.Business.Impact.Analysis.Model.GenerateHierarchy;
 import BIA.Business.Impact.Analysis.Service.GenerateHierarchyService;
 
@@ -47,7 +46,7 @@ public class GenerateHierarchyController {
 	 private static List<GenerateHierarchy> getSubordinatesById(int empId,Map<Integer, GenerateHierarchy> employees) {
 		 List<GenerateHierarchy> subordinates = new ArrayList<GenerateHierarchy>();
 		 for (GenerateHierarchy e : employees.values()) {
-           if (e.getReportToId() == empId) {
+           if (e.getreportToId() == empId) {
            	subordinates.add(e);
            }
 		 }
@@ -73,19 +72,11 @@ public class GenerateHierarchyController {
 	 }
 
 
-	
-	/*
-	 * @RequestMapping("/Display") public String viewHomePage(Model model) {
-	 * List<GenerateHierarchy> GenerateHierarchylist = service.listAll();
-	 * model.addAttribute("GenerateHierarchylist", GenerateHierarchylist); return
-	 * "indexGenerateHierarchy";
-	 * 
-	 * }
-	 */
+
 	  
 	  @RequestMapping("/GenerateHierarchy") public String
 	  showNewGenerateHierarchyPage(Model model) { 
-	  GenerateHierarchy GenerateHierarchy  = new GenerateHierarchy(0, "", 0, null,0);
+	  GenerateHierarchy GenerateHierarchy  = new GenerateHierarchy(0, "", null, null, null, 0, null,0);
 	  model.addAttribute("GenerateHierarchy", GenerateHierarchy);
 	  List<GenerateHierarchy> GenerateHierarchylist = service.listAll();
 	  model.addAttribute("GenerateHierarchylist", GenerateHierarchylist);
@@ -98,11 +89,11 @@ public class GenerateHierarchyController {
 		@RequestMapping(value = "/saveGenerateHierarchy", method = RequestMethod.POST)
 		public String saveEmployee(@ModelAttribute("GenerateHierarchy") GenerateHierarchy values) {
 			
-		GenerateHierarchy employee = new GenerateHierarchy(values.getId(),values.getName(),values.getReportToId(),values.getSubordinates(),values.getisRoot()) ;
+		GenerateHierarchy employee = new GenerateHierarchy(values.getId(),values.getFirst_name(),values.getLast_name(), values.getDesignation(), values.getResponsibility(), values.getreportToId(),values.getSubordinates(),values.getisRoot()) ;
 		
 		Map<Integer, GenerateHierarchy> employees =  new HashMap<Integer, GenerateHierarchy>();
 			
-			if(employee.getName().contentEquals("faisal")) 
+			if(employee.getFirst_name().contentEquals("faisal")) 
 			{
 				root = employee;
 				employees.put(employee.getId(), employee);

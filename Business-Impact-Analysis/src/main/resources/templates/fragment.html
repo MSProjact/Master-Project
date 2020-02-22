@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
     xmlns:th="http://www.thymeleaf.org"
@@ -13,7 +12,7 @@
   <section th:fragment="category">
     <ul>
         <li th:each="GenerateHierarchy : ${Employeelist}">
-            <span th:text="${GenerateHierarchy.name}">Main Cat</span>
+            <span th:text="${GenerateHierarchy.First_name}">Main Cat</span>
             <section th:include="@{fragment} :: category" th:with="Employeelist=${GenerateHierarchy.subordinates}"></section>
         </li>
     </ul>

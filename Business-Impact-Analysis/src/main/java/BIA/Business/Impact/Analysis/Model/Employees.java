@@ -1,6 +1,9 @@
 package BIA.Business.Impact.Analysis.Model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,11 +19,25 @@ public class Employees {
 	    private String Last_name;
 	    private String Designation;
 	    private String Responsibility;
-	    private String ReportToid;
-	    private String ReportToDesignation;
-	 
+	    private String reportToid;
+	    private List<Employees> subordinates;
+		private int isRoot;
+	   
+
 		public int getId() {
 			return id;
+		}
+		public List<Employees> getSubordinates() {
+			return subordinates;
+		}
+		public void setSubordinates(List<Employees> subordinates) {
+			this.subordinates = subordinates;
+		}
+		public int getIsRoot() {
+			return isRoot;
+		}
+		public void setIsRoot(int isRoot) {
+			this.isRoot = isRoot;
 		}
 		public void setId(int id) {
 			this.id = id;
@@ -51,18 +68,12 @@ public class Employees {
 		}
 	  
 		public String getReportToid() {
-			return ReportToid;
+			return reportToid;
 		}
 		
 		public void setReportToid(String reportToid) {
-			ReportToid = reportToid;
+			this.reportToid = reportToid;
 		}
 		
-		public String getReportToDesignation() {
-			return ReportToDesignation;
-		}
-		
-		public void setReportToDesignation(String reportToDesignation) {
-			ReportToDesignation = reportToDesignation;
-		}
+	
 }
