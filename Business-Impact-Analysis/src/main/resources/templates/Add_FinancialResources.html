@@ -6,9 +6,9 @@
 <title>Add Financial Resources</title>
 </head>
 <body>
-
-<div align="center">
-        <h1>Add Financial Details</h1>
+	<div th:replace="header"></div>
+	<div align="center">
+        <h3>Add Financial Details</h3>
         <br />
         <form action="#" th:action="@{/saveResources}" th:object="${Resources}"
             method="post">
@@ -41,11 +41,11 @@
                     <td><input type="text" th:field="*{MTD}" /></td>
                 </tr>                         
                 <tr>
-                    <td colspan="2"><button type="submit">Submit</button> </td>
+                    <td><button type="submit">Submit</button> </td>
+                    <td><input type="button" onclick="window.history.back();" value="Cancel"></td>
                 </tr>
             </table>
         </form>
     </div>
-
 </body>
 </html>
