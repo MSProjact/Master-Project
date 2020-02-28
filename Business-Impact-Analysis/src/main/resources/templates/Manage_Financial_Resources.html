@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="ISO-8859-1">
+	<title>Financial Resources</title>
+</head>
+<body>
+	<div th:replace="header"></div>
+	<div align="center">
+		<h3>Financial Resources</h3>
+		<a href="/NewResources">Add Financial Details</a> <br />
+		<br />
+		<table border="1" cellpadding="10">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Cost Per Hour</th>
+					<th>Weekly Cost</th>
+					<th>Monthly Cost</th>
+					<th>Recovery Time Objective</th>
+					<th>Maximum Tolerable Downtime</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="Resources : ${Resourceslist}">
+					<td th:text="${Resources.id}">ID</td>
+					<td th:text="${Resources.Cost_PH}">Cost Per Hour</td>
+					<td th:text="${Resources.Cost_PM}">Weekly Cost</td>
+					<td th:text="${Resources.Cost_W}">Monthly Cost</td>
+					<td th:text="${Resources.RTO}">Recovery Time Objective</td>
+					<td th:text="${Resources.MTD}">Maximum Tolerable Downtime</td>
+					<td>
+						<a th:href="@{'/EditResources/' + ${Resources.id}}">Edit</a>
+						&nbsp;&nbsp;&nbsp; <a
+						th:href="@{'/DeleteResources/' + ${Resources.id}}">Delete</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>
