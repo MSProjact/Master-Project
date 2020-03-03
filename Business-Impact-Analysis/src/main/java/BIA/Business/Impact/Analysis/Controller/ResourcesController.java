@@ -24,40 +24,33 @@ public class ResourcesController {
 	public String viewHomePage(Model model) {
 		List<Resources> Resourceslist = service.listAll();
 		model.addAttribute("Resourceslist", Resourceslist);
-		return "FinancialResources";
-
+		return "Manage_Financial_Resources";
 	}
 
-	
-	  @RequestMapping("/NewResources") public String showNewResourcesPage(Model model) {
-	  Resources Resources = new Resources(); model.addAttribute("Resources",
-	  Resources);
-	 
-	  return "Add_FinancialResources"; 
-	  
-	  }
-	  
-	  @RequestMapping(value = "/saveResources", method = RequestMethod.POST) public String
-	  saveResources(@ModelAttribute("Resources") Resources Resources) {
-	  service.save(Resources);
-	  
-	  return "redirect:/Resourceslist";
-	  
-	  }
-	
-	  @RequestMapping("/EditResources/{id}") public ModelAndView
-	  showEditResourcePage(@PathVariable(name = "id") int id) { ModelAndView mav =
-	  new ModelAndView("Edit_Recourses"); Resources Resources = service.get(id);
-	  mav.addObject("Resources", Resources);
-	  
-	  return mav; 
-	  
-	  }
-	 
-	  @RequestMapping("/DeleteResources/{id}") public String
-	  deleteResources(@PathVariable(name = "id") int id) { service.delete(id);
-	  return "redirect:/Resourceslist"; 
-	  
-	  }
-	
+	@RequestMapping("/NewResources")
+	public String showNewResourcesPage(Model model) {
+		Resources Resources = new Resources();
+		model.addAttribute("Resources", Resources);
+		return "Add_FinancialResources";
+	}
+
+	@RequestMapping(value = "/saveResources", method = RequestMethod.POST)
+	public String saveResources(@ModelAttribute("Resources") Resources Resources) {
+		service.save(Resources);
+		return "redirect:/Resourceslist";
+	}
+
+	@RequestMapping("/EditResources/{id}")
+	public ModelAndView showEditResourcePage(@PathVariable(name = "id") int id) {
+		ModelAndView mav = new ModelAndView("Edit_Recourses");
+		Resources Resources = service.get(id);
+		mav.addObject("Resources", Resources);
+		return mav;
+	}
+
+	@RequestMapping("/DeleteResources/{id}")
+	public String deleteResources(@PathVariable(name = "id") int id) {
+		service.delete(id);
+		return "redirect:/Resourceslist";
+	}
 }
