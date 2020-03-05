@@ -9,28 +9,32 @@
 	<div align="center">
 		<h1>Edit Product</h1>
 		<br />
-		<form action="#" th:action="@{/saveProduct}" th:object="${Products}" method="post">
+		<form action="#" th:action="@{/saveResources}" th:object="${Resources}" method="post">
 			<table border="0" cellpadding="10">
 				<tr>
-					<td>Product ID:</td>
+					<td>ID:</td>
 					<td><input type="text" th:field="*{id}" readonly="readonly" />
 					</td>
 				</tr>
 				<tr>
-					<td>Product Name:</td>
-					<td><input type="text" th:field="*{P_Name}" /></td>
+					<td>Cost Per Hour:</td>
+					<td><input type="text" th:field="*{Cost_PH}" /></td>
 				</tr>
 				<tr>
-					<td>Product Description:</td>
-					<td><input type="text" th:field="*{P_Description}" /></td>
+					<td>Weekly Cost:</td>
+					<td><input type="text" th:field="*{Cost_W}" /></td>
 				</tr>
 				<tr>
-					<td>Product Type:</td>
-					<td><input type="text" th:field="*{P_Type}" /></td>
+					<td>Monthly Cost:</td>
+					<td><input type="text" th:field="*{Cost_PM}" /></td>
 				</tr>
 				<tr>
-					<td>Remarks:</td>
-					<td><input type="text" th:field="*{P_Remarks}" /></td>
+					<td>Recovery Time Objective:</td>
+					<td><input type="text" th:field="*{RTO}" /></td>
+				</tr>
+				<tr>
+					<td>RMaximum Tolerable Downtime:</td>
+					<td><input type="text" th:field="*{MTD}" /></td>
 				</tr>
 				<tr>
 					<td><button type="submit">Save</button></td>

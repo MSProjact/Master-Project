@@ -8,48 +8,47 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Resources {
 	@Id 
 	      private int id;
-	    private String Cost_PH;
-	    private String Cost_PM;
-	    private String Cost_W;
-	    private String RTO;
-	    private String MTD;
+	    private int Cost_PH;
+	    private int Cost_PM;
+	    private int Cost_W;
+	    private int RTO;
+	    private int MTD;
 		public int getId() {
 			return id;
 		}
 		public void setId(int id) {
 			this.id = id;
 		}
-		public String getCost_PH() {
+		public int getCost_PH() {
 			return Cost_PH;
 		}
-		public void setCost_PH(String cost_PH) {
+		public void setCost_PH(int cost_PH) {
 			Cost_PH = cost_PH;
 		}
-		public String getCost_W() {
-			return Cost_W;
-		}
-		public void setCost_W(String cost_W) {
-			Cost_W = cost_W;
-		}
-		public String getCost_PM() {
+		public int getCost_PM() {
 			return Cost_PM;
 		}
-		public void setCost_PM(String cost_PM) {
+		public void setCost_PM(int cost_PM) {
 			Cost_PM = cost_PM;
 		}
-		public String getRTO() {
+		public int getCost_W() {
+			return Cost_W;
+		}
+		public void setCost_W(int cost_W) {
+			Cost_W = cost_W;
+		}
+		public int getRTO() {
 			return RTO;
 		}
-		public void setRTO(String rTO) {
+		public void setRTO(int rTO) {
 			RTO = rTO;
 		}
-		public String getMTD() {
+		public int getMTD() {
 			return MTD;
 		}
-		public void setMTD(String mTD) {
+		public void setMTD(int mTD) {
 			MTD = mTD;
 		}
-	
 	    
-		
+	    
 }
