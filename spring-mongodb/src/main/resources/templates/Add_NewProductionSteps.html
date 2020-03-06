@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="ISO-8859-1">
+	<title>Add New Production Step</title>
+</head>
+<body>
+	<div th:replace="header"></div>
+	<div align="center">
+		<h3>Add New Production Step</h3>
+		<br />
+		<form action="#" th:action="@{/saveProductionStep}" th:object="${ProductionSteps}" method="post">
+			<table border="0" cellpadding="10">
+				<tr>
+					<td>Production Step ID:</td>
+					<td><input type="text" th:field="*{id}" /></td>
+				</tr>
+				<tr>
+					<td>Function Name:</td>
+					<td><input type="text" th:field="*{Funct_Name}" /></td>
+				</tr>
+				<tr>
+					<td>Key Personals:</td>
+					<td><input type="text" th:field="*{Key_Personals}" /></td>
+				</tr>
+				<tr>
+					<td>Criticality:</td>
+					<td><input type="text" th:field="*{Criticality}" /></td>
+				</tr>
+				<tr>
+					<td><button type="submit">Submit</button></td>
+					<td><input type="button" onclick="window.history.back();" value="Cancel"></td>
+				</tr>
+			</table>
+		</form>
+	</div>
+</body>
+</html>

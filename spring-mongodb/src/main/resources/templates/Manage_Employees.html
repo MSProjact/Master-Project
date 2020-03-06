@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="ISO-8859-1">
+	<title>Manage Employees</title>
+</head>
+<body>
+	<div th:replace="header"></div>
+	<div align="center">
+		<h3>Manage Employees</h3>
+<!-- 		<a href="/new">Add New Employee</a> <br /> -->
+<!-- 		<br /> -->
+		<table border="1" cellpadding="10">
+			<thead>
+				<tr>
+					<th>Employee ID</th>
+					<th>First Name</th>
+					<th>Last Name</th>
+					<th>Designation</th>
+					<th>Responsibility</th>
+					<th>Reported Person</th>
+					<th>Department</th>
+					<th>Phone Number</th>
+					<th>Email</th>
+					<th>Address</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="Employees : ${Employeeslist}">
+					<td th:text="${Employees.id}">Employee ID</td>
+					<td th:text="${Employees.First_name}">First Name</td>
+					<td th:text="${Employees.Last_name}">Last Name</td>
+					<td th:text="${Employees.Designation}">Designation</td>
+					<td th:text="${Employees.Responsibility}">Responsibility</td>
+					<td th:text="${Employees.ReportToPerson}">ReportToPerson</td>
+					<td th:text="${Employees.Department}">Department</td>
+					<td th:text="${Employees.Phone_Number}">Phone Number</td>
+					<td th:text="${Employees.Email}">Email</td>
+					<td th:text="${Employees.Address}">Address</td>
+					<td>
+						<a th:href="@{'/edit/' + ${Employees.id}}">Edit</a>
+						&nbsp;&nbsp;&nbsp; 
+						<a th:href="@{'/delete/' + ${Employees.id}}">Delete</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>
