@@ -31,6 +31,8 @@ public class Employees {
 	private int Phone_Number;
 	private String Address;
 	private String Email;
+	private List<Employees> subEmployees;
+	
 	public String getDepartment() {
 		return Department;
 	}
