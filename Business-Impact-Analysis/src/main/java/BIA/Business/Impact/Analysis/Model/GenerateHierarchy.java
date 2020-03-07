@@ -3,12 +3,17 @@ package BIA.Business.Impact.Analysis.Model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 
+@Data
+@AllArgsConstructor
 @Document(collection = "GenerateHierarchy")
 public class GenerateHierarchy {
 	@Id

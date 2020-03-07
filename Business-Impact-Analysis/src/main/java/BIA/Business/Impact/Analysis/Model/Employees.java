@@ -3,6 +3,9 @@ package BIA.Business.Impact.Analysis.Model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
 import java.util.List;
 
 import javax.persistence.Column;
@@ -15,6 +18,9 @@ import javax.persistence.GenerationType;
  * here, In Employee model class we added the 2 new key named ReportToPerson and SunEmployees
  * and generated the getter setter method for it. Also, we updated the datatype for ReportToid with int eariler it was string. 
  */
+
+@Data
+@AllArgsConstructor
 @Document(collection = "Employees")
 public class Employees {
 	@Id
@@ -28,6 +34,7 @@ public class Employees {
 	private int ReportToid;
 	private String ReportToPerson;
 	private List<Employees> SubEmployees;
+	
 
 	public int getId() {
 		return id;

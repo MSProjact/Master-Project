@@ -1,4 +1,6 @@
 package BIA.Business.Impact.Analysis.Model;
+import java.util.List;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -11,8 +13,16 @@ public class ProductionSteps {
 	    private String Funct_Name;
 	    private String Key_Personals;
 	    private String Criticality;
+	    public List<Employees> employees;
 	    
 
+	
+		public List<Employees> getEmployees() {
+			return employees;
+		}
+		public void setEmployees(List<Employees> employees) {
+			this.employees = employees;
+		}
 		public int getId() {
 			return id;
 		}

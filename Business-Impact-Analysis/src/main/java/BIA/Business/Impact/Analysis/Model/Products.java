@@ -2,8 +2,12 @@ package BIA.Business.Impact.Analysis.Model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
 
+@Data
+@AllArgsConstructor
 @Document (collection = "Products")
 public class Products {
 	@Id 

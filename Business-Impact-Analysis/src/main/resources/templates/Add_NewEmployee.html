@@ -37,9 +37,12 @@
 					<td>
 						<input type="hidden" th:field="*{ReportToid}" id="ReportedPersonId">
 						<input type="hidden" th:field="*{ReportToPerson}" id="ReportedPersonName">
+						<input type="hidden" th:field="*{Last_name}" id="ReportedPersonLastName">
+						<input type="hidden" th:field="*{Designation}" id="ReportedPersonDesignation">
+
 						<select id="personSelection">
 							<option disabled selected>Select Any</option>
-							<option th:each="Employees : ${Employeeslist}" th:value="${Employees.id} + '~' + ${Employees.First_name}" th:text="${Employees.First_name}"></option>
+							<option th:each="Employees : ${Employeeslist}" th:value="${Employees.id} + '~' + ${Employees.First_name} + '~' + ${Employees.Last_name} + '~' + ${Employees.Designation}" th:text="${Employees.First_name} + '~' + ${Employees.Last_name} + '~' + ${Employees.Designation}"></option>
 						</select>
 					</td>
 				</tr>
@@ -55,11 +58,17 @@
 	
 	$("#ReportedPersonId").val(0);
 	$("#ReportedPersonName").val("Root");
+	$("#ReportedPersonLastName").val(1);
+	$("#ReportedPersonDesignation").val(2);
+
 	$("#personSelection").change(function() {
 		var reportedPersonData = $("#personSelection").val();
 		var str = reportedPersonData.split("~");
 		$("#ReportedPersonId").val(str[0]);
 		$("#ReportedPersonName").val(str[1]);
+		$("#ReportedPersonLastName").val(str[2]);
+		$("#ReportedPersonDesignation").val(str[3]);
+
 	});
 	
 </script>

@@ -1,8 +1,11 @@
 package BIA.Business.Impact.Analysis.Model;
+import java.util.List;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
 @Document (collection = "Resources")
 public class Resources {
@@ -49,7 +52,5 @@ public class Resources {
 		public void setMTD(String mTD) {
 			MTD = mTD;
 		}
-	
-	    
-		
+
 }
