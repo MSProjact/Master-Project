@@ -10,9 +10,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class ProductionSteps {
 	@Id 
 	    private int id;
-	    private String Funct_Name;
-	    private String Key_Personals;
+	    private String Funct_Name;   
 	    private String Criticality;
+	    public String ReportTo;
 	    public List<Employees> employees;
 	    
 
@@ -35,18 +35,20 @@ public class ProductionSteps {
 		public void setFunct_Name(String funct_Name) {
 			Funct_Name = funct_Name;
 		}
-		public String getKey_Personals() {
-			return Key_Personals;
-		}
-		public void setKey_Personals(String key_Personals) {
-			Key_Personals = key_Personals;
-		}
+		
 		public String getCriticality() {
 			return Criticality;
 		}
 		public void setCriticality(String criticality) {
 			Criticality = criticality;
 		}
-
+		public String getReportTo() {
+			return ReportTo;
+		}
+		public void setReportTo(String reportTo) {
+			ReportTo = reportTo;
+		}
+	
+	
 
 }

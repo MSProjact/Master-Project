@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import BIA.Business.Impact.Analysis.Model.Employees;
 import BIA.Business.Impact.Analysis.Model.Resources;
+import BIA.Business.Impact.Analysis.Service.EmployeesService;
 import BIA.Business.Impact.Analysis.Service.ResourcesService;
 
 import org.springframework.stereotype.Controller;
@@ -20,6 +22,9 @@ public class ResourcesController {
 	@Autowired
 	private ResourcesService service;
 
+	@Autowired
+	private EmployeesService service1;
+	
 	@RequestMapping("/Resourceslist")
 	public String viewHomePage(Model model) {
 		List<Resources> Resourceslist = service.listAll();
@@ -31,7 +36,12 @@ public class ResourcesController {
 	public String showNewResourcesPage(Model model) {
 		Resources Resources = new Resources();
 		model.addAttribute("Resources", Resources);
+		
+		List<Employees> Employeeslist = service1.listAll();
+		model.addAttribute("Employeeslist", Employeeslist);
+		
 		return "Add_FinancialResources";
+		
 	}
 
 	@RequestMapping(value = "/saveResources", method = RequestMethod.POST)

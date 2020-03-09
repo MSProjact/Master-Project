@@ -16,6 +16,14 @@ public class Resources {
 	    private String Cost_W;
 	    private String RTO;
 	    private String MTD;
+	    public List<Employees> employees;
+	    
+		public List<Employees> getEmployees() {
+			return employees;
+		}
+		public void setEmployees(List<Employees> employees) {
+			this.employees = employees;
+		}
 		public int getId() {
 			return id;
 		}

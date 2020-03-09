@@ -39,7 +39,22 @@
                 <tr>
                     <td>RMaximum Tolerable Downtime:</td>
                     <td><input type="text" th:field="*{MTD}" /></td>
-                </tr>                         
+                </tr>                    
+                
+                					 <tr>
+                <td>Employee List:</td>
+                <td>
+                    <select th:field="*{employees}">
+                         <option value=""> -- </option>
+                         <option th:each="Employees : ${Employeeslist}"
+                            th:value="${Employees.First_name}"
+                            th:text="${Employees.First_name}"
+                           />
+                  </select>
+ 
+                </td>
+            </tr>
+                     
                 <tr>
                     <td><button type="submit">Submit</button> </td>
                     <td><input type="button" onclick="window.history.back();" value="Cancel"></td>
