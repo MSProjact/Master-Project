@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="utf-8" />
+	<title>Edit Product</title>
+</head>
+<body>
+	<div th:replace="header"></div>
+	<div align="center">
+		<h1>Edit Product</h1>
+		<br />
+		<form action="#" th:action="@{/saveProductCategory}" th:object="${ProductCategory}" method="post">
+			<table border="0" cellpadding="10">
+				<tr>
+					<td>Product Category ID:</td>
+					<td><input type="text" th:field="*{id}" /></td>
+				</tr>
+				<tr>
+					<td>Product Category Name:</td>
+					<td><input type="text" th:field="*{Categoryname}" /></td>
+				</tr>
+				<tr>
+					<td>Product Category Description:</td>
+					<td><input type="text" th:field="*{Description}" /></td>
+				</tr>
+				
+				
+				<tr>
+					<td><button type="submit">Save</button></td>
+					<td><input type="button" onclick="window.history.back();" value="Cancel"></td>
+				</tr>
+			</table>
+		</form>
+	</div>
+</body>
+</html>

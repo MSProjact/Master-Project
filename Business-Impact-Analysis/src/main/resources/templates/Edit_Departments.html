@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="utf-8" />
+	<title>Edit Department</title>
+</head>
+<body>
+	<div th:replace="header"></div>
+	<div align="center">
+		<h1>Edit Department</h1>
+		<br />
+		<form action="#" th:action="@{/saveDepartment}" th:object="${Departments}" method="post">
+			<table border="0" cellpadding="10">
+				<tr>
+					<td>Department ID:</td>
+					<td><input type="text" th:field="*{id}" readonly="readonly" />
+					</td>
+				</tr>
+				<tr>
+					<td>Department Name:</td>
+					<td><input type="text" th:field="*{Dep_Name}" /></td>
+				</tr>
+				<tr>
+					<td>Department Head:</td>
+					<td><input type="text" th:field="*{Dep_Head}" /></td>
+				</tr>
+				<tr>
+					<td><button type="submit">Save</button></td>
+					<td><input type="button" onclick="window.history.back();" value="Cancel"></td>
+				</tr>
+			</table>
+		</form>
+	</div>
+</body>
+</html>

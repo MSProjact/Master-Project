@@ -38,7 +38,7 @@ public class ProductionStepsController {
 	@RequestMapping(value = "/saveProductionStep", method = RequestMethod.POST)
 	public String saveProduct(@ModelAttribute("ProductionSteps") ProductionSteps ProductionSteps) {
 		service.save(ProductionSteps);
-		return "redirect:/ProductionStepslist";
+		return "redirect:/NewResources";
 	}
 
 	@RequestMapping("/editProductionStep/{id}")
