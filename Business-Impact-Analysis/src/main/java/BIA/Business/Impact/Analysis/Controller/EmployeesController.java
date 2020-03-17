@@ -97,7 +97,7 @@ public class EmployeesController {
 	 * @param model the model
 	 * @return it return the EmployeeHierarchy page with model object.
 	 * 
-	 * Here, We created new list in which first I have added the parent list and called the getSubModul method for getting the child list for specific parent. 
+	 * Here, We created new list in which first we have added the parent list and called the getSubModul method for getting the child list for specific parent. 
 	 */
 	@RequestMapping("/viewHierarchy")
 	public String generateHierarchy(Model model) {

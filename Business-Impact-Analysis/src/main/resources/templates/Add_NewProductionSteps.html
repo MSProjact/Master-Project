@@ -28,6 +28,25 @@
 				
 					 <tr>
 					 
+<!-- 									 <tr>
+                <td>Employee List:</td>
+                <td>
+                    <select th:field="*{Key_Personals}" >
+                         <option value=""> Name </option>
+                         <option th:each="Employees : ${Employeeslist}"
+                            th:value="${Employees.First_name}"
+                            th:text="${Employees.First_name}"
+                           />
+                  </select>
+ 
+                </td>
+            </tr>	 -->
+            
+            				<tr>
+					<td>Key Personals:</td>
+					<td><input type="text" th:field="*{Key_Personals}" /></td>
+				</tr> 
+					 
                  <td>Criticality:</td>
                 <td>
                     <select th:field="*{Criticality}">
@@ -37,21 +56,6 @@
                            <option value="High"> High </option>
                          
                            
-                  </select>
- 
-                </td>
-            </tr>
-				
-				
-					 <tr>
-                <td>Employee List:</td>
-                <td>
-                    <select th:field="*{ReportTo}">
-                         <option value=""> Name </option>
-                         <option th:each="Employees : ${Employeeslist}"
-                            th:value="${Employees.First_name}"
-                            th:text="${Employees.First_name}"
-                           />
                   </select>
  
                 </td>
