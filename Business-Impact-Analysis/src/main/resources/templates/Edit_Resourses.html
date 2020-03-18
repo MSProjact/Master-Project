@@ -18,7 +18,7 @@
 				</tr>
 				<tr>
 					<td>Cost Per Hour:</td>
-					<td><input type="text" th:field="*{Cost_PH}" /></td>
+					<td><input type="text" th:field="*{Cost_PH}" readonly="readonly" /></td>
 				</tr>
 				<tr>
 					<td>Weekly Cost:</td>
@@ -36,6 +36,25 @@
 					<td>RMaximum Tolerable Downtime:</td>
 					<td><input type="text" th:field="*{MTD}" /></td>
 				</tr>
+				
+				   <tr>
+                    <td>Function Recivery Cost:</td>
+                    <td><input type="text" th:field="*{Function_Recovery_Cost}" /></td>
+                </tr>
+                    <tr>
+                    <td>Function Downtime Cost:</td>
+                    <td><input type="text" th:field="*{Function_Downtime_cost}" /></td>
+                </tr>
+                <tr>
+                    <td>Function Parts Cost:</td>
+                    <td><input type="text" th:field="*{Function_parts_cost}" /></td>
+                </tr>
+                <tr>
+                    <td>Function Rework Cost:</td>
+                    <td><input type="text" th:field="*{Function_rework_cost}" /></td>
+                </tr>    
+				
+				
 				<tr>
 					<td><button type="submit">Save</button></td>
 					<td><input type="button" onclick="window.history.back();" value="Cancel"></td>

@@ -37,12 +37,38 @@
                 </tr>    
                 
                 <tr>
-                    <td>RMaximum Tolerable Downtime:</td>
+                    <td>Maximum Tolerable Downtime:</td>
                     <td><input type="text" th:field="*{MTD}" /></td>
-                </tr>                         
+                </tr>                
+                
+                
+                
+                
+                    <tr>
+                    <td>Function Recivery Cost:</td>
+                    <td><input type="text" th:field="*{Function_Recovery_Cost}" /></td>
+                </tr>
+                    <tr>
+                    <td>Function Downtime Cost:</td>
+                    <td><input type="text" th:field="*{Function_Downtime_cost}" /></td>
+                </tr>
                 <tr>
+                    <td>Function Parts Cost:</td>
+                    <td><input type="text" th:field="*{Function_parts_cost}" /></td>
+                </tr>
+                <tr>
+                    <td>Function Rework Cost:</td>
+                    <td><input type="text" th:field="*{Function_rework_cost}" /></td>
+                </tr>    
+                
+              
+                
+                
+                         
+                <tr>
+                 <td><input type="button" onclick="window.history.back();" value="Cancel"></td>
                     <td><button type="submit">Submit</button> </td>
-                    <td><input type="button" onclick="window.history.back();" value="Cancel"></td>
+                   
                 </tr>
             </table>
         </form>

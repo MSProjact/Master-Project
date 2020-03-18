@@ -6,9 +6,9 @@
 </head>
 <section th:fragment="category">
 	<ul>
-		<li th:each="EmployeeHierarchy : ${Employeelist}">
-			<span th:text="${EmployeeHierarchy.First_name}">Main Cat</span>
-			<section th:include="@{fragment} :: category" th:with="Employeelist=${EmployeeHierarchy.SubEmployees}"></section>
+		<li th:each="Hierarchy : ${HierarchyList}">
+			<span th:text="'Name : ' + ${Hierarchy.EmployeeName} + ', Product : ' + ${Hierarchy.Product} + ', ProductionStep : ' + ${Hierarchy.ProductionStep} + ', ProductCategory : ' + ${Hierarchy.ProductCategory} + ', Department : ' + ${Hierarchy.Department}">Main Cat</span>
+			<section th:include="@{fragment} :: category" th:with="HierarchyList=${Hierarchy.SubGenerateHierarchy}"></section>
 		</li>
 	</ul>
 </section>

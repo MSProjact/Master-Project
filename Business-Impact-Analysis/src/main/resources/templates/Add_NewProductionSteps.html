@@ -20,7 +20,6 @@
 					<td>Function Name:</td>
 					<td><input type="text" th:field="*{Funct_Name}" /></td>
 				</tr>
-		
 			<!-- 	<tr>
 					<td>Criticality:</td>
 					<td><input type="text" th:field="*{Criticality}" /></td>
@@ -28,29 +27,9 @@
 				
 					 <tr>
 					 
-<!-- 									 <tr>
-                <td>Employee List:</td>
-                <td>
-                    <select th:field="*{Key_Personals}" >
-                         <option value=""> Name </option>
-                         <option th:each="Employees : ${Employeeslist}"
-                            th:value="${Employees.First_name}"
-                            th:text="${Employees.First_name}"
-                           />
-                  </select>
- 
-                </td>
-            </tr>	 -->
-            
-            				<tr>
-					<td>Key Personals:</td>
-					<td><input type="text" th:field="*{Key_Personals}" /></td>
-				</tr> 
-					 
                  <td>Criticality:</td>
                 <td>
                     <select th:field="*{Criticality}">
-                       <option value=" "> Criticality </option>
                          <option value="Low"> Low </option>
                           <option value="Medium"> Medium </option>
                            <option value="High"> High </option>
@@ -61,12 +40,32 @@
                 </td>
             </tr>
 				
-				<tr>
+				
+					 <tr>
+                <td>Employee List:</td>
+                <td>
+                    <select th:field="*{ReportTo}">
+                         <option value=""> Name </option>
+                         <option th:each="Employees : ${Employeeslist}"
+                            th:value="${Employees.First_name}"
+                            th:text="${Employees.First_name}"
+                           />
+                  </select>
+ 
+                </td>
+            </tr>
+				
 				<td>
-					<button type="submit">Next</button>
-					</td>
+					<button type="submit">Next</button></td>
 					<td><input type="button" onclick="window.history.back();" value="Cancel"></td>
+					
 				</tr>
+				
+				
+				<!-- <tr>
+					<td><button type="submit">Submit</button></td>
+					<td><input type="button" onclick="window.history.back();" value="Cancel"></td>
+				</tr> -->
 			</table>
 		</form>
 	</div>

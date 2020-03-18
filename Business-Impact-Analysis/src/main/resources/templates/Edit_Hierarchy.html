@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="ISO-8859-1">
+	<title>Edit Hierarchy</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<body>
+	<div th:replace="header"></div>
+	<div align="center">
+		<h3>Edit Hierarchy</h3>
+		<br/>
+		<form action="#" th:action="@{/saveHierarchy}" th:object="${GenerateHierarchy}" method="post">
+			<table border="0" cellpadding="10">
+				<tr>
+					<td>Employee Name:</td>
+					<td>
+						<input type="hidden" th:field="*{employeeId}">
+						<input type="hidden" th:field="*{employeeName}">
+						<input type="hidden" th:field="*{reportToEmployeeId}">
+						<input type="text" th:field="*{employeeName}" disabled/>
+					</td>
+				</tr>
+				<tr>
+					<td>Select Product:</td>
+					<td>
+						<select th:field="*{product}">
+							<option selected value="">Select Any</option>
+							<option th:each="Products : ${Productslist}" th:value="${Products.P_Name}" th:text="${Products.P_Name}"></option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>Select Production Step:</td>
+					<td>
+						<select th:field="*{productionStep}">
+							<option selected value="">Select Any</option>
+							<option th:each="ProductionSteps : ${ProductionStepslist}" th:value="${ProductionSteps.Funct_Name}" th:text="${ProductionSteps.Funct_Name}"></option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>Select Product Category:</td>
+					<td>
+						<select th:field="*{productCategory}">
+							<option selected value="">Select Any</option>
+							<option th:each="Categories : ${ProductCategorylist}" th:value="${Categories.Categoryname}" th:text="${Categories.Categoryname}"></option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>Select Department:</td>
+					<td>
+						<select th:field="*{department}">
+							<option selected value="">Select Any</option>
+							<option th:each="Departments : ${Departmentslist}" th:value="${Departments.Dep_Name}" th:text="${Departments.Dep_Name}"></option>
+						</select>
+					</td>
+				</tr>
+				<tr align="center">
+					<td><button type="submit">Submit</button></td>
+					<td><input type="button" onclick="window.history.back();" value="Cancel"></td>
+				</tr>
+			</table>
+		</form>
+	</div>
+</body>
+</html>

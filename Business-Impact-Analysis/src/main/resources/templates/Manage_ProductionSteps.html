@@ -15,8 +15,8 @@
 				<tr>
 					<th>Production Step ID</th>
 					<th>Function Name</th>
-					<th>Key Personals</th>
 					<th>Criticality</th>
+					<th>ReportTo</th>
 					<th>Actions</th>
 				</tr>
 			</thead>
@@ -24,8 +24,8 @@
 				<tr th:each="ProductionSteps : ${ProductionStepslist}">
 					<td th:text="${ProductionSteps.id}">Production Step ID</td>
 					<td th:text="${ProductionSteps.Funct_Name}">Function Name</td>
-					<td th:text="${ProductionSteps.Key_Personals}">Key Personals</td>
 					<td th:text="${ProductionSteps.Criticality}">Criticality</td>
+					<td th:text="${ProductionSteps.ReportTo}">ReportTo</td>
 					<td>
 						<a th:href="@{'/editProductionStep/' + ${ProductionSteps.id}}">Edit</a>
 						&nbsp;&nbsp;&nbsp; 
