@@ -32,6 +32,7 @@ public class Employees {
 	private int ReportToid;
 	private String ReportToPerson;
 	private List<Employees> SubEmployees;
+	private String Password;
 
 	public int getPhoneNo() {
 		return PhoneNo;
@@ -120,4 +121,13 @@ public class Employees {
 	public void setSubEmployees(List<Employees> subEmployees) {
 		SubEmployees = subEmployees;
 	}
+
+	public String getPassword() {
+		return Password;
+	}
+
+	public void setPassword(String password) {
+		Password = password;
+	}
+	
 }
