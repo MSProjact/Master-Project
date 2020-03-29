@@ -6,125 +6,182 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
+import BIA.Business.Impact.Analysis.Model.Departments;
+import BIA.Business.Impact.Analysis.Model.Employees;
 import BIA.Business.Impact.Analysis.Model.GenerateHierarchy;
+import BIA.Business.Impact.Analysis.Model.ProductCategory;
+import BIA.Business.Impact.Analysis.Model.ProductionSteps;
+import BIA.Business.Impact.Analysis.Model.Products;
+import BIA.Business.Impact.Analysis.Service.DepartmentsService;
+import BIA.Business.Impact.Analysis.Service.EmployeesService;
 import BIA.Business.Impact.Analysis.Service.GenerateHierarchyService;
+import BIA.Business.Impact.Analysis.Service.ProductCategoryService;
+import BIA.Business.Impact.Analysis.Service.ProductionStepsService;
+import BIA.Business.Impact.Analysis.Service.ProductsService;
+
 /**
  * 
  * 
- * Before this controller was used to Display the page for showing hierarchy now it is not in use.
+ *       Basically this controller is used for handling the all the
+ *       functionalities related employee.
  */
 @Controller("/GenerateHierarchyController")
 public class GenerateHierarchyController {
 
 	@Autowired
-	private GenerateHierarchyService service;
+	private EmployeesService employeeService;
+	@Autowired
+	private ProductsService productService;
+	@Autowired
+	private ProductionStepsService productionService;
+	@Autowired
+	private ProductCategoryService categoryService;
+	@Autowired
+	private DepartmentsService departmentService;
+	@Autowired
+	private GenerateHierarchyService generateHierarchyService;
 
-	static GenerateHierarchy root;
-	static String root_user = "faisal";
-	public int level;
-
-	@RequestMapping("/Display")
-	public String initTree(Model model) {
-
-		List<GenerateHierarchy> EmpHierarchy = service.listAll();
-		List<GenerateHierarchy> mainModule = new ArrayList<GenerateHierarchy>();
-
-		for (GenerateHierarchy parent : EmpHierarchy) {
-			if (parent.getReportToId() == 0) {
-				List<GenerateHierarchy> childModelList = getSubModule(parent.getId(), EmpHierarchy);
-				parent.setSubordinates(childModelList);
-				mainModule.add(parent);
-			}
-		}
-		model.addAttribute("Employeelist", mainModule);
-		return "indexGenerateHierarchy.html";
+	/**
+	 * Generate hierarchy page.
+	 *
+	 * @param model the model
+	 * @return the model string with html page name
+	 */
+	@RequestMapping("/generateHierarchy")
+	public String generateHierarchyPage (Model model) {
+		GenerateHierarchy generateHierarchy = new GenerateHierarchy();
+		model.addAttribute("GenerateHierarchy", generateHierarchy);
+		List<Employees> Employeeslist = employeeService.listAll();
+		model.addAttribute("Employeeslist", Employeeslist);
+		List<Products> Productslist = productService.listAll();
+		model.addAttribute("Productslist", Productslist);
+		List<ProductionSteps> ProductionStepslist = productionService.listAll();
+		model.addAttribute("ProductionStepslist", ProductionStepslist);
+		List<ProductCategory> ProductCategorylist = categoryService.listAll();
+		model.addAttribute("ProductCategorylist", ProductCategorylist);
+		List<Departments> Departmentslist = departmentService.listAll();
+		model.addAttribute("Departmentslist", Departmentslist);
+		return "GenerateHierarchy";
 	}
 
-	// For getting the subModule list
-	public List<GenerateHierarchy> getSubModule(int id, List<GenerateHierarchy> EmpHierarchy) {
-		List<GenerateHierarchy> subModule = new ArrayList<GenerateHierarchy>();
-		for (final GenerateHierarchy empHierarchy : EmpHierarchy) {
-			if (empHierarchy.getReportToId() == id) {
-				subModule.add(empHierarchy);
-			}
-		}
-		if (subModule.size() > 0) {
-			for (final GenerateHierarchy subHierarchy : subModule) {
-				List<GenerateHierarchy> childModelList = getSubModule(subHierarchy.getId(), EmpHierarchy);
-				subHierarchy.setSubordinates(childModelList);
-			}
-		}
-		return subModule;
+	/**
+	 * Save employee.
+	 *
+	 * @param GenerateHierarchy the generate hierarchy
+	 * @return the redirect string on specific method.
+	 */
+	@RequestMapping(value = "/saveHierarchy", method = RequestMethod.POST)
+	public String saveEmployee(@ModelAttribute("GenerateHierarchy") GenerateHierarchy GenerateHierarchy) {
+		generateHierarchyService.save(GenerateHierarchy);
+		return "redirect:/manageHierarchy";
+	}
+	
+	/**
+	 * Manage hierarchy.
+	 *
+	 * @param model the model
+	 * @return the model string with html page name
+	 */
+	@RequestMapping("/manageHierarchy")
+	public String manageHierarchy(Model model) {
+		List<GenerateHierarchy> hierarchyList = generateHierarchyService.listAll();
+		model.addAttribute("hierarchyList", hierarchyList);
+		return "Manage_Hierarchy";
+	}
+	
+	/**
+	 * Delete hierarchy.
+	 *
+	 * @param id the id
+	 * @return the redirect string on specific method.
+	 */
+	@RequestMapping("/deleteHierarchy/{id}")
+	public String deleteHierarchy(@PathVariable(name = "id") int id) {
+		generateHierarchyService.delete(id);
+		return "redirect:/manageHierarchy";
 	}
 
+	/**
+	 * Edits the hierarchy.
+	 *
+	 * @param id the id
+	 * @param model the model
+	 * @return the model string with html page name
+	 */
+	@RequestMapping("/editHierarchy/{id}")
+	public String editHierarchy(@PathVariable(name = "id") int id, Model model) {
+		GenerateHierarchy generateHierarchy = generateHierarchyService.get(id);
+		model.addAttribute("GenerateHierarchy", generateHierarchy);
+		List<Employees> Employeeslist = employeeService.listAll();
+		model.addAttribute("Employeeslist", Employeeslist);
+		List<Products> Productslist = productService.listAll();
+		model.addAttribute("Productslist", Productslist);
+		List<ProductionSteps> ProductionStepslist = productionService.listAll();
+		model.addAttribute("ProductionStepslist", ProductionStepslist);
+		List<ProductCategory> ProductCategorylist = categoryService.listAll();
+		model.addAttribute("ProductCategorylist", ProductCategorylist);
+		List<Departments> Departmentslist = departmentService.listAll();
+		model.addAttribute("Departmentslist", Departmentslist);
+		return "Edit_Hierarchy";
+	}
 	
-// Bellow two methods are not in use.	
-	
-//	private static List<GenerateHierarchy> getSubordinatesById(int empId, Map<Integer, GenerateHierarchy> employees) {
-//		List<GenerateHierarchy> subordinates = new ArrayList<GenerateHierarchy>();
-//		for (GenerateHierarchy e : employees.values()) {
-//			if (e.getReportToId() == empId) {
-//				subordinates.add(e);
-//			}
-//		}
-//		return subordinates;
-//	}
-//
-//	// build tree recursively
-//	public void buildHierarchyTree(GenerateHierarchy localRoot, Map<Integer, GenerateHierarchy> employees) {
-//		GenerateHierarchy employee = localRoot;
-//		List<GenerateHierarchy> subordinates = getSubordinatesById(employee.getId(), employees);
-//		employee.setSubordinates(subordinates);
-//		if (subordinates.size() == 0) {
-//			service.save(employee);
-//			return;
-//		}
-//		for (GenerateHierarchy e : subordinates) {
-//			buildHierarchyTree(e, employees);
-//		}
-//		service.save(employee);
-//	}
+	/**
+	 * Generate hierarchy.
+	 * 
+	 * @param model the model
+	 * @return it return the EmployeeHierarchy page with model object.
+	 * 
+	 *         Here, We created new list in which first we have added the parent list
+	 *         and called the getSubModul method for getting the child list for
+	 *         specific parent.
+	 */
+	@RequestMapping("/viewHierarchy")
+	public String generateHierarchy(Model model) {
+		List<GenerateHierarchy> generateHierarchy = generateHierarchyService.listAll();
+		List<GenerateHierarchy> mainHierarchyList = new ArrayList<GenerateHierarchy>();
 
-	
-//  Now This page(Generate_Employee_Hierarchy) was not need as confirmed with Yasir.	
-	
-//	@RequestMapping("/GenerateHierarchy")
-//	public String showNewGenerateHierarchyPage(Model model) {
-//		GenerateHierarchy GenerateHierarchy = new GenerateHierarchy(0, "", 0, null/* ,0 */);
-//		model.addAttribute("GenerateHierarchy", GenerateHierarchy);
-//		List<GenerateHierarchy> GenerateHierarchylist = service.listAll();
-//		model.addAttribute("GenerateHierarchylist", GenerateHierarchylist);
-//		return "Generate_Employee_Hierarchy";
-//	}
+		for (final GenerateHierarchy parentHierarchy : generateHierarchy) {
+			if (parentHierarchy.getReportToEmployeeId() == 0) {
+				List<GenerateHierarchy> childHierarchyList = getSubModule(parentHierarchy.getEmployeeId(), generateHierarchy);
+				parentHierarchy.setSubGenerateHierarchy(childHierarchyList);
+				mainHierarchyList.add(parentHierarchy);
+			}
+		}
+		model.addAttribute("HierarchyList", mainHierarchyList);
 
+		return "Hierarchy";
+	}
 
-//  This controller also used for the storing the data for the Generate_Employee_Hierarchy page.
-	
-//	@RequestMapping(value = "/saveGenerateHierarchy", method = RequestMethod.POST)
-//	public String saveEmployee(@ModelAttribute("GenerateHierarchy") GenerateHierarchy values) {
-//
-//		GenerateHierarchy employee = new GenerateHierarchy(values.getId(), values.getName(), values.getReportToId(), values.getSubordinates()/* ,values.getisRoot() */);
-//
-//		Map<Integer, GenerateHierarchy> employees = new HashMap<Integer, GenerateHierarchy>();
-//
-//		if (employee.getName().contentEquals("faisal")) {
-//			root = employee;
-//			employees.put(employee.getId(), employee);
-//			buildHierarchyTree(root, employees);
-//		} else {
-//			List<GenerateHierarchy> EmpHierarchy = service.listAll();
-//			root = EmpHierarchy.get(0);
-//			int size_of_nodes = EmpHierarchy.size();
-//			for (int i = 0; i < size_of_nodes; i++) {
-//				EmpHierarchy.get(i).setSubordinates(null);
-//				employees.put(EmpHierarchy.get(i).getId(), EmpHierarchy.get(i));
-//			}
-//			employees.put(employee.getId(), employee);
-//			buildHierarchyTree(root, employees);
-//		}
-//		return "redirect:/Display";
-//	}
-
+	/**
+	 * Gets the sub module.
+	 *
+	 * @param id           it takes the parent id into param for comparing with
+	 *                     child report to id.
+	 * @param employeeList in this list, all the employee list are available for
+	 *                     comparing the parent id with child report to id.
+	 * @return the employee model list who comes under the particular parent.
+	 * 
+	 *         here, We called this method recursively for getting the tree
+	 *         hierarchy
+	 */
+	public List<GenerateHierarchy> getSubModule(int id, List<GenerateHierarchy> generateHierarchy) {
+		List<GenerateHierarchy> subHierarchyList = new ArrayList<GenerateHierarchy>();
+		for (final GenerateHierarchy child : generateHierarchy) {
+			if (child.getReportToEmployeeId() == id) {
+				subHierarchyList.add(child);
+			}
+		}
+		if (subHierarchyList.size() > 0) {
+			for (final GenerateHierarchy subHierarchy : subHierarchyList) {
+				List<GenerateHierarchy> childHierarchyList = getSubModule(subHierarchy.getEmployeeId(), generateHierarchy);
+				subHierarchy.setSubGenerateHierarchy(childHierarchyList);
+			}
+		}
+		return subHierarchyList;
+	}
 }

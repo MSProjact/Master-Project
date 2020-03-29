@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import BIA.Business.Impact.Analysis.Model.Employees;
 import BIA.Business.Impact.Analysis.Model.ProductionSteps;
+import BIA.Business.Impact.Analysis.Service.EmployeesService;
 import BIA.Business.Impact.Analysis.Service.ProductionStepsService;
 
 import org.springframework.stereotype.Controller;
@@ -20,6 +22,9 @@ public class ProductionStepsController {
 
 	@Autowired
 	private ProductionStepsService service;
+	
+	@Autowired
+	private EmployeesService service1;
 
 	@RequestMapping("/ProductionStepslist")
 	public String viewHomePage(Model model) {
@@ -32,20 +37,35 @@ public class ProductionStepsController {
 	public String showNewProductionStepsPage(Model model) {
 		ProductionSteps ProductionSteps = new ProductionSteps();
 		model.addAttribute("ProductionSteps", ProductionSteps);
+		
+		List<Employees> employees = service1.listAll();
+		model.addAttribute("Employeeslist", employees);
+		
 		return "Add_NewProductionSteps";
 	}
 
+	/*
+	 * @RequestMapping(value = "/saveProductionStep", method = RequestMethod.POST)
+	 * public String saveProduct(@ModelAttribute("ProductionSteps") ProductionSteps
+	 * ProductionSteps) { service.save(ProductionSteps); return
+	 * "redirect:/ProductionStepslist"; }
+	 */
+	
 	@RequestMapping(value = "/saveProductionStep", method = RequestMethod.POST)
 	public String saveProduct(@ModelAttribute("ProductionSteps") ProductionSteps ProductionSteps) {
 		service.save(ProductionSteps);
-		return "redirect:/ProductionStepslist";
+		return "redirect:/NewResources";
 	}
+	
 
 	@RequestMapping("/editProductionStep/{id}")
 	public ModelAndView showEditProductPage(@PathVariable(name = "id") int id) {
 		ModelAndView mav = new ModelAndView("Edit_ProductionSteps");
+		
 		ProductionSteps ProductionSteps = service.get(id);
 		mav.addObject("ProductionSteps", ProductionSteps);
+		
+		
 		return mav;
 	}
 

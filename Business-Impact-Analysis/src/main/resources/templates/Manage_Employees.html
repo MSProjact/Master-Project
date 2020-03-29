@@ -19,6 +19,9 @@
 					<th>Designation</th>
 					<th>Responsibility</th>
 					<th>Reported Person</th>
+					<th>Email</th>
+					<th>Phone Number</th>
+					<th>Address</th>
 					<th>Actions</th>
 				</tr>
 			</thead>
@@ -30,6 +33,10 @@
 					<td th:text="${Employees.Designation}">Designation</td>
 					<td th:text="${Employees.Responsibility}">Responsibility</td>
 					<td th:text="${Employees.ReportToPerson}">ReportToPerson</td>
+					<td th:text="${Employees.Email}">Email</td>
+					<td th:text="${Employees.PhoneNo}">Phone Number</td>
+					<td th:text="${Employees.Address}">Address</td>
+					
 					<td>
 						<a th:href="@{'/edit/' + ${Employees.id}}">Edit</a>
 						&nbsp;&nbsp;&nbsp; 

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="ISO-8859-1">
+	<title>Add New Product Category</title>
+</head>
+<body>
+	<div th:replace="header"></div>
+	<div align="center">
+		<h3>Add New Product Category</h3>
+		<br />
+		<form action="#" th:action="@{/saveProductCategory}" th:object="${ProductCategory}" method="post">
+			<table border="0" cellpadding="10">
+				<tr>
+					<td>Product Category ID:</td>
+					<td><input type="text" th:field="*{id}" /></td>
+				</tr>
+				<tr>
+					<td>Product Category Name:</td>
+					<td><input type="text" th:field="*{Categoryname}" /></td>
+				</tr>
+				<tr>
+					<td>Product Category Description:</td>
+					<td><input type="text" th:field="*{Description}" /></td>
+				</tr>
+				
+				
+				
+			<!-- 	<tr>
+                <td>Function List:</td>
+                <td>
+                    <select th:field="*{Fun_Name}">
+                         <option value=""> Functions Name </option>
+                         <option th:each="ProductionSteps : ${ProductionStepslist}"
+                            th:value="${ProductionSteps.Funct_Name}"
+                            th:text="${ProductionSteps.Funct_Name}"
+                           />
+                  </select>
+ 
+                </td>
+            </tr> -->
+				
+						
+				<tr>
+					<td><button type="submit">Submit</button></td>
+					<td><input type="button" onclick="window.history.back();" value="Cancel"></td>
+				</tr>
+			</table>
+		</form>
+	</div>
+</body>
+</html>

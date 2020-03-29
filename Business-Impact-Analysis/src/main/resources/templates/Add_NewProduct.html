@@ -32,6 +32,47 @@
 					<td><input type="text" th:field="*{P_Remarks}" /></td>
 				</tr>
 				<tr>
+                <td>Function List:</td>
+                <td>
+                    <select th:field="*{Fun_Name}">
+                         <option value=""> Functions Name </option>
+                         <option th:each="ProductionSteps : ${ProductionStepslist}"
+                            th:value="${ProductionSteps.Funct_Name}"
+                            th:text="${ProductionSteps.Funct_Name}"
+                           />
+                  </select>
+ 
+                </td>
+            </tr>
+				
+				
+				<tr>
+                <td>Product Category:</td>
+                <td>
+                    <select th:field="*{ProductCategoryName}">
+                         <option value=""> Product Category </option>
+                         <option th:each="ProductCategory : ${ProductCategorylist}"
+                            th:value="${ProductCategory.Categoryname}"
+                            th:text="${ProductCategory.Categoryname}"
+                           />
+                  </select>
+ 
+                </td>
+            </tr>
+								<tr>
+					<td>Cost of Lost Product:</td>
+					<td><input type="text" th:field="*{Cost_LostProd}" /></td>
+				</tr>
+												<tr>
+					<td>Legal costs:</td>
+					<td><input type="text" th:field="*{Legal_Costs}" /></td>
+				</tr>
+												<tr>
+					<td>Interest Payments:</td>
+					<td><input type="text" th:field="*{Interest_Payments}" /></td>
+				</tr>
+				
+				<tr>
 					<td><button type="submit">Submit</button></td>
 					<td><input type="button" onclick="window.history.back();" value="Cancel"></td>
 				</tr>

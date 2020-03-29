@@ -16,8 +16,12 @@
 					<th>Product ID</th>
 					<th>Product Name</th>
 					<th>Product Description</th>
-					<th>Product Type</th>
 					<th>Remarks</th>
+					<th>Funtions</th>
+					<th>Product Category Name</th>
+					<th>Cost of Lost Product</th>
+					<th>Legal costs</th>
+					<th>Interest Payments</th>
 					<th>Actions</th>
 				</tr>
 			</thead>
@@ -26,8 +30,15 @@
 					<td th:text="${Products.id}">Product ID</td>
 					<td th:text="${Products.P_Name}">Product Name</td>
 					<td th:text="${Products.P_Description}">Product Description</td>
-					<td th:text="${Products.P_Type}">Product Type</td>
 					<td th:text="${Products.P_Remarks}">Remarks</td>
+					<td th:text="${Products.Fun_Name}">Funtions</td>
+					<td th:text="${Products.ProductCategoryName}">Product Category Name</td>
+					<td th:text="${Products.Cost_LostProd}">Cost of Lost Product</td>
+					<td th:text="${Products.Legal_Costs}">Legal costs</td>
+					<td th:text="${Products.Interest_Payments}">Interest Payments</td>
+
+
+
 					<td>
 						<a th:href="@{'/editproduct/' + ${Products.id}}">Edit</a>
 						&nbsp;&nbsp;&nbsp; 

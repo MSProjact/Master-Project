@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Manage Hierarchy</title>
+</head>
+<body>
+	<div th:replace="header"></div>
+	<div align="center">
+		<h3>Manage Hierarchy</h3>
+		<table border="1" cellpadding="10">
+			<thead>
+				<tr>
+					<th>Employee ID</th>
+					<th>Employee Name</th>
+					<th>Reported Emp ID</th>
+					<th>Product</th>
+					<th>ProductionStep</th>
+					<th>ProductCategory</th>
+					<th>Department</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="Hierarchy : ${hierarchyList}">
+					<td th:text="${Hierarchy.employeeId}"></td>
+					<td th:text="${Hierarchy.employeeName}"></td>
+					<td th:text="${Hierarchy.reportToEmployeeId}"></td>
+					<td th:text="${Hierarchy.product}"></td>
+					<td th:text="${Hierarchy.productionStep}">p</td>
+					<td th:text="${Hierarchy.productCategory}"></td>
+					<td th:text="${Hierarchy.department}"></td>
+					<td>
+						<a th:href="@{'/editHierarchy/' + ${Hierarchy.employeeId}}">Edit</a>
+						&nbsp;&nbsp;&nbsp; 
+						<a th:href="@{'/deleteHierarchy/' + ${Hierarchy.employeeId}}">Delete</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>

@@ -8,28 +8,39 @@
 	<div th:replace="header"></div>
 	<div align="center">
 		<h3>Financial Resources</h3>
-		<a href="/NewResources">Add Financial Details</a> <br />
+		<!-- <a href="/NewResources">Add Financial Details</a> <br /> -->
 		<br />
 		<table border="1" cellpadding="10">
 			<thead>
 				<tr>
-					<th>ID</th>
+					<th>Resources ID</th>
 					<th>Cost Per Hour</th>
 					<th>Weekly Cost</th>
 					<th>Monthly Cost</th>
 					<th>Recovery Time Objective</th>
 					<th>Maximum Tolerable Downtime</th>
+					<th>Function Recovery Cost</th>
+					<th>Function Downtime Cost</th>
+					<th>Function Parts Cost</th>
+					<th>Function Rework Cost</th>
 					<th>Actions</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr th:each="Resources : ${Resourceslist}">
-					<td th:text="${Resources.id}">ID</td>
+					<td th:text="${Resources.id}">Resources ID</td>
 					<td th:text="${Resources.Cost_PH}">Cost Per Hour</td>
 					<td th:text="${Resources.Cost_PM}">Weekly Cost</td>
 					<td th:text="${Resources.Cost_W}">Monthly Cost</td>
 					<td th:text="${Resources.RTO}">Recovery Time Objective</td>
 					<td th:text="${Resources.MTD}">Maximum Tolerable Downtime</td>
+					
+						<td th:text="${Resources.Function_Recovery_Cost}">Function Recovery Cost</td>
+					<td th:text="${Resources.Function_Downtime_cost}">Function Downtime Cost</td>
+					<td th:text="${Resources.Function_rework_cost}">Function Parts Cost</td>
+					<td th:text="${Resources.Function_parts_cost}">Function Rework Cost</td>
+					
+					
 					<td>
 						<a th:href="@{'/EditResources/' + ${Resources.id}}">Edit</a>
 						&nbsp;&nbsp;&nbsp; <a
