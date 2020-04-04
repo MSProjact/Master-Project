@@ -12,17 +12,17 @@
 		<br />
 		<form action="#" th:action="@{/save}" th:object="${Employees}" method="post">
 			<table border="0" cellpadding="10">
-				<tr>
+				<!-- <tr>
 					<td>Employee ID:</td>
 					<td><input type="text" th:field="*{id}" /></td>	
-				</tr>
+				</tr> -->
 				<tr>
 					<td>First Name:</td>
-					<td><input type="text" th:field="*{First_name}" /></td>
+					<td><input type="text" th:field="*{First_name}" required="required" /></td>
 				</tr>
 				<tr>
 					<td>Last Name:</td>
-					<td><input type="text" th:field="*{Last_name}" /></td>
+					<td><input type="text" th:field="*{Last_name}" required="required" /></td>
 				</tr>
 				<tr>
 					<td>Designation:</td>
@@ -34,19 +34,29 @@
 				</tr>
 					<tr>
 					<td>Email:</td>
-					<td><input type="text" th:field="*{Email}" /></td>
+					<td><input type="text" th:field="*{Email}" required="required" /></td>
 				</tr>
 				<tr>
 					<td>Phone Number:</td>
-					<td><input type="text" th:field="*{PhoneNo}" /></td>
+					<td><input type="text" th:field="*{PhoneNo}" required="required" /></td>
 				</tr>
 				<tr>
 					<td>Address:</td>
-					<td><input type="text" th:field="*{Address}" /></td>
+					<td><input type="text" th:field="*{Address}" required="required" /></td>
 				</tr>
 				<tr>
 					<td>Password:</td>
-					<td><input type="text" th:field="*{Password}" /></td>
+					<td><input type="text" th:field="*{Password}"  required="required"/></td>
+				</tr>
+				<tr>
+					<td>Role:</td>
+					<td>
+						<select th:field="*{Role}">
+							<option th:value="ADMIN" th:text="ADMIN">ADMIN</option>
+							<option th:value="MANAGER" th:text="MANAGER">MANAGER</option>
+							<option th:value="EMPLOYEE" th:text="EMPLOYEE">EMPLOYEE</option>
+						</select>
+					</td>
 				</tr>
 				<tr>
 					<td>Reported To Person:</td>

@@ -1,6 +1,5 @@
 package BIA.Business.Impact.Analysis.Model;
 
-import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,15 +12,16 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class ProductCategory {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
-	private int id;
+	private String id;
 	private String Categoryname;
 	private String Description;
-	public int getId() {
+
+	
+	
+	public String getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	public String getCategoryname() {
@@ -36,6 +36,4 @@ public class ProductCategory {
 	public void setDescription(String description) {
 		Description = description;
 	}
-	
-	
 }

@@ -25,11 +25,11 @@ public class ResourcesService {
 	        repo.save(Resources);
 	    }
 	     
-	    public Resources get(int id) {
+	    public Resources get(String id) {
 	        return repo.findById(id).get();
 	    }
 	     
-	    public void delete(int id) {
+	    public void delete(String id) {
 	        repo.deleteById(id);
 	    }
 }

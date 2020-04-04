@@ -5,23 +5,28 @@
 	<title>ProductCategory</title>
 </head>
 <body>
-	<div th:replace="header"></div>
+	<div th:if="${Role == 'ADMIN' || Role == 'EMPLOYEE'}">
+		<div th:replace="header"></div>
+	</div>
+	<div th:if="${Role == 'MANAGER'}">
+		<div th:replace="header_manager"></div>
+	</div>
 	<div align="center">
 		<h3>Product Category</h3>
 
 		<table border="1" cellpadding="10">
 			<thead>
 				<tr>
-					<th>Product Category ID</th>
-					<th>Product Category Name</th>
+<!-- 					<th>Product Category ID</th>
+ -->					<th>Product Category Name</th>
 					<th>Product Category Description</th>
 					<th>Actions</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr th:each="ProductCategory : ${ProductCategorylist}">
-					<td th:text="${ProductCategory.id}">Product Category ID</td>
-					<td th:text="${ProductCategory.Categoryname}">Product Category Name</td>
+<!-- 					<td th:text="${ProductCategory.id}">Product Category ID</td>
+ -->					<td th:text="${ProductCategory.Categoryname}">Product Category Name</td>
 					<td th:text="${ProductCategory.Description}">Product Category Description</td>
 					<td>
 						<a th:href="@{'/editProductCategory/' + ${ProductCategory.id}}">Edit</a>

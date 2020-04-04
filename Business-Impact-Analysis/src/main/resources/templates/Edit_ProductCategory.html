@@ -5,8 +5,13 @@
 	<title>Edit Product</title>
 </head>
 <body>
-	<div th:replace="header"></div>
-	<div align="center">
+	<div th:if="${Role == 'ADMIN' || Role == 'EMPLOYEE'}">
+		<div th:replace="header"></div>
+	</div>
+	<div th:if="${Role == 'MANAGER'}">
+		<div th:replace="header_manager"></div>
+	</div>
+    <div align="center">
 		<h1>Edit Product</h1>
 		<br />
 		<form action="#" th:action="@{/saveProductCategory}" th:object="${ProductCategory}" method="post">

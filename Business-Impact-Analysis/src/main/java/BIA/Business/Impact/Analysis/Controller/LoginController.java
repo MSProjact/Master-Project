@@ -1,24 +1,17 @@
 package BIA.Business.Impact.Analysis.Controller;
 
-import java.io.IOException;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
+import BIA.Business.Impact.Analysis.Model.Employees;
+import BIA.Business.Impact.Analysis.Service.EmployeesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import BIA.Business.Impact.Analysis.Model.Employees;
-import BIA.Business.Impact.Analysis.Service.EmployeesService;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
 
 
 @Controller
@@ -35,7 +28,7 @@ public class LoginController {
 	}
 
 	@PostMapping("/login")
-	public String postlogIn(HttpServletRequest request, @RequestParam("id") int id, @RequestParam("p") String password,
+	public String postlogIn(HttpServletRequest request, @RequestParam("id") String id, @RequestParam("p") String password,
 			Model model) throws IOException {
 		String msg = null;
 		try {

@@ -13,11 +13,10 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Resources {
 	
 	 @Id 
-	  
-	  @GeneratedValue(strategy = GenerationType.IDENTITY) 
+	   
 	  
 	
-	  private int id;
+	  private String id;
 	 
 	    private int Cost_PH;
 	    private int Cost_PM;
@@ -28,17 +27,37 @@ public class Resources {
 	    private int Function_Downtime_cost;
 	    private int Function_rework_cost;
 	    private int Function_parts_cost;
+	    public List<ProductionSteps> ProductionSteps;
+	    public String Function_name;
 	    
 	
 	
-	  public int getId() {
-		  return id; 
-		  } 
-	  
-	  public void setId(int id) {
-		  this.id = id; 
-		  }
+	  public List<ProductionSteps> getProductionSteps() {
+			return ProductionSteps;
+		}
+
+		public void setProductionSteps(List<ProductionSteps> productionSteps) {
+			ProductionSteps = productionSteps;
+		}
+
+		public String getFunction_name() {
+			return Function_name;
+		}
+
+		public void setFunction_name(String function_name) {
+			Function_name = function_name;
+		}
+
+	
 	 
+		public String getId() {
+			return id;
+		}
+
+		public void setId(String id) {
+			this.id = id;
+		}
+
 		public int getFunction_Recovery_Cost() {
 			return Function_Recovery_Cost;
 		}

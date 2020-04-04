@@ -24,11 +24,11 @@ public class ProductCategoryService {
 	        repo.save(ProductCategory);
 	    }
 	     
-	    public ProductCategory get(int id) {
+	    public ProductCategory get(String id) {
 	        return repo.findById(id).get();
 	    }
 	     
-	    public void delete(int id) {
+	    public void delete(String id) {
 	        repo.deleteById(id);
 	    }
 }

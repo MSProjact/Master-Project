@@ -11,13 +11,13 @@
 		<br />
 		<form action="#" th:action="@{/saveProductCategory}" th:object="${ProductCategory}" method="post">
 			<table border="0" cellpadding="10">
-				<tr>
+				<!-- <tr>
 					<td>Product Category ID:</td>
 					<td><input type="text" th:field="*{id}" /></td>
-				</tr>
+				</tr> -->
 				<tr>
 					<td>Product Category Name:</td>
-					<td><input type="text" th:field="*{Categoryname}" /></td>
+					<td><input type="text" th:field="*{Categoryname}"  required="required"/></td>
 				</tr>
 				<tr>
 					<td>Product Category Description:</td>
@@ -42,8 +42,9 @@
 				
 						
 				<tr>
-					<td><button type="submit">Submit</button></td>
-					<td><input type="button" onclick="window.history.back();" value="Cancel"></td>
+				<td><input type="button" onclick="window.history.back();" value="Cancel"></td>
+					<td><button type="submit">Next</button></td>
+					
 				</tr>
 			</table>
 		</form>
