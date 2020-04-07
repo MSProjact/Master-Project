@@ -24,11 +24,11 @@ public class DepartmentsService {
 	        repo.save(Departments);
 	    }
 	     
-	    public Departments get(int id) {
+	    public Departments get(String id) {
 	        return repo.findById(id).get();
 	    }
 	     
-	    public void delete(int id) {
+	    public void delete(String id) {
 	        repo.deleteById(id);
 	    }
 }

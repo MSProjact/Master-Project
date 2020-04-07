@@ -11,6 +11,10 @@ import BIA.Business.Impact.Analysis.Model.ProductCategory;
 
 public interface ProductCategoryRepository  extends  MongoRepository <ProductCategory, Integer> {
 
+	void deleteById(String id);
+
+	Optional<ProductCategory> findById(String id);
+
 	
 
 }

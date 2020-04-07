@@ -1,21 +1,22 @@
 package BIA.Business.Impact.Analysis.Controller;
 
-import java.util.List;
+import BIA.Business.Impact.Analysis.Model.Employees;
+import BIA.Business.Impact.Analysis.Model.ProductionSteps;
+import BIA.Business.Impact.Analysis.Model.Role;
+import BIA.Business.Impact.Analysis.Service.EmployeesService;
+import BIA.Business.Impact.Analysis.Service.ProductionStepsService;
+import BIA.Business.Impact.Analysis.Validator.RoleValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import BIA.Business.Impact.Analysis.Model.Employees;
-import BIA.Business.Impact.Analysis.Model.ProductionSteps;
-import BIA.Business.Impact.Analysis.Service.EmployeesService;
-import BIA.Business.Impact.Analysis.Service.ProductionStepsService;
-
-import org.springframework.stereotype.Controller;
-
-import org.springframework.ui.Model;
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Controller("/ProductionSteps")
 public class ProductionStepsController {
@@ -34,7 +35,8 @@ public class ProductionStepsController {
 	}
 
 	@RequestMapping("/newProductionStep")
-	public String showNewProductionStepsPage(Model model) {
+	public String showNewProductionStepsPage(Model model, HttpServletRequest request) {
+		RoleValidator.checkUserRights(request, Role.EMPLOYEE);
 		ProductionSteps ProductionSteps = new ProductionSteps();
 		model.addAttribute("ProductionSteps", ProductionSteps);
 		
@@ -52,14 +54,15 @@ public class ProductionStepsController {
 	 */
 	
 	@RequestMapping(value = "/saveProductionStep", method = RequestMethod.POST)
-	public String saveProduct(@ModelAttribute("ProductionSteps") ProductionSteps ProductionSteps) {
+	public String saveProduct(@ModelAttribute("ProductionSteps") ProductionSteps ProductionSteps, HttpServletRequest request) {
 		service.save(ProductionSteps);
-		return "redirect:/NewResources";
+		return "redirect:/newProductionStep";
 	}
 	
 
 	@RequestMapping("/editProductionStep/{id}")
-	public ModelAndView showEditProductPage(@PathVariable(name = "id") int id) {
+	public ModelAndView showEditProductPage(@PathVariable(name = "id") String id, HttpServletRequest request) {
+		RoleValidator.checkUserRights(request, Role.MANAGER);
 		ModelAndView mav = new ModelAndView("Edit_ProductionSteps");
 		
 		ProductionSteps ProductionSteps = service.get(id);
@@ -70,7 +73,8 @@ public class ProductionStepsController {
 	}
 
 	@RequestMapping("/deleteProductionStep/{id}")
-	public String deleteProductionSteps(@PathVariable(name = "id") int id) {
+	public String deleteProductionSteps(@PathVariable(name = "id") String id, HttpServletRequest request) {
+		RoleValidator.checkUserRights(request, Role.MANAGER);
 		service.delete(id);
 		return "redirect:/ProductionStepslist";
 	}

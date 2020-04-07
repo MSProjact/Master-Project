@@ -31,5 +31,15 @@ public class ProductsService {
 	    public void delete(int id) {
 	        repo.deleteById(id);
 	    }
+
+		public void delete(String id) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		public Products get(String id) {
+			// TODO Auto-generated method stub
+			return null;
+		}
 }
 

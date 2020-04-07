@@ -5,7 +5,12 @@
 	<title>Financial Resources</title>
 </head>
 <body>
-	<div th:replace="header"></div>
+	<div th:if="${Role == 'ADMIN' || Role == 'EMPLOYEE'}">
+		<div th:replace="header"></div>
+	</div>
+	<div th:if="${Role == 'MANAGER'}">
+		<div th:replace="header_manager"></div>
+	</div>
 	<div align="center">
 		<h3>Financial Resources</h3>
 		<!-- <a href="/NewResources">Add Financial Details</a> <br /> -->
@@ -13,8 +18,8 @@
 		<table border="1" cellpadding="10">
 			<thead>
 				<tr>
-					<th>Resources ID</th>
-					<th>Cost Per Hour</th>
+<!-- 					<th>ID</th>
+ -->					<th>Cost Per Hour</th>
 					<th>Weekly Cost</th>
 					<th>Monthly Cost</th>
 					<th>Recovery Time Objective</th>
@@ -28,8 +33,8 @@
 			</thead>
 			<tbody>
 				<tr th:each="Resources : ${Resourceslist}">
-					<td th:text="${Resources.id}">Resources ID</td>
-					<td th:text="${Resources.Cost_PH}">Cost Per Hour</td>
+<!-- 					<td th:text="${Resources.id}">ID</td>
+ -->					<td th:text="${Resources.Cost_PH}">Cost Per Hour</td>
 					<td th:text="${Resources.Cost_PM}">Weekly Cost</td>
 					<td th:text="${Resources.Cost_W}">Monthly Cost</td>
 					<td th:text="${Resources.RTO}">Recovery Time Objective</td>
@@ -42,7 +47,7 @@
 					
 					
 					<td>
-						<a th:href="@{'/EditResources/' + ${Resources.id}}">Edit</a>
+						<a th:href="@{'/Edit_Resources/' + ${Resources.id}}">Edit</a>
 						&nbsp;&nbsp;&nbsp; <a
 						th:href="@{'/DeleteResources/' + ${Resources.id}}">Delete</a>
 					</td>

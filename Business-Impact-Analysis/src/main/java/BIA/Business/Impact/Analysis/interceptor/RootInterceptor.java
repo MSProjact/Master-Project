@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.resource.ResourceHttpRequestHandler;
 
 import BIA.Business.Impact.Analysis.Controller.LoginController;
@@ -16,8 +17,8 @@ import BIA.Business.Impact.Analysis.Model.Employees;
 /**
  * RootInterceptor is the root interceptor of this spring boot project.
  * Here, the login state has been checked.
- * If the user has logged-in, it will go to controller, but if the user has not logged-in, it will direct into login page.
- * 
+ * If the user has logined, it will go to controller, but if the user has not logined, it will direct into login page.
+ 
  */
 @Component
 public class RootInterceptor implements HandlerInterceptor {
@@ -37,12 +38,22 @@ public class RootInterceptor implements HandlerInterceptor {
 		HttpSession session = request.getSession();
 		Employees me = (Employees) session.getAttribute(LoginController.SESSION_ME);
 		if (me == null) {
-			// This means the user has not logged-in, so it will redirect into login page.
+			// This means the user has not logined, so it will redirect into login page.
 			String contextPath = request.getContextPath();
 			response.sendRedirect(contextPath + "/login");
 			return false;
 		}
 		return true;
+	}
+
+	@Override
+	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
+							  ModelAndView modelAndView) throws Exception {
+		Object me = request.getSession().getAttribute("ME");
+		if (me != null && modelAndView != null) {
+			String role = ((Employees) me).getRole().name();
+			modelAndView.addObject("Role", role);
+		}
 	}
 
 }

@@ -1,17 +1,13 @@
 package BIA.Business.Impact.Analysis.Model;
 
-import java.util.List;
-
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.List;
+
 /**
- * 
- * 
+ *
+ *
  * here, In Employee model class we added the 2 new key named ReportToPerson and
  * SunEmployees and generated the getter setter method for it. Also, we updated
  * the datatype for ReportToid with int eariler it was string.
@@ -19,9 +15,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "Employees")
 public class Employees {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
-	private int id;
+
+	private String id;
 	private String First_name;
 	private String Last_name;
 	private String Designation;
@@ -29,10 +24,11 @@ public class Employees {
 	private String Email;
 	private int PhoneNo;
 	private String Address;
-	private int ReportToid;
+	private String ReportToid;
 	private String ReportToPerson;
 	private List<Employees> SubEmployees;
 	private String Password;
+	private Role Role;
 
 	public int getPhoneNo() {
 		return PhoneNo;
@@ -58,11 +54,13 @@ public class Employees {
 		Address = address;
 	}
 
-	public int getId() {
+
+
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -98,11 +96,11 @@ public class Employees {
 		Responsibility = responsibility;
 	}
 
-	public int getReportToid() {
+	public String getReportToid() {
 		return ReportToid;
 	}
 
-	public void setReportToid(int reportToid) {
+	public void setReportToid(String reportToid) {
 		ReportToid = reportToid;
 	}
 
@@ -129,5 +127,12 @@ public class Employees {
 	public void setPassword(String password) {
 		Password = password;
 	}
-	
+
+	public BIA.Business.Impact.Analysis.Model.Role getRole() {
+		return Role;
+	}
+
+	public void setRole(BIA.Business.Impact.Analysis.Model.Role role) {
+		Role = role;
+	}
 }

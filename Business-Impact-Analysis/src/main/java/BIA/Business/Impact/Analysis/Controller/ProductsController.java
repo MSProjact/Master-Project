@@ -1,24 +1,21 @@
 package BIA.Business.Impact.Analysis.Controller;
 
-import java.util.List;
+import BIA.Business.Impact.Analysis.Model.*;
+import BIA.Business.Impact.Analysis.Service.ProductCategoryService;
+import BIA.Business.Impact.Analysis.Service.ProductionStepsService;
+import BIA.Business.Impact.Analysis.Service.ProductsService;
+import BIA.Business.Impact.Analysis.Validator.RoleValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import BIA.Business.Impact.Analysis.Model.Employees;
-import BIA.Business.Impact.Analysis.Model.ProductCategory;
-import BIA.Business.Impact.Analysis.Model.ProductionSteps;
-import BIA.Business.Impact.Analysis.Model.Products;
-import BIA.Business.Impact.Analysis.Service.ProductCategoryService;
-import BIA.Business.Impact.Analysis.Service.ProductionStepsService;
-import BIA.Business.Impact.Analysis.Service.ProductsService;
-
-import org.springframework.stereotype.Controller;
-
-import org.springframework.ui.Model;
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Controller("/products")
 public class ProductsController {
@@ -41,7 +38,8 @@ public class ProductsController {
 	}
 
 	@RequestMapping("/newProduct")
-	public String showNewProductsPage(Model model) {
+	public String showNewProductsPage(Model model, HttpServletRequest request) {
+		RoleValidator.checkUserRights(request, Role.EMPLOYEE);
 		Products Products = new Products();
 		model.addAttribute("Products", Products);
 		
@@ -54,17 +52,22 @@ public class ProductsController {
 		return "Add_NewProduct";
 	}
 
-	
-	
-	
 	@RequestMapping(value = "/saveProduct", method = RequestMethod.POST)
-	public String saveProduct(@ModelAttribute("Products") Products Products) {
+	public String saveProduct(@ModelAttribute("Products") Products Products, HttpServletRequest request) {
 		service.save(Products);
-		return "redirect:/Productslist";
+		return "redirect:/newProductCategory";
 	}
+	
+	
+	/*
+	 * @RequestMapping(value = "/saveProduct", method = RequestMethod.POST) public
+	 * String saveProduct(@ModelAttribute("Products") Products Products) {
+	 * service.save(Products); return "redirect:/Productslist"; }
+	 */
 
 	@RequestMapping("/editproduct/{id}")
-	public ModelAndView showEditProductPage(@PathVariable(name = "id") int id) {
+	public ModelAndView showEditProductPage(@PathVariable(name = "id") String id, HttpServletRequest request) {
+		RoleValidator.checkUserRights(request, Role.MANAGER);
 		ModelAndView mav = new ModelAndView("Edit_Products");
 		Products Products = service.get(id);
 		mav.addObject("Products", Products);
@@ -72,7 +75,8 @@ public class ProductsController {
 	}
 
 	@RequestMapping("/deleteProduct/{id}")
-	public String deleteProducts(@PathVariable(name = "id") int id) {
+	public String deleteProducts(@PathVariable(name = "id") String id, HttpServletRequest request) {
+		RoleValidator.checkUserRights(request, Role.MANAGER);
 		service.delete(id);
 		return "redirect:/Productslist";
 	}

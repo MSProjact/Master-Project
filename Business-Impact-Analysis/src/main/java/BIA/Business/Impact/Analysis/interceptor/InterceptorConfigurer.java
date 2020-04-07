@@ -9,7 +9,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * All interceptors has been added here.
  * Now, in this project, there is only one inpterceptor "RootInterceptor".
  * An instance of RootInterceptor has been registered in Spring InterceptorRegistry.
- * 
  */
 @Component
 public class InterceptorConfigurer implements WebMvcConfigurer {

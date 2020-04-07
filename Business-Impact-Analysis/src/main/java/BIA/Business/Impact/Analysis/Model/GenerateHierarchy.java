@@ -1,31 +1,31 @@
 package BIA.Business.Impact.Analysis.Model;
 
-import java.util.List;
-
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.util.List;
 
 @Document(collection = "GenerateHierarchy")
 public class GenerateHierarchy {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "EmployeeId")
-	private int employeeId;
+	/*
+	 * @GeneratedValue(strategy = GenerationType.IDENTITY)
+	 *
+	 * @Column(name = "EmployeeId")
+	 */
+	private String employeeId;
 	private String employeeName;
-	private int reportToEmployeeId;
+	private String reportToEmployeeId;
 	private String product;
 	private String productionStep;
 	private String productCategory;
 	private String department;
 	private List<GenerateHierarchy> subGenerateHierarchy;
-	public int getEmployeeId() {
+
+	public String getEmployeeId() {
 		return employeeId;
 	}
-	public void setEmployeeId(int employeeId) {
+	public void setEmployeeId(String employeeId) {
 		this.employeeId = employeeId;
 	}
 	public String getEmployeeName() {
@@ -34,10 +34,10 @@ public class GenerateHierarchy {
 	public void setEmployeeName(String employeeName) {
 		this.employeeName = employeeName;
 	}
-	public int getReportToEmployeeId() {
+	public String getReportToEmployeeId() {
 		return reportToEmployeeId;
 	}
-	public void setReportToEmployeeId(int reportToEmployeeId) {
+	public void setReportToEmployeeId(String reportToEmployeeId) {
 		this.reportToEmployeeId = reportToEmployeeId;
 	}
 	public String getProduct() {
@@ -70,5 +70,5 @@ public class GenerateHierarchy {
 	public void setSubGenerateHierarchy(List<GenerateHierarchy> subGenerateHierarchy) {
 		this.subGenerateHierarchy = subGenerateHierarchy;
 	}
-	
+
 }

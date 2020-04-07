@@ -11,18 +11,34 @@
 		<br />
 		<form action="#" th:action="@{/saveDepartment}" th:object="${Departments}" method="post">
 			<table border="0" cellpadding="10">
-				<tr>
+				<!-- <tr>
 					<td>Department ID:</td>
 					<td><input type="text" th:field="*{id}" /></td>
-				</tr>
+				</tr> -->
 				<tr>
 					<td>Department Name:</td>
 					<td><input type="text" th:field="*{Dep_Name}" /></td>
 				</tr>
-				<tr>
+				<!-- <tr>
 					<td>Department Head:</td>
 					<td><input type="text" th:field="*{Dep_Head}" /></td>
-				</tr>
+				</tr> -->
+				
+					 <tr>
+                <td>Employee List:</td>
+                <td>
+                    <select th:field="*{Dep_Head}" multiple="multiple">
+                         <option value=""> Name </option>
+                         <option th:each="Employees : ${Employeeslist}"
+                            th:value="${Employees.First_name}"
+                            th:text="${Employees.First_name}"
+                           />
+                  </select>
+ 
+                </td>
+            </tr>
+				
+				<tr>
 					<td><button type="submit">Submit</button></td>
 					<td><input type="button" onclick="window.history.back();" value="Cancel"></td>
 				</tr>

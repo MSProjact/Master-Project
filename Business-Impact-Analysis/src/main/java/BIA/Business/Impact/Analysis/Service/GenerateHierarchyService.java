@@ -24,11 +24,11 @@ public class GenerateHierarchyService {
 		repo.save(GenerateHierarchy);
 	}
 
-	public GenerateHierarchy get(int id) {
+	public GenerateHierarchy get(String id) {
 		return repo.findById(id).get();
 	}
 
-	public void delete(int id) {
+	public void delete(String id) {
 		repo.deleteById(id);
 	}
 }

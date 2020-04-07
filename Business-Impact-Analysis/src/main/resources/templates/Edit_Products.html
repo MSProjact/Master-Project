@@ -5,7 +5,12 @@
 	<title>Edit Product</title>
 </head>
 <body>
-	<div th:replace="header"></div>
+	<div th:if="${Role == 'ADMIN' || Role == 'EMPLOYEE'}">
+		<div th:replace="header"></div>
+	</div>
+	<div th:if="${Role == 'MANAGER'}">
+		<div th:replace="header_manager"></div>
+	</div>
 	<div align="center">
 		<h1>Edit Product</h1>
 		<br />
@@ -24,27 +29,26 @@
 					<td>Product Description:</td>
 					<td><input type="text" th:field="*{P_Description}" /></td>
 				</tr>
-				<tr>
-					<td>Product Type:</td>
-					<td><input type="text" th:field="*{P_Type}" /></td>
-				</tr>
-
+<!--				<tr>-->
+<!--					<td>Product Type:</td>-->
+<!--					<td><input type="text" th:field="*{P_Type}" /></td>-->
+<!--				</tr>-->
 				<tr>
 					<td>Remarks:</td>
 					<td><input type="text" th:field="*{P_Remarks}" /></td>
 				</tr>
-								<tr>
+					<tr>
 					<td>Cost of Lost Product:</td>
 					<td><input type="text" th:field="*{Cost_LostProd}" /></td>
 				</tr>
-								<tr>
+												<tr>
 					<td>Legal costs:</td>
 					<td><input type="text" th:field="*{Legal_Costs}" /></td>
 				</tr>
-								<tr>
+												<tr>
 					<td>Interest Payments:</td>
 					<td><input type="text" th:field="*{Interest_Payments}" /></td>
-				</tr>			
+				</tr>
 				
 				<tr>
 					<td><button type="submit">Save</button></td>

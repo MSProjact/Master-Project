@@ -15,10 +15,24 @@
  
             <table border="0" cellpadding="10">
             
-             <tr>
+            <!--  <tr>
                     <td> ID:</td>
                     <td><input type="text" th:field="*{id}" /></td>
-                </tr>
+                </tr> -->
+                 <tr>
+                <td>Function Name:</td>
+                <td>
+                    <select th:field="*{Function_name}">
+                         <option value=""> Name </option>
+                         <option th:each="ProductionSteps : ${ProductionStepslist}"
+                            th:value="${ProductionSteps.Funct_Name}"
+                            th:text="${ProductionSteps.Funct_Name}"
+                           />
+                  </select>
+ 
+                </td>
+            </tr>
+                
                 <tr>
                     <td>Cost Per Hour:</td>
                     <td><input type="text" th:field="*{Cost_PH}" /></td>

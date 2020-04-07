@@ -24,11 +24,11 @@ public class EmployeesService {
 		repo.save(Employees);
 	}
 
-	public Employees get(int id) {
+	public Employees get(String id) {
 		return repo.findById(id).get();
 	}
 
-	public void delete(int id) {
+	public void delete(String id) {
 		repo.deleteById(id);
 	}
 }

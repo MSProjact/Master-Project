@@ -12,13 +12,13 @@
 		<br />
 		<form action="#" th:action="@{/saveProductionStep}" th:object="${ProductionSteps}" method="post">
 			<table border="0" cellpadding="10">
-				<tr>
+				<!-- <tr>
 					<td>Production Step ID:</td>
 					<td><input type="text" th:field="*{id}" /></td>
-				</tr>
+				</tr> -->
 				<tr>
 					<td>Function Name:</td>
-					<td><input type="text" th:field="*{Funct_Name}" /></td>
+					<td><input type="text" th:field="*{Funct_Name}" required="required" /></td>
 				</tr>
 			<!-- 	<tr>
 					<td>Criticality:</td>
@@ -54,12 +54,23 @@
  
                 </td>
             </tr>
-				
+            
+			<!-- 	<tr>
+			
 				<td>
 					<button type="submit">Next</button></td>
 					<td><input type="button" onclick="window.history.back();" value="Cancel"></td>
 					
+				</tr> -->
+				<tr>	
+				<td>
+					<td><button type="submit">Save</button></td>
+					<td><input type="button" onclick="window.location.href = '/NewResources'" value="Next"></td>
+					<td><input type="button" onclick="window.history.back();" value="Cancel"></td>
+					<td><input type="button" onclick="window.location.href = '/newProductionStep'" value="Add New Production Step"></td>
+					
 				</tr>
+				
 				
 				
 				<!-- <tr>

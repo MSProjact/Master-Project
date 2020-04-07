@@ -6,7 +6,12 @@
 <title>Edit Production Step</title>
 </head>
 <body>
-	<div th:replace="header"></div>
+	<div th:if="${Role == 'ADMIN' || Role == 'EMPLOYEE'}">
+		<div th:replace="header"></div>
+	</div>
+	<div th:if="${Role == 'MANAGER'}">
+		<div th:replace="header_manager"></div>
+	</div>
 	<div align="center">
 		<h3>Edit Production Step</h3>
 		<br />
