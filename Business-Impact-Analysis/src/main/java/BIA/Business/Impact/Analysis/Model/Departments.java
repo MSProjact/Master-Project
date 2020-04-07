@@ -19,7 +19,8 @@ public class Departments {
 	private String Dep_Name;
 	private String Dep_Head;
 	public List<Employees> employees;
-
+	public List<Departments> departments;
+	
 	public List<Employees> getEmployees() {
 		return employees;
 	}
@@ -27,8 +28,6 @@ public class Departments {
 	public void setEmployees(List<Employees> employees) {
 		this.employees = employees;
 	}
-
-
 
 	public String getId() {
 		return id;
@@ -52,6 +51,11 @@ public class Departments {
 
 	public void setDep_Head(String dep_Head) {
 		Dep_Head = dep_Head;
+	}
+
+	public void setDepartments(List<Departments> listAll) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -17,8 +17,8 @@
 		<table border="1" cellpadding="10">
 			<thead>
 				<tr>
-<!-- 					<th>Employee ID</th>
- -->					<th>Employee Name</th>
+					<th>Employee ID</th>
+					<th>Employee Name</th>
 					<th>Reported Emp ID</th>
 					<th>Product</th>
 					<th>ProductionStep</th>
@@ -29,8 +29,8 @@
 			</thead>
 			<tbody>
 				<tr th:each="Hierarchy : ${hierarchyList}">
-<!-- 					<td th:text="${Hierarchy.employeeId}"></td>
- -->					<td th:text="${Hierarchy.employeeName}"></td>
+					<td th:text="${Hierarchy.employeeId}"></td>
+					<td th:text="${Hierarchy.employeeName}"></td>
 					<td th:text="${Hierarchy.reportToEmployeeId}"></td>
 					<td th:text="${Hierarchy.product}"></td>
 					<td th:text="${Hierarchy.productionStep}">p</td>

@@ -18,11 +18,11 @@
 		<table border="1" cellpadding="10">
 			<thead>
 				<tr>
-<!-- 					<th>Product ID</th>
- -->					<th>Product Name</th>
+					<th>Product ID</th>
+					<th>Product Name</th>
 					<th>Product Description</th>
 					<th>Remarks</th>
-					<th>Functions</th>
+					<th>Funtions</th>
 					<th>Product Category Name</th>
 					<th>Cost of Lost Product</th>
 					<th>Legal costs</th>
@@ -32,11 +32,11 @@
 			</thead>
 			<tbody>
 				<tr th:each="Products : ${Productslist}">
-<!-- 					<td th:text="${Products.id}">Product ID</td>
- -->					<td th:text="${Products.P_Name}">Product Name</td>
+					<td th:text="${Products.id}">Product ID</td>
+					<td th:text="${Products.P_Name}">Product Name</td>
 					<td th:text="${Products.P_Description}">Product Description</td>
 					<td th:text="${Products.P_Remarks}">Remarks</td>
-					<td th:text="${Products.Fun_Name}">Functions</td>
+					<td th:text="${Products.Fun_Name}">Funtions</td>
 					<td th:text="${Products.ProductCategoryName}">Product Category Name</td>
 					<td th:text="${Products.Cost_LostProd}">Cost of Lost Product</td>
 					<td th:text="${Products.Legal_Costs}">Legal costs</td>
