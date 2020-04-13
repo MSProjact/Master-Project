@@ -3,7 +3,7 @@ package BIA.Business.Impact.Analysis.Controller;
 import BIA.Business.Impact.Analysis.Model.ProductCategory;
 import BIA.Business.Impact.Analysis.Model.Role;
 import BIA.Business.Impact.Analysis.Service.ProductCategoryService;
-import BIA.Business.Impact.Analysis.Validator.RoleValidator;
+import BIA.Business.Impact.Analysis.utils.UserUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,15 +24,13 @@ public class ProductCategoryController {
 
 	@RequestMapping("/ProductsCategorylist")
 	public String viewHomePage(Model model) {
-		List<ProductCategory> ProductCategorylist = service.listAll();
-		model.addAttribute("ProductCategorylist", ProductCategorylist);
-
+		model.addAttribute("ProductCategorylist", service.listAll());
 		return "Manage_ProductCategory";
 	}
 
 	@RequestMapping("/newProductCategory")
 	public String showNewProductsPage(Model model, HttpServletRequest request) {
-		RoleValidator.checkUserRights(request, Role.EMPLOYEE);
+		UserUtil.checkUserRights(request, Role.EMPLOYEE);
 		ProductCategory ProductCategory = new ProductCategory();
 		model.addAttribute("ProductCategory", ProductCategory);
 
@@ -48,7 +46,7 @@ public class ProductCategoryController {
 
 	@RequestMapping("/editProductCategory/{id}")
 	public ModelAndView showEditProductPage(@PathVariable(name = "id") String id, HttpServletRequest request) {
-		RoleValidator.checkUserRights(request, Role.MANAGER);
+		UserUtil.checkUserRights(request, Role.MANAGER);
 		ModelAndView mav = new ModelAndView("Edit_ProductCategory");
 		ProductCategory ProductCategory = service.get(id);
 		mav.addObject("ProductCategory", ProductCategory);
@@ -57,7 +55,7 @@ public class ProductCategoryController {
 
 	@RequestMapping("/deleteProductCategory/{id}")
 	public String deleteProducts(@PathVariable(name = "id") String id, HttpServletRequest request) {
-		RoleValidator.checkUserRights(request, Role.MANAGER);
+		UserUtil.checkUserRights(request, Role.MANAGER);
 		service.delete(id);
 		return "redirect:/ProductsCategorylist";
 	}
@@ -71,7 +69,7 @@ public class ProductCategoryController {
 	 */
 	@RequestMapping("/viewProductCategory")
 	public String generateHierarchy(HttpServletRequest request, Model model) {
-		model.addAttribute("ProductCategoryList", service.listAll());
+		model.addAttribute("ProductCategoryList", service.getProductCategoryForCurrentEmployee());
 		return "ProductCategory";
 	}
 

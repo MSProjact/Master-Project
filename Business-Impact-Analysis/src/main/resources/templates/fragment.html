@@ -6,9 +6,9 @@
 </head>
 <section th:fragment="category">
 	<ul>
-		<li th:each="Hierarchy : ${HierarchyList}">
-			<span th:text="'Name : ' + ${Hierarchy.EmployeeName} + ', Product : ' + ${Hierarchy.Product} + ', ProductionStep : ' + ${Hierarchy.ProductionStep} + ', ProductCategory : ' + ${Hierarchy.ProductCategory} + ', Department : ' + ${Hierarchy.Department}">Main Cat</span>
-			<section th:include="@{fragment} :: category" th:with="HierarchyList=${Hierarchy.SubGenerateHierarchy}"></section>
+		<li th:each="hierarchy : ${HierarchyList}">
+			<span th:text="'Name : ' + ${hierarchy.employee.getFullName()} + ', Product : ' + ${hierarchy.Product} + ', ProductionStep : ' + ${hierarchy.ProductionStep} + ', ProductCategory : ' + ${hierarchy.ProductCategory} + ', Department : ' + ${hierarchy.Department?.Dep_Name}">Main Cat</span>
+			<section th:include="@{fragment} :: category" th:with="HierarchyList=${hierarchy.SubGenerateHierarchy}"></section>
 		</li>
 	</ul>
 </section>
@@ -24,9 +24,9 @@
 
 <section th:fragment="department">
 	<ul>
-		<li th:each="Department : ${DepartmentList}">
-			<span th:text="'Department Name : ' + ${Department.Dep_Name} + ', Department Head : ' + ${Department.Dep_Head}">Main Cat</span>
-			<section th:include="@{fragment} :: department" th:with="DepartmentList=${Department.departments}"></section>
+		<li th:each="department : ${DepartmentList}">
+			<span th:text="'Department Name : ' + ${department.name} + ', Department Head : ' + ${department.head}">Main Cat</span>
+			<section th:include="@{fragment} :: department" th:with="DepartmentList=${department.subDepartments}"></section>
 		</li>
 	</ul>
 </section>
@@ -34,15 +34,17 @@
 <section th:fragment="productCategory">
 	<ul>
 		<li th:each="ProductCategory : ${ProductCategoryList}">
-			<span th:text="'Category name : ' + ${ProductCategory.Categoryname} + ', Description : ' + ${ProductCategory.Description}">Main Cat</span>
+			<span th:text="'Category name : ' + ${ProductCategory.getCategoryName()} + ', Description : ' + ${ProductCategory.Description}">Main Cat</span>
 		</li>
 	</ul>
 </section>
 
 <section th:fragment="productionSteps">
 	<ul>
-		<li th:each="ProductionSteps : ${ProductionStepsList}">
-			<span th:text="'Production steps name : ' + ${ProductionSteps.Funct_Name} + ', Criticality : ' + ${ProductionSteps.Criticality} + ', Report to : ' + ${ProductionSteps.ReportTo}">Main Cat</span>
+		<li th:each="step : ${ProductionStepsList}">
+			<span th:text="'Production steps name : ' + ${step.name} +  ', Report to : ' + ${step.employeeName}">Main Cat</span>
+			<section th:include="@{fragment} :: productionSteps" th:with="ProductionStepsList=${step.subSteps}"></section>
+
 		</li>
 	</ul>
 </section>

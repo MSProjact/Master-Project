@@ -4,7 +4,7 @@ import BIA.Business.Impact.Analysis.Model.*;
 import BIA.Business.Impact.Analysis.Service.ProductCategoryService;
 import BIA.Business.Impact.Analysis.Service.ProductionStepsService;
 import BIA.Business.Impact.Analysis.Service.ProductsService;
-import BIA.Business.Impact.Analysis.Validator.RoleValidator;
+import BIA.Business.Impact.Analysis.utils.UserUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,15 +31,14 @@ public class ProductsController {
 
 	@RequestMapping("/Productslist")
 	public String viewHomePage(Model model) {
-		List<Products> Productslist = service.listAll();
-		model.addAttribute("Productslist", Productslist);
+		model.addAttribute("Productslist", service.getProductsForCurrentEmployee());
 		
 		return "Manage_Products";
 	}
 
 	@RequestMapping("/newProduct")
 	public String showNewProductsPage(Model model, HttpServletRequest request) {
-		RoleValidator.checkUserRights(request, Role.EMPLOYEE);
+		UserUtil.checkUserRights(request, Role.EMPLOYEE);
 		Products Products = new Products();
 		model.addAttribute("Products", Products);
 		
@@ -67,7 +66,7 @@ public class ProductsController {
 
 	@RequestMapping("/editproduct/{id}")
 	public ModelAndView showEditProductPage(@PathVariable(name = "id") String id, HttpServletRequest request) {
-		RoleValidator.checkUserRights(request, Role.MANAGER);
+		UserUtil.checkUserRights(request, Role.MANAGER);
 		ModelAndView mav = new ModelAndView("Edit_Products");
 		Products Products = service.get(id);
 		mav.addObject("Products", Products);
@@ -76,14 +75,14 @@ public class ProductsController {
 
 	@RequestMapping("/deleteProduct/{id}")
 	public String deleteProducts(@PathVariable(name = "id") String id, HttpServletRequest request) {
-		RoleValidator.checkUserRights(request, Role.MANAGER);
+		UserUtil.checkUserRights(request, Role.MANAGER);
 		service.delete(id);
 		return "redirect:/Productslist";
 	}
 	
 	@RequestMapping("/viewProducts")
 	public String generateHierarchy(HttpServletRequest request, Model model) {
-		model.addAttribute("ProductList", service.listAll());
+		model.addAttribute("ProductList", service.getProductsForCurrentEmployee());
 		return "Product";
 	}
 

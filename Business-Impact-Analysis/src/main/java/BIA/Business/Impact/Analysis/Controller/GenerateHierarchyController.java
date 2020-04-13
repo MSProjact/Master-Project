@@ -2,7 +2,7 @@ package BIA.Business.Impact.Analysis.Controller;
 
 import BIA.Business.Impact.Analysis.Model.*;
 import BIA.Business.Impact.Analysis.Service.*;
-import BIA.Business.Impact.Analysis.Validator.RoleValidator;
+import BIA.Business.Impact.Analysis.utils.UserUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -46,7 +46,7 @@ public class GenerateHierarchyController {
 	 */
 	@RequestMapping("/generateHierarchy")
 	public String generateHierarchyPage(Model model, HttpServletRequest request) {
-		RoleValidator.checkUserRights(request, Role.MANAGER);
+		UserUtil.checkUserRights(request, Role.MANAGER);
 		GenerateHierarchy generateHierarchy = new GenerateHierarchy();
 		model.addAttribute("GenerateHierarchy", generateHierarchy);
 		List<Employees> Employeeslist = employeeService.listAll();
@@ -69,8 +69,8 @@ public class GenerateHierarchyController {
 	 * @return the redirect string on specific method.
 	 */
 	@RequestMapping(value = "/saveHierarchy", method = RequestMethod.POST)
-	public String saveEmployee(@ModelAttribute("GenerateHierarchy") GenerateHierarchy GenerateHierarchy) {
-		generateHierarchyService.save(GenerateHierarchy);
+	public String saveEmployee(@ModelAttribute("GenerateHierarchy") GenerateHierarchy generateHierarchy) {
+		generateHierarchyService.save(generateHierarchy);
 		return "redirect:/manageHierarchy";
 	}
 
@@ -82,7 +82,7 @@ public class GenerateHierarchyController {
 	 */
 	@RequestMapping("/manageHierarchy")
 	public String manageHierarchy(Model model, HttpServletRequest request) {
-		RoleValidator.checkUserRights(request, Role.MANAGER);
+		UserUtil.checkUserRights(request, Role.MANAGER);
 		List<GenerateHierarchy> hierarchyList = generateHierarchyService.listAll();
 		model.addAttribute("hierarchyList", hierarchyList);
 		return "Manage_Hierarchy";
@@ -96,7 +96,7 @@ public class GenerateHierarchyController {
 	 */
 	@RequestMapping("/deleteHierarchy/{id}")
 	public String deleteHierarchy(@PathVariable(name = "id") String id, HttpServletRequest request) {
-		RoleValidator.checkUserRights(request, Role.MANAGER);
+		UserUtil.checkUserRights(request, Role.MANAGER);
 		generateHierarchyService.delete(id);
 		return "redirect:/manageHierarchy";
 	}
@@ -110,7 +110,7 @@ public class GenerateHierarchyController {
 	 */
 	@RequestMapping("/editHierarchy/{id}")
 	public String editHierarchy(@PathVariable(name = "id") String id, Model model, HttpServletRequest request) {
-		RoleValidator.checkUserRights(request, Role.MANAGER);
+		UserUtil.checkUserRights(request, Role.MANAGER);
 		GenerateHierarchy generateHierarchy = generateHierarchyService.get(id);
 		model.addAttribute("GenerateHierarchy", generateHierarchy);
 		List<Employees> Employeeslist = employeeService.listAll();
@@ -138,49 +138,8 @@ public class GenerateHierarchyController {
 	 */
 	@RequestMapping("/viewHierarchy")
 	public String generateHierarchy(HttpServletRequest request, Model model) {
-		List<GenerateHierarchy> generateHierarchy = generateHierarchyService.listAll();
-		List<GenerateHierarchy> mainHierarchyList = new ArrayList<GenerateHierarchy>();
-		HttpSession session = request.getSession();
-		Employees me = (Employees) session.getAttribute(LoginController.SESSION_ME);
-		for (final GenerateHierarchy parentHierarchy : generateHierarchy) {
-			if (parentHierarchy.getEmployeeId().equals(me.getId())) {
-				// if parentHierarchy is mine, add my sub-module
-				List<GenerateHierarchy> childHierarchyList = getSubModule(parentHierarchy.getEmployeeId(),
-						generateHierarchy);
-				parentHierarchy.setSubGenerateHierarchy(childHierarchyList);
-				mainHierarchyList.add(parentHierarchy);
-			}
-		}
-		model.addAttribute("HierarchyList", mainHierarchyList);
+		model.addAttribute("HierarchyList", generateHierarchyService.getGenerateHierarchyList());
 		return "Hierarchy";
 	}
 
-	/**
-	 * Gets the sub module.
-	 *
-	 * @param i           it takes the parent id into param for comparing with
-	 *                     child report to id.
-	 * @param employeeList in this list, all the employee list are available for
-	 *                     comparing the parent id with child report to id.
-	 * @return the employee model list who comes under the particular parent.
-	 * 
-	 *         here, We called this method recursively for getting the tree
-	 *         hierarchy
-	 */
-	public List<GenerateHierarchy> getSubModule(String i, List<GenerateHierarchy> generateHierarchy) {
-		List<GenerateHierarchy> subHierarchyList = new ArrayList<GenerateHierarchy>();
-		for (final GenerateHierarchy child : generateHierarchy) {
-			if (child.getReportToEmployeeId().equals(i)) {
-				subHierarchyList.add(child);
-			}
-		}
-		if (subHierarchyList.size() > 0) {
-			for (final GenerateHierarchy subHierarchy : subHierarchyList) {
-				List<GenerateHierarchy> childHierarchyList = getSubModule(subHierarchy.getEmployeeId(),
-						generateHierarchy);
-				subHierarchy.setSubGenerateHierarchy(childHierarchyList);
-			}
-		}
-		return subHierarchyList;
-	}
 }

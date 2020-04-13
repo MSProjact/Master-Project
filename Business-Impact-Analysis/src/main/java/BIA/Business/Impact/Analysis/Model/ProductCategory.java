@@ -1,9 +1,5 @@
 package BIA.Business.Impact.Analysis.Model;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -13,7 +9,7 @@ public class ProductCategory {
 
 	@Id
 	private String id;
-	private String Categoryname;
+	private String categoryName;
 	private String Description;
 
 	
@@ -24,11 +20,11 @@ public class ProductCategory {
 	public void setId(String id) {
 		this.id = id;
 	}
-	public String getCategoryname() {
-		return Categoryname;
+	public String getCategoryName() {
+		return categoryName;
 	}
-	public void setCategoryname(String categoryname) {
-		Categoryname = categoryname;
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
 	}
 	public String getDescription() {
 		return Description;

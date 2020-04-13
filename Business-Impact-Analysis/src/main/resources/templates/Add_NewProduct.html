@@ -63,8 +63,8 @@
                     <select th:field="*{ProductCategoryName}">
                          <option value=""> Product Category </option>
                          <option th:each="ProductCategory : ${ProductCategorylist}"
-                            th:value="${ProductCategory.Categoryname}"
-                            th:text="${ProductCategory.Categoryname}"
+                            th:value="${ProductCategory.getCategoryName()}"
+                            th:text="${ProductCategory.getCategoryName()}"
                            />
                   </select>
  

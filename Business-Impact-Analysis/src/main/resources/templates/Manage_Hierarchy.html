@@ -28,18 +28,18 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr th:each="Hierarchy : ${hierarchyList}">
-					<td th:text="${Hierarchy.employeeId}"></td>
-					<td th:text="${Hierarchy.employeeName}"></td>
-					<td th:text="${Hierarchy.reportToEmployeeId}"></td>
-					<td th:text="${Hierarchy.product}"></td>
-					<td th:text="${Hierarchy.productionStep}">p</td>
-					<td th:text="${Hierarchy.productCategory}"></td>
-					<td th:text="${Hierarchy.department}"></td>
+				<tr th:each="hierarchy : ${hierarchyList}">
+					<td th:text="${hierarchy.getEmployee()?.getId()}"></td>
+					<td th:text="${hierarchy.getEmployee()?.getFullName()}"></td>
+					<td th:text="${hierarchy.getEmployee()?.getReportToid()}"></td>
+					<td th:text="${hierarchy.product}"></td>
+					<td th:text="${hierarchy.productionStep}">p</td>
+					<td th:text="${hierarchy.productCategory}"></td>
+					<td th:text="${hierarchy.getDepartment()?.getDep_Name()}"></td>
 					<td>
-						<a th:href="@{'/editHierarchy/' + ${Hierarchy.employeeId}}">Edit</a>
+						<a th:href="@{'/editHierarchy/' + ${hierarchy.getId()}}">Edit</a>
 						&nbsp;&nbsp;&nbsp; 
-						<a th:href="@{'/deleteHierarchy/' + ${Hierarchy.employeeId}}">Delete</a>
+						<a th:href="@{'/deleteHierarchy/' + ${hierarchy.getId()}}">Delete</a>
 					</td>
 				</tr>
 			</tbody>

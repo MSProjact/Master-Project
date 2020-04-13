@@ -20,10 +20,10 @@
 				<tr>
 					<td>Employee Name:</td>
 					<td>
-						<input type="hidden" th:field="*{employeeId}">
-						<input type="hidden" th:field="*{employeeName}">
-						<input type="hidden" th:field="*{reportToEmployeeId}">
-						<input type="text" th:field="*{employeeName}" disabled/>
+						<input type="hidden" th:field="*{id}">
+						<input type="hidden" th:field="*{employee.first_name}">
+						<input type="hidden" th:field="*{employee.reportToid}">
+						<input type="text" th:field="*{employee.first_name}" disabled/>
 					</td>
 				</tr>
 				<tr>
@@ -49,16 +49,16 @@
 					<td>
 						<select th:field="*{productCategory}">
 							<option selected value="">Select Any</option>
-							<option th:each="Categories : ${ProductCategorylist}" th:value="${Categories.Categoryname}" th:text="${Categories.Categoryname}"></option>
+							<option th:each="Categories : ${ProductCategorylist}" th:value="${Categories.getCategoryName()}" th:text="${Categories.getCategoryName()}"></option>
 						</select>
 					</td>
 				</tr>
 				<tr>
 					<td>Select Department:</td>
 					<td>
-						<select th:field="*{department}">
+						<select th:field="*{department.id}">
 							<option selected value="">Select Any</option>
-							<option th:each="Departments : ${Departmentslist}" th:value="${Departments.Dep_Name}" th:text="${Departments.Dep_Name}"></option>
+							<option th:each="Departments : ${Departmentslist}" th:value="${Departments.id}" th:text="${Departments.Dep_Name}"></option>
 						</select>
 					</td>
 				</tr>

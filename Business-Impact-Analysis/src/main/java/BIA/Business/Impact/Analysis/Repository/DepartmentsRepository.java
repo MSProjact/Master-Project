@@ -8,12 +8,8 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 
 import BIA.Business.Impact.Analysis.Model.Departments;
 
-public interface DepartmentsRepository  extends  MongoRepository <Departments, Integer> {
+public interface DepartmentsRepository  extends  MongoRepository <Departments, String> {
 
-	void deleteById(String id);
 
-	Optional<Departments> findById(String id);
-
-	
 
 }

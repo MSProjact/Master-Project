@@ -8,11 +8,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 
 import BIA.Business.Impact.Analysis.Model.Resources;
 
-public interface ResourcesRepository  extends  MongoRepository <Resources, Integer> {
-
-	Optional<Resources> findById(String id);
-
-	void deleteById(String id);
+public interface ResourcesRepository  extends  MongoRepository <Resources, String> {
 
 	
 

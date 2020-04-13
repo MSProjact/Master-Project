@@ -5,7 +5,7 @@ import BIA.Business.Impact.Analysis.Model.Resources;
 import BIA.Business.Impact.Analysis.Model.Role;
 import BIA.Business.Impact.Analysis.Service.ProductionStepsService;
 import BIA.Business.Impact.Analysis.Service.ResourcesService;
-import BIA.Business.Impact.Analysis.Validator.RoleValidator;
+import BIA.Business.Impact.Analysis.utils.UserUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,7 +36,7 @@ public class ResourcesController {
 
 	@RequestMapping("/NewResources")
 	public String showNewResourcesPage(Model model, HttpServletRequest request) {
-		RoleValidator.checkUserRights(request, Role.EMPLOYEE);
+		UserUtil.checkUserRights(request, Role.EMPLOYEE);
 		Resources Resources = new Resources();
 		model.addAttribute("Resources", Resources);
 		List<ProductionSteps> ProductionSteps = service1.listAll();
@@ -53,7 +53,7 @@ public class ResourcesController {
 
 	@RequestMapping("/EditResources/{id}")
 	public ModelAndView showEditResourcePage(@PathVariable(name = "id") String id, HttpServletRequest request) {
-		RoleValidator.checkUserRights(request, Role.MANAGER);
+		UserUtil.checkUserRights(request, Role.MANAGER);
 		ModelAndView mav = new ModelAndView("Edit_Recourses");
 		Resources Resources = service.get(id);
 		mav.addObject("Resources", Resources);
@@ -62,7 +62,7 @@ public class ResourcesController {
 
 	@RequestMapping("/DeleteResources/{id}")
 	public String deleteResources(@PathVariable(name = "id") String id, HttpServletRequest request) {
-		RoleValidator.checkUserRights(request, Role.MANAGER);
+		UserUtil.checkUserRights(request, Role.MANAGER);
 		service.delete(id);
 		return "redirect:/Resourceslist";
 	}

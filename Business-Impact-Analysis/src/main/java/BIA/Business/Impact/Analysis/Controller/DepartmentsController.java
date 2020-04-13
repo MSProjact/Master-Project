@@ -5,7 +5,7 @@ import BIA.Business.Impact.Analysis.Model.Employees;
 import BIA.Business.Impact.Analysis.Model.Role;
 import BIA.Business.Impact.Analysis.Service.DepartmentsService;
 import BIA.Business.Impact.Analysis.Service.EmployeesService;
-import BIA.Business.Impact.Analysis.Validator.RoleValidator;
+import BIA.Business.Impact.Analysis.utils.UserUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +39,7 @@ public class DepartmentsController {
 
 	@RequestMapping("/newDepartment")
 	public String showNewDepartmentsPage(Model model, HttpServletRequest request) {
-		RoleValidator.checkUserRights(request, Role.EMPLOYEE);
+		UserUtil.checkUserRights(request, Role.EMPLOYEE);
 		Departments Departments = new Departments();
 		model.addAttribute("Departments", Departments);
 		List<Employees> employees = service1.listAll();
@@ -56,7 +55,7 @@ public class DepartmentsController {
 
 	@RequestMapping("/editDepartment/{id}")
 	public ModelAndView showEditDepartmentPage(@PathVariable(name = "id") String id, HttpServletRequest request) {
-		RoleValidator.checkUserRights(request, Role.MANAGER);
+		UserUtil.checkUserRights(request, Role.MANAGER);
 		ModelAndView mav = new ModelAndView("Edit_Departments");
 		Departments Departments = service.get(id);
 		mav.addObject("Departments", Departments);
@@ -65,7 +64,7 @@ public class DepartmentsController {
 
 	@RequestMapping("/deleteDepartment/{id}")
 	public String deleteDepartments(@PathVariable(name = "id") String id, HttpServletRequest request) {
-		RoleValidator.checkUserRights(request, Role.MANAGER);
+		UserUtil.checkUserRights(request, Role.MANAGER);
 		service.delete(id);
 		return "redirect:/Departmentslist";
 	}
@@ -79,12 +78,7 @@ public class DepartmentsController {
 	 */
 	@RequestMapping("/viewDepartments")
 	public String generateHierarchy(HttpServletRequest request, Model model) {
-		List<Departments> departmentslist = service.listAll();
-		List<Departments> departmentsMainlist = new ArrayList<Departments>(departmentslist);
-		for(Departments department : departmentsMainlist) {
-			department.setDepartments(service.listAll());
-		}
-		model.addAttribute("DepartmentList", departmentsMainlist);
+		model.addAttribute("DepartmentList", service.getDepartmentsForCurrentEmployee());
 		return "Department";
 	}
 }

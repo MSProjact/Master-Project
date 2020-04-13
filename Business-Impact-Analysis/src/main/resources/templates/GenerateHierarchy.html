@@ -20,12 +20,9 @@
 				<tr>
 					<td>Select Employee:</td>
 					<td>
-						<input type="hidden" th:field="*{employeeId}" id="employeeId">
-						<input type="hidden" th:field="*{employeeName}" id="employeeName">
-						<input type="hidden" th:field="*{reportToEmployeeId}" id="reportToEmployeeId">
-						<select id="employeeData" >
-							<option disabled selected>Select Any</option>
-							<option th:each="Employees : ${Employeeslist}" th:value="${Employees.id} + '~' + ${Employees.First_name} + '~' + ${Employees.ReportToid}" th:text="${Employees.First_name}"></option>
+						<select id="employeeData" th:field="*{id}" >
+							<option value="" disabled selected>Select any</option>
+							<option th:each="Employee : ${Employeeslist}" th:value="${Employee.getId()}" th:text="${Employee.getFullName()}"></option>
 						</select>
 					</td>
 				</tr>
@@ -52,19 +49,30 @@
 					<td>
 						<select th:field="*{productCategory}">
 							<option selected value="">Select Any</option>
-							<option th:each="Categories : ${ProductCategorylist}" th:value="${Categories.Categoryname}" th:text="${Categories.Categoryname}"></option>
+							<option th:each="Categories : ${ProductCategorylist}" th:value="${Categories.getCategoryName()}" th:text="${Categories.getCategoryName()}"></option>
 						</select>
 					</td>
 				</tr>
 				<tr>
 					<td>Select Department:</td>
 					<td>
-						<select th:field="*{department}">
+						<select th:field="*{department.id}">
 							<option selected value="">Select Any</option>
-							<option th:each="Departments : ${Departmentslist}" th:value="${Departments.Dep_Name}" th:text="${Departments.Dep_Name}"></option>
+							<option th:each="Departments : ${Departmentslist}" th:value="${Departments.getId()}" th:text="${Departments.dep_Name}"></option>
 						</select>
 					</td>
 				</tr>
+
+				<tr>
+					<td>Reported To Person (Optional) :</td>
+					<td>
+						<select id="reportTo" th:field="*{reportToEmployeeId}" >
+							<option value="" selected>Select any</option>
+							<option th:each="Employee : ${Employeeslist}" th:value="${Employee.getId()}" th:text="${Employee.getFullName()}"></option>
+						</select>
+					</td>
+				</tr>
+
 				<tr align="center">
 					<td><button type="submit">Submit</button></td>
 					<td><input type="button" onclick="window.history.back();" value="Cancel"></td>
@@ -73,19 +81,4 @@
 		</form>
 	</div>
 </body>
-<script type="text/javascript">
-
-	$("#employeeId").val(0);
-	$("#employeeName").val("Root");
-	$("#reportToEmployeeId").val(0);
-	
-	$("#employeeData").change(function() {
-		var employeeDetais = $("#employeeData").val();
-		var str = employeeDetais.split("~");
-		$("#employeeId").val(str[0]);
-		$("#employeeName").val(str[1]);
-		$("#reportToEmployeeId").val(str[2]);
-	});
-	
-</script>
 </html>
