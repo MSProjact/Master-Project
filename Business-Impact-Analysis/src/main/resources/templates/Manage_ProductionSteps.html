@@ -18,8 +18,8 @@
 		<table border="1" cellpadding="10">
 			<thead>
 				<tr>
-					<th>Production Step ID</th>
-					<th>Function Name</th>
+<!-- 					<th>Production Step ID</th>
+ -->					<th>Function Name</th>
 					<th>Criticality</th>
 					<th>ReportTo</th>
 					<th>Actions</th>
@@ -27,8 +27,8 @@
 			</thead>
 			<tbody>
 				<tr th:each="ProductionSteps : ${ProductionStepslist}">
-					<td th:text="${ProductionSteps.id}">Production Step ID</td>
-					<td th:text="${ProductionSteps.Funct_Name}">Function Name</td>
+<!-- 					<td th:text="${ProductionSteps.id}">Production Step ID</td>
+ -->					<td th:text="${ProductionSteps.Funct_Name}">Function Name</td>
 					<td th:text="${ProductionSteps.Criticality}">Criticality</td>
 					<td th:text="${ProductionSteps.ReportTo}">ReportTo</td>
 					<td>

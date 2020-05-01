@@ -18,8 +18,7 @@
 	<table border="1" cellpadding="10">
 		<thead>
 		<tr>
-			<th>Employee ID</th>
-			<th>First Name</th>
+
 			<th>Last Name</th>
 			<th>Designation</th>
 			<th>Responsibility</th>
@@ -33,8 +32,7 @@
 		</thead>
 		<tbody>
 		<tr th:each="Employees : ${Employeeslist}">
-			<td th:text="${Employees.id}">Employee ID</td>
-			<td th:text="${Employees.First_name}">First Name</td>
+
 			<td th:text="${Employees.Last_name}">Last Name</td>
 			<td th:text="${Employees.Designation}">Designation</td>
 			<td th:text="${Employees.Responsibility}">Responsibility</td>

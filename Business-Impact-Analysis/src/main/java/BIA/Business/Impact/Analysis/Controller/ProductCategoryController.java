@@ -62,17 +62,4 @@ public class ProductCategoryController {
 		return "redirect:/ProductsCategorylist";
 	}
 	
-	/**
-	 * Product category.
-	 * 
-	 * @param model the model
-	 * @return it return the ProductCategory page with model object.
-	 * 
-	 */
-	@RequestMapping("/viewProductCategory")
-	public String generateHierarchy(HttpServletRequest request, Model model) {
-		model.addAttribute("ProductCategoryList", service.listAll());
-		return "ProductCategory";
-	}
 
-}

@@ -16,10 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
-import java.util.ArrayList;
-import java.util.List;
 
 @Controller("/departments")
 public class DepartmentsController {
@@ -28,9 +25,7 @@ public class DepartmentsController {
 	private DepartmentsService service;
 	@Autowired
 	private EmployeesService service1;
-	@Autowired
-	private EmployeesController employeesController;
-	
+
 	@RequestMapping("/Departmentslist")
 	public String viewHomePage(Model model) {
 		List<Departments> Departmentslist = service.listAll();
