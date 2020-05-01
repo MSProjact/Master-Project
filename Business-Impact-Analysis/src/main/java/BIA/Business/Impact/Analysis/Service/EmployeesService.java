@@ -1,100 +1,107 @@
 package BIA.Business.Impact.Analysis.Service;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
-
-import BIA.Business.Impact.Analysis.Controller.LoginController;
+import BIA.Business.Impact.Analysis.Model.Employees;
 import BIA.Business.Impact.Analysis.Model.GenerateHierarchy;
+import BIA.Business.Impact.Analysis.Model.Role;
+import BIA.Business.Impact.Analysis.Repository.EmployeesRepository;
 import BIA.Business.Impact.Analysis.utils.UserUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
-import BIA.Business.Impact.Analysis.Model.Employees;
-import BIA.Business.Impact.Analysis.Repository.EmployeesRepository;
-
-import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
 public class EmployeesService {
 
-	@Autowired
-	private EmployeesRepository repo;
+    @Autowired
+    private EmployeesRepository repo;
 
-	@Autowired
-	private GenerateHierarchyService generateHierarchyService;
+    @Autowired
+    private GenerateHierarchyService generateHierarchyService;
 
-	public List<Employees> listAll() {
-		return repo.findAll();
-	}
+    public List<Employees> listAllEmployeesForCurrentUser() {
+        if (UserUtil.isCurrentUserRole(Role.ADMIN)) {
+            return listAll();
+        }
+        return getSubEmployeesForEmployee(get(UserUtil.getCurrentUser().getId()));
+    }
 
-	public void save(Employees employee) {
-		repo.save(employee);
-	}
+    public List<Employees> listAll() {
+        return repo.findAll();
+    }
 
-	public Employees get(String id) {
-		return repo.findById(id).get();
-	}
+    public void save(Employees employee) {
+        repo.save(employee);
+    }
 
-	public void delete(String id) {
-		repo.deleteById(id);
-		generateHierarchyService.delete(id);
-	}
+    public Employees get(String id) {
+        return repo.findById(id).get();
+    }
 
-	public List<Employees> getSubEmployeesForCurrentUser() {
-		generateHierarchyService.getGenerateHierarchyList();
+    public void delete(String id) {
+        repo.deleteById(id);
+        generateHierarchyService.delete(id);
+    }
 
-		List<Employees> generateHierarchy = listAll();
-		List<Employees> mainHierarchyList = new ArrayList<Employees>();
-		Employees me = UserUtil.getCurrentUser();
-		for (final Employees parentHierarchy : generateHierarchy) {
-			if (parentHierarchy.getId().equals(me.getId())) {
-				// if parentHierarchy is mine, add my sub-module
-				List<Employees> childHierarchyList = getSubModule(parentHierarchy.getId(),
-						generateHierarchy);
-				parentHierarchy.setSubEmployees(childHierarchyList);
-				mainHierarchyList.add(parentHierarchy);
-			}
-		}
-		return  mainHierarchyList;
-	}
+    public List<Employees> getHierarchyForCurrentUser() {
+        List<Employees> employees = Collections.EMPTY_LIST;
+        GenerateHierarchy currentUserHierarchy = generateHierarchyService.get(UserUtil.getCurrentUser().getId());
+        if (Objects.nonNull(currentUserHierarchy) || Role.ADMIN.equals(UserUtil.getCurrentUser().getRole())) {
+            List<Employees> subEmployees = getSubModule(Objects.nonNull(currentUserHierarchy) ? currentUserHierarchy.getEmployee().getId() : null,
+                    generateHierarchyService.listAll());
+            employees = new ArrayList<>();
+            if(Objects.nonNull(currentUserHierarchy)) {
+                currentUserHierarchy.getEmployee().setSubEmployees(subEmployees);
+                employees.add(currentUserHierarchy.getEmployee());
+            } else {
+                employees.addAll(subEmployees);
+            }
+        }
 
-	public List<Employees> getSubModule(String i, List<Employees> employees) {
-		List<Employees> subHierarchyList = new ArrayList<Employees>();
-		for (final Employees child : employees) {
-			if (Objects.nonNull(child) && i.equals(child.getReportToid())) {
-				subHierarchyList.add(child);
-			}
-		}
-		if (subHierarchyList.size() > 0) {
-			for (final Employees subHierarchy : subHierarchyList) {
-				List<Employees> childHierarchyList = getSubModule(subHierarchy.getId(), employees);
-				subHierarchy.setSubEmployees(childHierarchyList);
-			}
-		}
-		return subHierarchyList;
-	}
+        return employees;
+    }
 
-	public List<Employees> getSubEmployeesForEmployee(Employees employees) {
-		List<Employees> employeeList = new ArrayList<>();
-		employeeList.add(employees);
-		employeeList.addAll(getSubEmployees(employees.getSubEmployees()));
-		return employeeList;
-	}
+    public List<Employees> getSubModule(String i, List<GenerateHierarchy> hierarchy) {
+        List<Employees> subHierarchyList = new ArrayList<>();
+        if(StringUtils.isEmpty(i)) {
+            subHierarchyList.addAll(hierarchy.stream().map(GenerateHierarchy::getEmployee).collect(Collectors.toList()));
+        } else {
+            for (final GenerateHierarchy child : hierarchy) {
+                if (Objects.nonNull(child)
+                        && Objects.nonNull(child.getReportToEmployee())
+                        && i.equals(child.getReportToEmployee().getId())) {
+                    subHierarchyList.add(child.getEmployee());
+                }
+            }
+        }
+        if (subHierarchyList.size() > 0) {
+            for (final Employees subHierarchy : subHierarchyList) {
+                List<Employees> childHierarchyList = getSubModule(subHierarchy.getId(), hierarchy);
+                subHierarchy.setSubEmployees(childHierarchyList);
+            }
+        }
+        return subHierarchyList;
+    }
 
-	public List<Employees> getSubEmployees(List<Employees> subEmployeeList) {
-		List<Employees> subEmployees = new ArrayList<>();
-		if(subEmployeeList == null) {
-			return Collections.EMPTY_LIST;
-		}
-		subEmployees.addAll(subEmployeeList);
-		for(Employees employee : subEmployeeList) {
-			subEmployees.addAll(getSubEmployees(employee.getSubEmployees()));
-		}
-		return subEmployees;
-	}
+    public List<Employees> getSubEmployeesForEmployee(Employees employees) {
+        List<GenerateHierarchy> generateHierarchy = generateHierarchyService.getGenerateHierarchyListForCurrentUser();
+        List<Employees> employeeList = new ArrayList<>();
+        if (!CollectionUtils.isEmpty(generateHierarchy)) {
+            employeeList.addAll(generateHierarchy
+                    .stream()
+                    .map(GenerateHierarchy::getEmployee)
+                    .collect(Collectors.toList()));
+        } else {
+            employeeList.add(employees);
+        }
+        return employeeList;
+    }
 }

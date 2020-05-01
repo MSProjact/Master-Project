@@ -3,7 +3,7 @@
 	xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1">
-<title>Manage Hierarchy</title>
+<title>Manage Node</title>
 </head>
 <body>
 	<div th:if="${Role == 'ADMIN' || Role == 'EMPLOYEE'}">
@@ -21,8 +21,8 @@
 					<th>Employee Name</th>
 					<th>Reported Emp ID</th>
 					<th>Product</th>
-					<th>ProductionStep</th>
-					<th>ProductCategory</th>
+					<!-- <th>ProductionStep</th>
+					<th>ProductCategory</th> -->
 					<th>Department</th>
 					<th>Actions</th>
 				</tr>
@@ -31,10 +31,10 @@
 				<tr th:each="hierarchy : ${hierarchyList}">
 					<td th:text="${hierarchy.getEmployee()?.getId()}"></td>
 					<td th:text="${hierarchy.getEmployee()?.getFullName()}"></td>
-					<td th:text="${hierarchy.getEmployee()?.getReportToid()}"></td>
-					<td th:text="${hierarchy.product}"></td>
-					<td th:text="${hierarchy.productionStep}">p</td>
-					<td th:text="${hierarchy.productCategory}"></td>
+					<td th:text="${hierarchy.getReportToEmployee()?.getId()}"></td>
+					<td th:text="${hierarchy.getProduct()?.getP_Name()}"></td>
+				<!-- 	<td th:text="${hierarchy.productionStep}">p</td>
+					<td th:text="${hierarchy.productCategory}"></td> -->
 					<td th:text="${hierarchy.getDepartment()?.getDep_Name()}"></td>
 					<td>
 						<a th:href="@{'/editHierarchy/' + ${hierarchy.getId()}}">Edit</a>

@@ -21,7 +21,6 @@ public class Employees {
     private String Email;
     private int PhoneNo;
     private String Address;
-    private String ReportToid;
     private String ReportToPerson;
     private List<Employees> SubEmployees;
     private String Password;
@@ -97,14 +96,6 @@ public class Employees {
 
     public void setResponsibility(String responsibility) {
         Responsibility = responsibility;
-    }
-
-    public String getReportToid() {
-        return ReportToid;
-    }
-
-    public void setReportToid(String reportToid) {
-        ReportToid = reportToid;
     }
 
     public String getReportToPerson() {

@@ -32,6 +32,11 @@ public class UserUtil {
         }
     }
 
+    public static Boolean isCurrentUserRole(Role role) {
+        return ((Employees) HTTP_SESSION_FACTORY
+                .getObject().getAttribute(SESSION_ME)).getRole() == role;
+    }
+
     public static Employees getCurrentUser() {
         return (Employees) Optional
                 .ofNullable(HTTP_SESSION_FACTORY

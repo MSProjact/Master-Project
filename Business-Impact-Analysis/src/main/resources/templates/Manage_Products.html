@@ -22,7 +22,7 @@
 					<th>Product Name</th>
 					<th>Product Description</th>
 					<th>Remarks</th>
-					<th>Funtions</th>
+					<th>Parent Product</th>
 					<th>Product Category Name</th>
 					<th>Cost of Lost Product</th>
 					<th>Legal costs</th>
@@ -36,7 +36,7 @@
 					<td th:text="${Products.P_Name}">Product Name</td>
 					<td th:text="${Products.P_Description}">Product Description</td>
 					<td th:text="${Products.P_Remarks}">Remarks</td>
-					<td th:text="${Products.Fun_Name}">Funtions</td>
+					<td th:text="${Products.getParentProduct()?.getP_Name()}">Parent Product</td>
 					<td th:text="${Products.ProductCategoryName}">Product Category Name</td>
 					<td th:text="${Products.Cost_LostProd}">Cost of Lost Product</td>
 					<td th:text="${Products.Legal_Costs}">Legal costs</td>

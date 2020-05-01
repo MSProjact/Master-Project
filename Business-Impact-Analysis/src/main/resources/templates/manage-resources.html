@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="ISO-8859-1">
+	<title>Financial Resources</title>
+</head>
+<body>
+	<div th:if="${Role == 'ADMIN' || Role == 'EMPLOYEE'}">
+		<div th:replace="header"></div>
+	</div>
+	<div th:if="${Role == 'MANAGER'}">
+		<div th:replace="header_manager"></div>
+	</div>
+	<div align="center">
+		<h3>Financial Resources</h3>
+		<!-- <a href="/NewResources">Add Financial Details</a> <br /> -->
+		<br />
+		<table border="1" cellpadding="10">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Product</th>
+					<th>Cost Per Hour</th>
+					<th>Weekly Cost</th>
+					<th>Monthly Cost</th>
+					<th>Recovery Time Objective</th>
+					<th>Maximum Tolerable Downtime</th>
+					<th>Function Recovery Cost</th>
+					<th>Function Downtime Cost</th>
+					<th>Function Parts Cost</th>
+					<th>Function Rework Cost</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="resource : ${Resourceslist}">
+					<td th:text="${resource.id}">ID</td>
+					<td th:text="${resource.product?.getP_Name()}">Product</td>
+					<td th:text="${resource.getCost_PH()}">Cost Per Hour</td>
+					<td th:text="${resource.getCost_PM()}">Weekly Cost</td>
+					<td th:text="${resource.getCost_W()}">Monthly Cost</td>
+					<td th:text="${resource.RTO}">Recovery Time Objective</td>
+					<td th:text="${resource.MTD}">Maximum Tolerable Downtime</td>
+					
+						<td th:text="${resource.Function_Recovery_Cost}">Function Recovery Cost</td>
+					<td th:text="${resource.Function_Downtime_cost}">Function Downtime Cost</td>
+					<td th:text="${resource.Function_parts_cost}">Function Parts Cost</td>
+					<td th:text="${resource.Function_rework_cost}">Function Rework Cost</td>
+					
+					
+					<td>
+						<a th:href="@{'/resource/' + ${resource.id + '/edit'}}">Edit</a>
+						&nbsp;&nbsp;&nbsp; <a
+						th:href="@{'/DeleteResources/' + ${resource.id}}">Delete</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>

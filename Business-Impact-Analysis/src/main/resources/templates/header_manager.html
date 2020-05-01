@@ -25,10 +25,10 @@
 	          			Manage Dropdown List
 	        		</a>
 			        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-			        	<a class="dropdown-item" href="/manageEmployees">Manage Employees</a>
+			        	<a class="dropdown-item" href="/employees/list">Manage Employees</a>
 			          	<a class="dropdown-item" href="/Productslist">Manage Products</a>
 			          	<a class="dropdown-item" href="/ProductionStepslist">Manage Production Step</a>
-			          	<a class="dropdown-item" href="/Resourceslist">Manage Financial Resources</a>
+			          	<a class="dropdown-item" href="/resources/list">Manage Financial Resources</a>
 			          	<a class="dropdown-item" href="/ProductsCategorylist">Manage Product Category</a>
 			          	<a class="dropdown-item" href="/Departmentslist">Manage Departments</a>
 			          	<a class="dropdown-item" href="/manageHierarchy">Manage Hierarchy</a>
@@ -42,11 +42,20 @@
 			        	<a class="dropdown-item" href="/viewHierarchy">View Generate Hierarchy</a>
 			        	<a class="dropdown-item" href="/viewEmployees">View Employees</a>
 			        	<a class="dropdown-item" href="/viewDepartments">View Departments</a>
-			        	<a class="dropdown-item" href="/viewProductCategory">View Product Categories</a>
-			        	<a class="dropdown-item" href="/viewProductSteps">View Product steps</a>
-			        	<a class="dropdown-item" href="/viewProducts">View Products</a>
+			        	<!--<a class="dropdown-item" href="/viewProductCategory">View Product Categories</a>
+			        	<a class="dropdown-item" href="/viewProductSteps">View Product steps</a>-->
+			        	<a class="dropdown-item" href="/hierarchy/product">View Products</a>
 			        </div>
 	      		</li>
+
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						Analysis
+					</a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+						<a class="dropdown-item" href="/analysis/product">Product Analysis</a>
+					</div>
+				</li>
 	    	</ul>
 	  	</div>
 	</nav>

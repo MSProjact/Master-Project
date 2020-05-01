@@ -7,5 +7,8 @@ import java.util.List;
 
 public interface GenerateHierarchyRepository extends MongoRepository<GenerateHierarchy, String> {
     List<GenerateHierarchy> findByEmployeeIdIn(List<String> productList);
+    GenerateHierarchy findByEmployeeIdIn(String employeeId);
+    GenerateHierarchy findByProductId(String productId);
+    GenerateHierarchy findByRelatedProductId(String productId);
 
 }

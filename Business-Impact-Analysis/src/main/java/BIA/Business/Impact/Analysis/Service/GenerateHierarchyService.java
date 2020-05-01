@@ -2,55 +2,74 @@ package BIA.Business.Impact.Analysis.Service;
 
 import BIA.Business.Impact.Analysis.Model.Employees;
 import BIA.Business.Impact.Analysis.Model.GenerateHierarchy;
+import BIA.Business.Impact.Analysis.Model.Product;
+import BIA.Business.Impact.Analysis.Model.Role;
 import BIA.Business.Impact.Analysis.Repository.DepartmentsRepository;
 import BIA.Business.Impact.Analysis.Repository.EmployeesRepository;
 import BIA.Business.Impact.Analysis.Repository.GenerateHierarchyRepository;
+import BIA.Business.Impact.Analysis.Repository.ResourcesRepository;
 import BIA.Business.Impact.Analysis.utils.UserUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
-public class GenerateHierarchyService {
+public class
+GenerateHierarchyService {
+
+    private final GenerateHierarchyRepository repo;
+
+    private final EmployeesRepository employeeRepository;
+
+    private final DepartmentsRepository departmentRepository;
+
+    private final ResourcesRepository resourcesRepository;
 
     @Autowired
-    private GenerateHierarchyRepository repo;
+    public GenerateHierarchyService(GenerateHierarchyRepository repo,
+                                    EmployeesRepository employeeRepository,
+                                    DepartmentsRepository departmentRepository,
+                                    ResourcesRepository resourcesRepository) {
+        this.repo = repo;
+        this.employeeRepository = employeeRepository;
+        this.departmentRepository = departmentRepository;
+        this.resourcesRepository = resourcesRepository;
+    }
 
-    @Autowired
-    private EmployeesRepository employeeRepository;
-
-    @Autowired
-    private DepartmentsRepository departmentRepository;
 
     public List<GenerateHierarchy> listAll() {
         return repo.findAll();
     }
 
     public void save(GenerateHierarchy generateHierarchy) {
-        Employees employee = employeeRepository.findById(generateHierarchy.getId()).orElseThrow(() -> new RuntimeException("Invalid employee ID."));
-        employee.setReportToid(StringUtils.isEmpty(generateHierarchy.getReportToEmployeeId()) ? UserUtil.getCurrentUser().getId() : generateHierarchy.getReportToEmployeeId());
-        generateHierarchy.setEmployee(employeeRepository.save(employee));
-        if(!StringUtils.isEmpty(generateHierarchy.getDepartment().getId())) {
+        generateHierarchy.setEmployee(employeeRepository.save(employeeRepository.findById(generateHierarchy.getId()).orElseThrow(() -> new RuntimeException("Invalid employee ID."))));
+        generateHierarchy.setReportToEmployee(
+                UserUtil.getCurrentUser().getId().equalsIgnoreCase(generateHierarchy.getId()) ?
+                        generateHierarchy.getReportToEmployee() :
+                        employeeRepository.findById(UserUtil.getCurrentUser().getId()).orElseThrow(() -> new RuntimeException("Invalid report-to ID.")));
+        if (!StringUtils.isEmpty(generateHierarchy.getDepartment().getId())) {
             generateHierarchy.setDepartment(departmentRepository.findById(generateHierarchy.getDepartment().getId()).orElseThrow(() -> new RuntimeException("Invalid department ID")));
         }
+
+        if (Objects.nonNull(generateHierarchy.getProduct()) && !StringUtils.isEmpty(generateHierarchy.getProduct().getId())) {
+            generateHierarchy.setResource(resourcesRepository.findByProductId(generateHierarchy.getProduct().getId()));
+        }
+
         repo.save(generateHierarchy);
     }
 
     public GenerateHierarchy get(String id) {
-        return repo.findById(id).get();
+        return repo.findById(id).orElse(null);
     }
 
     public void delete(String id) {
         repo.deleteById(id);
-        Employees employee = employeeRepository.findById(id).orElseThrow(() -> new RuntimeException("Invalid employee ID"));
-        employee.setReportToid(null);
-        employeeRepository.save(employee);
     }
 
     public List<GenerateHierarchy> findByEmployeeIdIn(List<String> productIds) {
@@ -79,10 +98,14 @@ public class GenerateHierarchyService {
      */
     public List<GenerateHierarchy> getSubModule(String i, List<GenerateHierarchy> generateHierarchy) {
         List<GenerateHierarchy> subHierarchyList = new ArrayList<GenerateHierarchy>();
-        for (final GenerateHierarchy child : generateHierarchy) {
-            if (Objects.nonNull(child.getEmployee()) && 
-            		i.equals(child.getEmployee().getReportToid())) {
-                subHierarchyList.add(child);
+        if(StringUtils.isEmpty(i)) {
+            subHierarchyList.addAll(generateHierarchy);
+        } else {
+            for (final GenerateHierarchy child : generateHierarchy) {
+                if (Objects.nonNull(child.getReportToEmployee()) &&
+                        i.equals(child.getReportToEmployee().getId())) {
+                    subHierarchyList.add(child);
+                }
             }
         }
         if (subHierarchyList.size() > 0) {
@@ -96,17 +119,71 @@ public class GenerateHierarchyService {
     }
 
     public List<GenerateHierarchy> getGenerateHierarchyList() {
-        List<GenerateHierarchy> generateHierarchy = listAll();
+        List<GenerateHierarchy> generateHierarchyList = listAll();
         List<GenerateHierarchy> mainHierarchyList = new ArrayList<GenerateHierarchy>();
-        for (final GenerateHierarchy parentHierarchy : generateHierarchy) {
-            if (parentHierarchy.getId().equals(UserUtil.getCurrentUser().getId())) {
-                // if parentHierarchy is mine, add my sub-module
-                List<GenerateHierarchy> childHierarchyList = getSubModule(parentHierarchy.getId(),
-                        generateHierarchy);
-                parentHierarchy.setSubGenerateHierarchy(childHierarchyList);
-                mainHierarchyList.add(parentHierarchy);
+        Optional<GenerateHierarchy> generateHierarchyOptional = repo.findById(UserUtil.getCurrentUser().getId());
+        if (generateHierarchyOptional.isPresent() || Role.ADMIN.equals(UserUtil.getCurrentUser().getRole())) {
+            GenerateHierarchy currentUserHierarchy = generateHierarchyOptional.orElse(null);
+            List<GenerateHierarchy> childHierarchyList = getSubModule(Objects.nonNull(currentUserHierarchy) ? currentUserHierarchy.getId() : null,
+                    generateHierarchyList);
+            if(Objects.nonNull(currentUserHierarchy)) {
+                currentUserHierarchy.setSubGenerateHierarchy(childHierarchyList);
+                mainHierarchyList.add(currentUserHierarchy);
+            } else {
+                mainHierarchyList.addAll(childHierarchyList);
             }
         }
         return mainHierarchyList;
+    }
+
+    public List<GenerateHierarchy> getGenerateHierarchyListForCurrentUser() {
+        List<GenerateHierarchy> employeeList = new ArrayList<>();
+        List<GenerateHierarchy> currentUserHierarchy = getGenerateHierarchyList();
+        if (!CollectionUtils.isEmpty(currentUserHierarchy)) {
+            employeeList.addAll(getSubHierarchyList(currentUserHierarchy));
+        }
+        return employeeList;
+    }
+
+    public List<GenerateHierarchy> getSubHierarchyList(List<GenerateHierarchy> generateHierarchy) {
+        if (CollectionUtils.isEmpty(generateHierarchy)) {
+            return Collections.EMPTY_LIST;
+        }
+        List<GenerateHierarchy> subHierarchy = new ArrayList<>();
+        for (GenerateHierarchy hierarchy : generateHierarchy) {
+            subHierarchy.add(hierarchy);
+            subHierarchy.addAll(getSubHierarchyList(hierarchy.getSubGenerateHierarchy()));
+        }
+        return subHierarchy;
+    }
+
+    public GenerateHierarchy getForCurrentEmployee() {
+        return repo.findByEmployeeIdIn(UserUtil.getCurrentUser().getId());
+    }
+
+    public List<GenerateHierarchy> getListForManageHierarchy() {
+        if (UserUtil.isCurrentUserRole(Role.ADMIN)) {
+            return listAll();
+        }
+        return getSubHierarchyList(getForCurrentEmployee());
+    }
+
+    public List<GenerateHierarchy> getSubHierarchyList(GenerateHierarchy generateHierarchy) {
+        List<GenerateHierarchy> generateHierarchyList = getGenerateHierarchyListForCurrentUser();
+        List<GenerateHierarchy> generateHierarchies = new ArrayList<>();
+        if (!CollectionUtils.isEmpty(generateHierarchyList)) {
+            generateHierarchies.addAll(generateHierarchyList);
+        } else  if (Objects.nonNull(generateHierarchyList)) {
+            generateHierarchies.add(generateHierarchy);
+        }
+        return generateHierarchies;
+    }
+
+    public GenerateHierarchy findByProductId(String productId) {
+        return repo.findByProductId(productId);
+    }
+
+    public GenerateHierarchy findByRelatedProductId(String productId) {
+        return repo.findByRelatedProductId(productId);
     }
 }

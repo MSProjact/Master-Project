@@ -13,7 +13,7 @@
 		<div th:replace="header_manager"></div>
 	</div>
 	<div align="center">
-		<h3>Generate Hierarchy</h3>
+		<h3>Generate Node</h3>
 		<br/>
 		<form action="#" th:action="@{/saveHierarchy}" th:object="${GenerateHierarchy}" method="post">
 			<table border="0" cellpadding="10">
@@ -29,13 +29,13 @@
 				<tr>
 					<td>Select Product:</td>
 					<td>
-						<select th:field="*{product}">
+						<select th:field="*{product.id}">
 							<option selected value="">Select Any</option>
-							<option th:each="Products : ${Productslist}" th:value="${Products.P_Name}" th:text="${Products.P_Name}"></option>
+							<option th:each="Products : ${Productslist}" th:value="${Products.id}" th:text="${Products.P_Name}"></option>
 						</select>
 					</td>
 				</tr>
-				<tr>
+				<!-- <tr>
 					<td>Select Production Step:</td>
 					<td>
 						<select th:field="*{productionStep}">
@@ -52,7 +52,7 @@
 							<option th:each="Categories : ${ProductCategorylist}" th:value="${Categories.getCategoryName()}" th:text="${Categories.getCategoryName()}"></option>
 						</select>
 					</td>
-				</tr>
+				</tr> -->
 				<tr>
 					<td>Select Department:</td>
 					<td>
@@ -64,11 +64,21 @@
 				</tr>
 
 				<tr>
-					<td>Reported To Person (Optional) :</td>
+					<td>Select Related Product:</td>
 					<td>
-						<select id="reportTo" th:field="*{reportToEmployeeId}" >
-							<option value="" selected>Select any</option>
-							<option th:each="Employee : ${Employeeslist}" th:value="${Employee.getId()}" th:text="${Employee.getFullName()}"></option>
+						<select th:field="*{relatedProduct.id}">
+							<option selected value="">Select Any</option>
+							<option th:each="Products : ${relatedProductsList}" th:value="${Products.id}" th:text="${Products.P_Name}"></option>
+						</select>
+					</td>
+				</tr>
+
+				<tr>
+					<td>Select Production Type:</td>
+					<td>
+						<select th:field="*{productionType}">
+							<option selected value="">Select Any</option>
+							<option th:each="type : ${productionTypes}" th:value="${type}" th:text="${type.getValue()}"></option>
 						</select>
 					</td>
 				</tr>

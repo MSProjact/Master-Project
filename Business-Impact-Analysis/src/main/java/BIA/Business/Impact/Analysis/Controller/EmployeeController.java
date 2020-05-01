@@ -14,10 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -27,7 +24,7 @@ import java.util.List;
  *       functionalities related employee.
  */
 @Controller("/")
-public class EmployeesController {
+public class EmployeeController {
 
 	@Autowired
 	private EmployeesService service;
@@ -41,11 +38,10 @@ public class EmployeesController {
 	 * 
 	 *         Here, We added the updated page name in return string.
 	 */
-	@RequestMapping("/manageEmployees")
+	@RequestMapping("/employees/list")
 	public String viewHomePage(Model model) {
-		List<Employees> Employeeslist = service.listAll();
-		model.addAttribute("Employeeslist", Employeeslist);
-		return "Manage_Employees";
+		model.addAttribute("employeeList", service.listAllEmployeesForCurrentUser());
+		return "list-employees";
 	}
 
 	@RequestMapping("/new")
@@ -71,17 +67,15 @@ public class EmployeesController {
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	public String saveEmployee(@ModelAttribute("Employees") Employees employee, HttpServletRequest request) {
 		service.save(employee);
-		return "redirect:/manageEmployees";
+		return "redirect:/employees/list";
 	}
 
 	@RequestMapping("/edit/{id}")
 	public String showEditEmployeePage(@PathVariable(name = "id") String id, Model model, HttpServletRequest request) {
 //		ModelAndView mav = new ModelAndView("Edit_Employees");
 		UserUtil.checkUserRights(request, Role.MANAGER);
-		Employees Employees = service.get(id);
-		model.addAttribute("Employees", Employees);
-		List<BIA.Business.Impact.Analysis.Model.Employees> Employeeslist = service.listAll();
-		model.addAttribute("Employeeslist", Employeeslist);
+		model.addAttribute("Employees", service.get(id));
+		model.addAttribute("Employeeslist", service.listAll());
 		return "Edit_Employees";
 	}
 
@@ -99,7 +93,7 @@ public class EmployeesController {
 	public String deleteEmployees(@PathVariable(name = "id") String id, HttpServletRequest request) {
 		UserUtil.checkUserRights(request, Role.MANAGER);
 		service.delete(id);
-		return "redirect:/manageEmployees";
+		return "redirect:/employees/list";
 	}
 	
 	
@@ -115,7 +109,7 @@ public class EmployeesController {
 	 */
 	@RequestMapping("/viewEmployees")
 	public String generateHierarchy(HttpServletRequest request, Model model) {
-		model.addAttribute("EmployeesList", service.getSubEmployeesForCurrentUser());
+		model.addAttribute("EmployeesList", service.getHierarchyForCurrentUser());
 		return "Employee";
 	}
 }

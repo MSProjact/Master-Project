@@ -13,7 +13,7 @@
 		<div th:replace="header_manager"></div>
 	</div>
 <div align="center">
-		<h3>Edit Hierarchy</h3>
+		<h3>Edit Node</h3>
 		<br/>
 		<form action="#" th:action="@{/saveHierarchy}" th:object="${GenerateHierarchy}" method="post">
 			<table border="0" cellpadding="10">
@@ -22,20 +22,19 @@
 					<td>
 						<input type="hidden" th:field="*{id}">
 						<input type="hidden" th:field="*{employee.first_name}">
-						<input type="hidden" th:field="*{employee.reportToid}">
 						<input type="text" th:field="*{employee.first_name}" disabled/>
 					</td>
 				</tr>
 				<tr>
 					<td>Select Product:</td>
 					<td>
-						<select th:field="*{product}">
+						<select th:field="*{product.id}">
 							<option selected value="">Select Any</option>
-							<option th:each="Products : ${Productslist}" th:value="${Products.P_Name}" th:text="${Products.P_Name}"></option>
+							<option th:each="Products : ${Productslist}" th:value="${Products.id}" th:text="${Products.getP_Name()}"></option>
 						</select>
 					</td>
 				</tr>
-				<tr>
+				<!--<tr>
 					<td>Select Production Step:</td>
 					<td>
 						<select th:field="*{productionStep}">
@@ -52,7 +51,7 @@
 							<option th:each="Categories : ${ProductCategorylist}" th:value="${Categories.getCategoryName()}" th:text="${Categories.getCategoryName()}"></option>
 						</select>
 					</td>
-				</tr>
+				</tr>-->
 				<tr>
 					<td>Select Department:</td>
 					<td>

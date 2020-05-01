@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="ISO-8859-1">
+	<title>Add New Product</title>
+</head>
+<body>
+	<div th:replace="header"></div>
+	<div align="center">
+		<h3>Add New Product Details</h3>
+		<br />
+		<form action="#" th:action="@{/saveProduct}" th:object="${product}" method="post">
+			<table border="0" cellpadding="10">
+				<!-- <tr>
+					<td>Product ID:</td>
+					<td><input type="text" th:field="*{id}" /></td>
+				</tr> -->
+				<tr>
+					<td>Product Name:</td>
+					<td><input type="text" th:field="*{P_Name}"  required="required" /></td>
+				</tr>
+				<tr>
+					<td>Product Description:</td>
+					<td><input type="text" th:field="*{P_Description}" /></td>
+				</tr>
+				<tr>
+					<td>Remarks:</td>
+					<td><input type="text" th:field="*{P_Remarks}" /></td>
+				</tr>
+				
+					<tr>
+					<td>Cost of Lost Product:</td>
+					<td><input type="text" th:field="*{Cost_LostProd}" /></td>
+				</tr>
+												<tr>
+					<td>Legal costs:</td>
+					<td><input type="text" th:field="*{Legal_Costs}" /></td>
+				</tr>
+												<tr>
+					<td>Interest Payments:</td>
+					<td><input type="text" th:field="*{Interest_Payments}" /></td>
+				</tr>
+				
+				
+				<tr>
+                <td>Product List:</td>
+                <td>
+                    <select th:field="*{parentProduct.id}">
+                         <option value=""> Parent Product </option>
+                         <option th:each="Products : ${productsList}"
+                            th:value="${Products.getId()}"
+                            th:text="${Products.getP_Name()}"
+                           />
+                  </select>
+ 
+                </td>
+            </tr>
+				
+				
+				<tr>
+                <td>Product Category:</td>
+                <td>
+                    <select th:field="*{ProductCategoryName}">
+                         <option value=""> Product Category </option>
+                         <option th:each="ProductCategory : ${ProductCategorylist}"
+                            th:value="${ProductCategory.getCategoryName()}"
+                            th:text="${ProductCategory.getCategoryName()}"
+                           />
+                  </select>
+ 
+                </td>
+            </tr>
+				
+				
+				
+				<tr>
+				<td><input type="button" onclick="window.history.back();" value="Cancel"></td>
+					<td><button type="submit">Submit</button></td>
+					
+				</tr>
+			</table>
+		</form>
+	</div>
+</body>
+</html>

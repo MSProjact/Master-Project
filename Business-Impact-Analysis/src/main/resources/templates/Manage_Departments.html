@@ -20,7 +20,7 @@
 				<tr>
 					<th>Department ID</th>
 					<th>Department Name</th>
-					<th>Department Head</th>
+					<!-- <th>Department Head</th> -->
 					<th>Actions</th>
 				</tr>
 			</thead>
@@ -28,7 +28,7 @@
 				<tr th:each="Departments : ${Departmentslist}">
 					<td th:text="${Departments.id}">Department ID</td>
 					<td th:text="${Departments.Dep_Name}">Department Name</td>
-					<td th:text="${Departments.Dep_Head}">Department Head</td>
+					<!-- <td th:text="${Departments.Dep_Head}">Department Head</td> -->
 					<td>
 						<a th:href="@{'/editDepartment/' + ${Departments.id}}">Edit</a>
 						&nbsp;&nbsp;&nbsp; 

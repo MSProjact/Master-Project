@@ -7,7 +7,12 @@
 <section th:fragment="category">
 	<ul>
 		<li th:each="hierarchy : ${HierarchyList}">
-			<span th:text="'Name : ' + ${hierarchy.employee.getFullName()} + ', Product : ' + ${hierarchy.Product} + ', ProductionStep : ' + ${hierarchy.ProductionStep} + ', ProductCategory : ' + ${hierarchy.ProductCategory} + ', Department : ' + ${hierarchy.Department?.Dep_Name}">Main Cat</span>
+			<span th:text="'Name : ' + ${hierarchy.employee.getFullName()} + ', Product : ' + ${hierarchy.getProduct()?.P_Name}
+			+ ', Hourly Cost : ' + ${hierarchy.getResource()?.Cost_PH} + ', Weekly Cost: ' + ${hierarchy.getResource()?.Cost_W}
+			+ ', Monthly Cost: ' + ${hierarchy.getResource()?.Cost_PM} + ', Recovery Time Objective: ' + ${hierarchy.getResource()?.RTO}
+			+ ', Maximum Tolerable Downtime: ' + ${hierarchy.getResource()?.MTD} + ', Function Recivery Cost: ' + ${hierarchy.getResource()?.Function_Recovery_Cost}
+			+ ', Function Downtime Cost: ' + ${hierarchy.getResource()?.Function_Downtime_cost} + ',Function Parts Cost: ' + ${hierarchy.getResource()?.Function_parts_cost}
+			+ ', Function Rework Cost: ' + ${hierarchy.getResource()?.Function_rework_cost} + ', Department : ' + ${hierarchy.Department?.Dep_Name}">Main Cat</span>
 			<section th:include="@{fragment} :: category" th:with="HierarchyList=${hierarchy.SubGenerateHierarchy}"></section>
 		</li>
 	</ul>
@@ -51,8 +56,44 @@
 
 <section th:fragment="product">
 	<ul>
-		<li th:each="Product : ${ProductList}">
-			<span th:text="'Production name : ' + ${Product.P_Name} + ', Description : ' + ${Product.P_Description} + ', Remarks : ' + ${Product.P_Remarks} + ', Fun name : ' + ${Product.Fun_Name} + ', Product category name : ' + ${Product.ProductCategoryName}">Main Cat</span>
+		<li th:each="product : ${products}">
+			<span th:text="'Production name : ' + ${product?.getName()} + ', Description : ' + ${product?.getDescription()} + ', Remarks : ' + ${product?.getRemarks()} + ', Fun name : ' + ${product?.getFunName()} + ', Product category name : ' + ${product?.getCategoryName()}
+			+ ', Hourly Cost : ' + ${product.getResource()?.Cost_PH} + ', Weekly Cost: ' + ${product.getResource()?.Cost_W}
+			+ ', Monthly Cost: ' + ${product.getResource()?.Cost_PM} + ', Recovery Time Objective: ' + ${product.getResource()?.RTO}
+			+ ', Maximum Tolerable Downtime: ' + ${product.getResource()?.MTD} + ', Function Recivery Cost: ' + ${product.getResource()?.Function_Recovery_Cost}
+			+ ', Function Downtime Cost: ' + ${product.getResource()?.Function_Downtime_cost} + ',Function Parts Cost: ' + ${product.getResource()?.Function_parts_cost}
+			+ ', Function Rework Cost: ' + ${product.getResource()?.Function_rework_cost}">Main Cat</span>
+			<section th:include="@{fragment} :: product" th:with="products=${product.subProducts}"></section>
+		</li>
+	</ul>
+</section>
+
+<section th:fragment="productHierarchyListFragment">
+	<ul>
+		<li th:each="product : ${productHierarchyList}">
+			<span th:if="${product.getParentProduct() == null}" th:onclick="|setMtr('${product.getId()}', '${product.getMttr()}')|">
+				<b th:text="'Product : ' + ${product?.getName()}"/>
+				<b th:id="'mtr-' + ${product.id}"></b>
+			</span>
+			<span th:unless="${product.getParentProduct() == null}" >
+				<span th:text="'Product : ' + ${product?.getName()}" th:onclick="|setMtr('${product.getId()}', '${product.getMttr()}')|"></span>
+				<span th:id="'mtr-' + ${product.id}"></span>
+
+				<span th:each="parallelProduct : ${product.getParallelProducts()}">
+					<span th:text="' | Product : ' + ${parallelProduct?.getName()}" th:onclick="|setMtr('${parallelProduct.getId()}', '${parallelProduct.getMttr()}')|"></span>
+					<span th:id="'mtr-' + ${parallelProduct.id}"></span>
+				</span>
+
+				<section th:if="${product.getSequentialProducts() != null}">
+					<ul>
+						<li th:each="parallelProduct : ${product.getSequentialProducts()}">
+							<span th:text="'Product : ' + ${parallelProduct?.getName()}" th:onclick="|setMtr('${parallelProduct.getId()}', '${parallelProduct.getMttr()}')|"></span>
+							<span th:id="'mtr-' + ${parallelProduct.id}"></span>
+						</li>
+					</ul>
+				</section>
+			</span>
+			<section th:include="@{fragment} :: productHierarchyListFragment" th:with="productHierarchyList=${product.subProducts}"></section>
 		</li>
 	</ul>
 </section>

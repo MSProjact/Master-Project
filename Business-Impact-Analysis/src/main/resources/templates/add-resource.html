@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Add Financial Resources</title>
+</head>
+<body>
+	<div th:replace="header"></div>
+	<div align="center">
+        <h3>Add Financial Details</h3>
+        <br />
+        <form action="#" th:action="@{/saveResources}" th:object="${Resources}"
+            method="post">
+ 
+            <table border="0" cellpadding="10">
+            
+            <!--  <tr>
+                    <td> ID:</td>
+                    <td><input type="text" th:field="*{id}" /></td>
+                </tr> -->
+                 <tr>
+                <td>Product Name:</td>
+                <td>
+                    <select th:field="*{product.id}">
+                         <option selected value="">Select any</option>
+                         <option th:each="product : ${Productslist}"
+                            th:value="${product.id}"
+                            th:text="${product.getP_Name()}"
+                           />
+                  </select>
+
+                </td>
+            </tr>
+                
+                <tr>
+                    <td>Cost Per Hour:</td>
+                    <td><input type="text" th:field="*{Cost_PH}" /></td>
+                </tr>
+                    <tr>
+                    <td>Weekly Cost:</td>
+                    <td><input type="text" th:field="*{Cost_W}" /></td>
+                </tr>
+                <tr>
+                    <td>Monthly Cost:</td>
+                    <td><input type="text" th:field="*{Cost_PM}" /></td>
+                </tr>
+                <tr>
+                    <td>Recovery Time Objective:</td>
+                    <td><input type="text" th:field="*{RTO}" /></td>
+                </tr>    
+                
+                <tr>
+                    <td>Maximum Tolerable Downtime:</td>
+                    <td><input type="text" th:field="*{MTD}" /></td>
+                </tr>                
+                
+                
+                
+                
+                    <tr>
+                    <td>Function Recivery Cost:</td>
+                    <td><input type="text" th:field="*{Function_Recovery_Cost}" /></td>
+                </tr>
+                    <tr>
+                    <td>Function Downtime Cost:</td>
+                    <td><input type="text" th:field="*{Function_Downtime_cost}" /></td>
+                </tr>
+                <tr>
+                    <td>Function Parts Cost:</td>
+                    <td><input type="text" th:field="*{Function_parts_cost}" /></td>
+                </tr>
+                <tr>
+                    <td>Function Rework Cost:</td>
+                    <td><input type="text" th:field="*{Function_rework_cost}" /></td>
+                </tr>    
+                
+              
+                
+                
+                         
+                <tr>
+                 <td><input type="button" onclick="window.history.back();" value="Cancel"></td>
+                    <td><button type="submit">Submit</button> </td>
+                   
+                </tr>
+            </table>
+        </form>
+    </div>
+</body>
+</html>

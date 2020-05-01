@@ -15,10 +15,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 @Controller("/products")
-public class ProductsController {
+public class ProductController {
 
 	@Autowired
 	private ProductsService service;
@@ -27,48 +26,43 @@ public class ProductsController {
 	private ProductionStepsService service1;
 	
 	@Autowired
-	private ProductCategoryService service2;
+	private ProductCategoryService productCategoryService;
 
 	@RequestMapping("/Productslist")
 	public String viewHomePage(Model model) {
-		model.addAttribute("Productslist", service.getProductsForCurrentEmployee());
+		model.addAttribute("Productslist", service.getProductListForManageProducts());
 		
 		return "Manage_Products";
 	}
 
-	@RequestMapping("/newProduct")
+	@RequestMapping("/product/add")
 	public String showNewProductsPage(Model model, HttpServletRequest request) {
 		UserUtil.checkUserRights(request, Role.EMPLOYEE);
-		Products Products = new Products();
-		model.addAttribute("Products", Products);
-		
-		List<ProductionSteps> Functions = service1.listAll();
-		model.addAttribute("ProductionStepslist", Functions);
-		
-		List<ProductCategory> ProductCategory = service2.listAll();
-		model.addAttribute("ProductCategorylist", ProductCategory);
-		
-		return "Add_NewProduct";
+		model.addAttribute("product", new Product());
+		model.addAttribute("productsList", service.listAll());
+		model.addAttribute("ProductCategorylist", productCategoryService.listAll());
+		return "add-product";
 	}
 
-	@RequestMapping(value = "/saveProduct", method = RequestMethod.POST)
-	public String saveProduct(@ModelAttribute("Products") Products Products, HttpServletRequest request) {
-		service.save(Products);
-		return "redirect:/newProductCategory";
-	}
-	
-	
 	/*
 	 * @RequestMapping(value = "/saveProduct", method = RequestMethod.POST) public
-	 * String saveProduct(@ModelAttribute("Products") Products Products) {
-	 * service.save(Products); return "redirect:/Productslist"; }
+	 * String saveProduct(@ModelAttribute("Products") Products Products,
+	 * HttpServletRequest request) { service.save(Products); return
+	 * "redirect:/newProductCategory"; }
 	 */
+
+	  @RequestMapping(value = "/saveProduct", method = RequestMethod.POST) public
+	  String saveProduct(@ModelAttribute("Products") Product product) {
+	  service.save(product);
+	  return "redirect:/Productslist";
+	  }
+	 
 
 	@RequestMapping("/editproduct/{id}")
 	public ModelAndView showEditProductPage(@PathVariable(name = "id") String id, HttpServletRequest request) {
 		UserUtil.checkUserRights(request, Role.MANAGER);
 		ModelAndView mav = new ModelAndView("Edit_Products");
-		Products Products = service.get(id);
+		Product Products = service.get(id);
 		mav.addObject("Products", Products);
 		return mav;
 	}
@@ -80,10 +74,19 @@ public class ProductsController {
 		return "redirect:/Productslist";
 	}
 	
-	@RequestMapping("/viewProducts")
+	@RequestMapping("/hierarchy/product")
 	public String generateHierarchy(HttpServletRequest request, Model model) {
-		model.addAttribute("ProductList", service.getProductsForCurrentEmployee());
+		model.addAttribute("products", service.getProductsForCurrentEmployee());
 		return "Product";
+	}
+
+	/*
+	* Product analysis screen controller.
+	* */
+	@RequestMapping("/analysis/product")
+	public String viewProductInfoHierarchy(Model model) {
+		model.addAttribute("productHierarchyList", service.productAnalysisHierarchy());
+	  	return "product-analysis";
 	}
 
 }

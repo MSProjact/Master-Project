@@ -58,17 +58,6 @@
 						</select>
 					</td>
 				</tr>
-				<!--<tr>
-					<td>Reported To Person:</td>
-					<td>
-						<input type="hidden" th:field="*{ReportToid}" id="ReportedPersonId">
-						<input type="hidden" th:field="*{ReportToPerson}" id="ReportedPersonName">
-						<select id="personSelection">
-							<option disabled selected>Select Any</option>
-							<option th:each="Employees : ${Employeeslist}" th:value="${Employees.id} + '~' + ${Employees.First_name}" th:text="${Employees.First_name}"></option>
-						</select>
-					</td>
-				</tr>-->
 				<tr align="center">
 					<td><button type="submit">Submit</button></td>
 					<td><input type="button" onclick="window.history.back();" value="Cancel"></td>

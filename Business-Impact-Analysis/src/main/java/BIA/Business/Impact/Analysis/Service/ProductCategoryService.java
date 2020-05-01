@@ -1,6 +1,5 @@
 package BIA.Business.Impact.Analysis.Service;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import BIA.Business.Impact.Analysis.Model.Employees;
@@ -8,7 +7,6 @@ import BIA.Business.Impact.Analysis.Model.GenerateHierarchy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import BIA.Business.Impact.Analysis.Model.ProductCategory;
 import BIA.Business.Impact.Analysis.Repository.ProductCategoryRepository;
@@ -43,7 +41,7 @@ public class ProductCategoryService {
 
 	    public List<ProductCategory> getProductCategoryForCurrentEmployee() {
 			return repo.findByCategoryNameIn(generateHierarchyService.findByEmployeeIdIn(employeesService
-					.getSubEmployeesForCurrentUser()
+					.getHierarchyForCurrentUser()
 					.stream()
 					.map(Employees::getId)
 					.collect(Collectors.toList()))

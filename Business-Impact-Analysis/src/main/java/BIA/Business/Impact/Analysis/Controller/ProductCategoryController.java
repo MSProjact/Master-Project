@@ -41,7 +41,7 @@ public class ProductCategoryController {
 	public String saveProduct(@ModelAttribute("ProductCategory") ProductCategory ProductCategory,
 			HttpServletRequest request) {
 		service.save(ProductCategory);
-		return "redirect:/newProductionStep";
+		return "redirect:/ProductsCategorylist";
 	}
 
 	@RequestMapping("/editProductCategory/{id}")

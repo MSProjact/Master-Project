@@ -1,4 +1,4 @@
-<!-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"  xmlns:th="http://www.thymeleaf.org">
 <meta charset="ISO-8859-1">
 <head>
@@ -13,9 +13,13 @@
 		<div th:replace="header_manager"></div>
 	</div>
 	<div><br><br>
-    	<h3>Production steps</h3>
-       	<section th:include="@{fragment} :: productionSteps" th:with="ProductionStepsList=${ProductionStepsList}"></section>
+    	<h3>Production Step</h3>
+       	<section th:include="@{fragment} :: productHierarchyListFragment" th:with="productHierarchyList=${productHierarchyList}"></section>
     </div>
 </body>
+<script type="text/javascript">
+	function setMtr(id, mtr) {
+		document.getElementById("mtr-" + id).textContent = " - MTTR: " + mtr + " M"
+	}
+</script>
 </html>
- -->

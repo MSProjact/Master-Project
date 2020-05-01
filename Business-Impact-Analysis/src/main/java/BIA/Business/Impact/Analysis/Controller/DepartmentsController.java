@@ -17,7 +17,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller("/departments")
@@ -28,12 +27,11 @@ public class DepartmentsController {
 	@Autowired
 	private EmployeesService service1;
 	@Autowired
-	private EmployeesController employeesController;
+	private EmployeeController employeesController;
 	
 	@RequestMapping("/Departmentslist")
 	public String viewHomePage(Model model) {
-		List<Departments> Departmentslist = service.listAll();
-		model.addAttribute("Departmentslist", Departmentslist);
+		model.addAttribute("Departmentslist", service.getListForManageDepartments());
 		return "Manage_Departments";
 	}
 

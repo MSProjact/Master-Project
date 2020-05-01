@@ -2,6 +2,7 @@ package BIA.Business.Impact.Analysis.Controller;
 
 import BIA.Business.Impact.Analysis.Model.*;
 import BIA.Business.Impact.Analysis.Service.*;
+import BIA.Business.Impact.Analysis.enums.ProductionType;
 import BIA.Business.Impact.Analysis.utils.UserUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,8 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -49,16 +49,13 @@ public class GenerateHierarchyController {
 		UserUtil.checkUserRights(request, Role.MANAGER);
 		GenerateHierarchy generateHierarchy = new GenerateHierarchy();
 		model.addAttribute("GenerateHierarchy", generateHierarchy);
-		List<Employees> Employeeslist = employeeService.listAll();
-		model.addAttribute("Employeeslist", Employeeslist);
-		List<Products> Productslist = productService.listAll();
-		model.addAttribute("Productslist", Productslist);
-		List<ProductionSteps> ProductionStepslist = productionService.listAll();
-		model.addAttribute("ProductionStepslist", ProductionStepslist);
-		List<ProductCategory> ProductCategorylist = categoryService.listAll();
-		model.addAttribute("ProductCategorylist", ProductCategorylist);
-		List<Departments> Departmentslist = departmentService.listAll();
-		model.addAttribute("Departmentslist", Departmentslist);
+		model.addAttribute("Employeeslist",  employeeService.listAll());
+		model.addAttribute("Productslist", productService.getProductsListForCurrentUser());
+		model.addAttribute("ProductionStepslist", productionService.listAll());
+		model.addAttribute("ProductCategorylist", categoryService.listAll());
+		model.addAttribute("Departmentslist", departmentService.listAll());
+		model.addAttribute("productionTypes", Arrays.asList(ProductionType.values()));
+		model.addAttribute("relatedProductsList", productService.getRelatedProductsListForCurrentUser());
 		return "GenerateHierarchy";
 	}
 
@@ -83,7 +80,7 @@ public class GenerateHierarchyController {
 	@RequestMapping("/manageHierarchy")
 	public String manageHierarchy(Model model, HttpServletRequest request) {
 		UserUtil.checkUserRights(request, Role.MANAGER);
-		List<GenerateHierarchy> hierarchyList = generateHierarchyService.listAll();
+		List<GenerateHierarchy> hierarchyList = generateHierarchyService.getListForManageHierarchy();
 		model.addAttribute("hierarchyList", hierarchyList);
 		return "Manage_Hierarchy";
 	}
@@ -115,7 +112,7 @@ public class GenerateHierarchyController {
 		model.addAttribute("GenerateHierarchy", generateHierarchy);
 		List<Employees> Employeeslist = employeeService.listAll();
 		model.addAttribute("Employeeslist", Employeeslist);
-		List<Products> Productslist = productService.listAll();
+		List<Product> Productslist = productService.getProductsListForCurrentUser();
 		model.addAttribute("Productslist", Productslist);
 		List<ProductionSteps> ProductionStepslist = productionService.listAll();
 		model.addAttribute("ProductionStepslist", ProductionStepslist);
