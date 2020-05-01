@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
+
 
 @Controller("/departments")
 public class DepartmentsController {
@@ -63,5 +63,23 @@ public class DepartmentsController {
 		RoleValidator.checkUserRights(request, Role.MANAGER);
 		service.delete(id);
 		return "redirect:/Departmentslist";
+	}
+	
+	/**
+	 * Departments steps.
+	 * 
+	 * @param model the model
+	 * @return it return the Departments page with model object.
+	 * 
+	 */
+	@RequestMapping("/viewDepartments")
+	public String generateHierarchy(HttpServletRequest request, Model model) {
+		List<Departments> departmentslist = service.listAll();
+		List<Departments> departmentsMainlist = new ArrayList<Departments>(departmentslist);
+		for(Departments department : departmentsMainlist) {
+			department.setDepartments(service.listAll());
+		}
+		model.addAttribute("DepartmentList", departmentsMainlist);
+		return "Department";
 	}
 }

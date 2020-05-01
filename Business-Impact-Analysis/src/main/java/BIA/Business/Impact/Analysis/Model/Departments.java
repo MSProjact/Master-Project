@@ -29,7 +29,6 @@ public class Departments {
 	}
 
 
-
 	public String getId() {
 		return id;
 	}
@@ -53,5 +52,7 @@ public class Departments {
 	public void setDep_Head(String dep_Head) {
 		Dep_Head = dep_Head;
 	}
+
+
 
 }

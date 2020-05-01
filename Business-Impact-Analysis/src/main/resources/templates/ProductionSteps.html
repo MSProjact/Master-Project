@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  xmlns:th="http://www.thymeleaf.org">
+<meta charset="ISO-8859-1">
+<head>
+	<title>Hierarchy</title>
+	<link rel="stylesheet" href="@{/static/bootstrap4/css/bootstrap.min.css}" />
+</head>
+<body>
+	<div th:if="${Role == 'ADMIN' || Role == 'EMPLOYEE'}">
+		<div th:replace="header"></div>
+	</div>
+	<div th:if="${Role == 'MANAGER'}">
+		<div th:replace="header_manager"></div>
+	</div>
+	<div><br><br>
+    	<h3>Production steps</h3>
+       	<section th:include="@{fragment} :: productionSteps" th:with="ProductionStepsList=${ProductionStepsList}"></section>
+    </div>
+</body>
+</html>

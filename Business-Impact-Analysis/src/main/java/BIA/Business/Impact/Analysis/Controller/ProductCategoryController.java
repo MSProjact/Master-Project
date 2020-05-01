@@ -39,28 +39,27 @@ public class ProductCategoryController {
 		return "Add_NewProductCategory";
 	}
 
-	
-	  @RequestMapping(value = "/saveProductCategory", method = RequestMethod.POST) public
-	  String saveProduct(@ModelAttribute("ProductCategory") ProductCategory ProductCategory, HttpServletRequest request) {
-		  service.save(ProductCategory); return "redirect:/newProductionStep";
+	@RequestMapping(value = "/saveProductCategory", method = RequestMethod.POST)
+	public String saveProduct(@ModelAttribute("ProductCategory") ProductCategory ProductCategory,
+			HttpServletRequest request) {
+		service.save(ProductCategory);
+		return "redirect:/newProductionStep";
 	}
-	  
-	  
-	  
-	
-	  @RequestMapping("/editProductCategory/{id}") public ModelAndView showEditProductPage(@PathVariable(name = "id") String id,
-																						   HttpServletRequest request) {
-		  RoleValidator.checkUserRights(request, Role.MANAGER);
+
+	@RequestMapping("/editProductCategory/{id}")
+	public ModelAndView showEditProductPage(@PathVariable(name = "id") String id, HttpServletRequest request) {
+		RoleValidator.checkUserRights(request, Role.MANAGER);
 		ModelAndView mav = new ModelAndView("Edit_ProductCategory");
 		ProductCategory ProductCategory = service.get(id);
-	  mav.addObject("ProductCategory", ProductCategory); return mav; }
-	  
-	  
-	  @RequestMapping("/deleteProductCategory/{id}") public String
-	  deleteProducts(@PathVariable(name = "id") String id, HttpServletRequest request) {
-		  RoleValidator.checkUserRights(request, Role.MANAGER);
+		mav.addObject("ProductCategory", ProductCategory);
+		return mav;
+	}
+
+	@RequestMapping("/deleteProductCategory/{id}")
+	public String deleteProducts(@PathVariable(name = "id") String id, HttpServletRequest request) {
+		RoleValidator.checkUserRights(request, Role.MANAGER);
 		service.delete(id);
-	  return "redirect:/ProductsCategorylist"; }
-	 
-	 
-}
+		return "redirect:/ProductsCategorylist";
+	}
+	
+

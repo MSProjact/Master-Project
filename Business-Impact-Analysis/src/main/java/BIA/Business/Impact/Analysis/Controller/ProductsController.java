@@ -80,4 +80,11 @@ public class ProductsController {
 		service.delete(id);
 		return "redirect:/Productslist";
 	}
+	
+	@RequestMapping("/viewProducts")
+	public String generateHierarchy(HttpServletRequest request, Model model) {
+		model.addAttribute("ProductList", service.listAll());
+		return "Product";
+	}
+
 }

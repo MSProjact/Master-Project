@@ -4,6 +4,7 @@ import BIA.Business.Impact.Analysis.Model.Employees;
 import BIA.Business.Impact.Analysis.Model.Role;
 import BIA.Business.Impact.Analysis.Service.EmployeesService;
 import BIA.Business.Impact.Analysis.Validator.RoleValidator;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
+
 import java.util.List;
 
 /**
@@ -95,5 +97,63 @@ public class EmployeesController {
 		RoleValidator.checkUserRights(request, Role.MANAGER);
 		service.delete(id);
 		return "redirect:/manageEmployees";
+	}
+	
+	
+	/**
+	 * Employees.
+	 * 
+	 * @param model the model
+	 * @return it return the Employees page with model object.
+	 * 
+	 *         Here, We created new list in which first I have added the parent list
+	 *         and called the getSubModul method for getting the child list for
+	 *         specific parent.
+	 */
+	@RequestMapping("/viewEmployees")
+	public String generateHierarchy(HttpServletRequest request, Model model) {
+		List<Employees> generateHierarchy = service.listAll();
+		List<Employees> mainHierarchyList = new ArrayList<Employees>();
+		HttpSession session = request.getSession();
+		Employees me = (Employees) session.getAttribute(LoginController.SESSION_ME);
+		for (final Employees parentHierarchy : generateHierarchy) {
+			if (parentHierarchy.getId().equals(me.getId())) {
+				// if parentHierarchy is mine, add my sub-module
+				List<Employees> childHierarchyList = getSubModule(parentHierarchy.getId(),
+						generateHierarchy);
+				parentHierarchy.setSubEmployees(childHierarchyList);
+				mainHierarchyList.add(parentHierarchy);
+			}
+		}
+		model.addAttribute("EmployeesList", mainHierarchyList);
+		return "Employee";
+	}
+	
+	/**
+	 * Gets the sub module.
+	 *
+	 * @param i           it takes the parent id into param for comparing with
+	 *                     child report to id.
+	 * @param employeeList in this list, all the employee list are available for
+	 *                     comparing the parent id with child report to id.
+	 * @return the employee model list who comes under the particular parent.
+	 * 
+	 *         here, We called this method recursively for getting the tree
+	 *         hierarchy
+	 */
+	public List<Employees> getSubModule(String i, List<Employees> employees) {
+		List<Employees> subHierarchyList = new ArrayList<Employees>();
+		for (final Employees child : employees) {
+			if (child.getReportToid().equals(i)) {
+				subHierarchyList.add(child);
+			}
+		}
+		if (subHierarchyList.size() > 0) {
+			for (final Employees subHierarchy : subHierarchyList) {
+				List<Employees> childHierarchyList = getSubModule(subHierarchy.getId(), employees);
+				subHierarchy.setSubEmployees(childHierarchyList);
+			}
+		}
+		return subHierarchyList;
 	}
 }
